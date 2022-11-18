@@ -23,7 +23,10 @@ class StatController extends AbstractController
                 $compteur = $prod->getDetails()->count();
             }
         }
+
         $produitFavori = $pr->produitBestSeller()[0]["produit"];
+        dd("test");
+
 
 
         return $this->render('admin/stat/index.html.twig', [

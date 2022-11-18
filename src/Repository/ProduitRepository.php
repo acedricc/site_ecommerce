@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Detail;
 use App\Entity\Produit;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -47,6 +48,27 @@ class ProduitRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function produitBestSeller()
+    {
+        return $this->createQueryBuilder("p")
+            ->join(Detail::class,"d","WITH", "p.id = d.produit")
+            ->groupBy("p.id")
+            ->select("p as produit", "count(d) as nb")
+            ->orderBy("nb", "DESC")
+            // ->setMaxResults(1)
+            ->getQuery()
+            ->getResult();
+            
+    }
+    public function produitStock()
+{
+    return $this->createQueryBuilder("p")
+    ->where("p.stock < 10")
+    ->orderBy("p.titre")
+    ->getQuery()
+    ->getResult();
+
+}
 
 //    /**
 //     * @return Produit[] Returns an array of Produit objects

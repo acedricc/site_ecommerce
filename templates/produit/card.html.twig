@@ -30,9 +30,10 @@
     window.addEventListener("load", () => {
         $("#form{{ produit.id}}").on("submit",(evtSubmit) => {
             evtSubmit.preventDefault();
+            console.log($("#form{{ produit.id}} [name='qte']").val());
             $.ajax({
                 url: "{{ path('app_panier_ajouter', {id: produit.id}) }}",
-                data: "qte=" +  $("#form{{ produit.id}} [name='qt']").val(),
+                data: "qte=" +  $("#form{{ produit.id}} [name='qte']").val(),
                 dataType: "json",
                 success: (data) => {
                     $("#nombre").html(data);
