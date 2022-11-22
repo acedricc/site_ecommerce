@@ -13,8 +13,8 @@ class ProduitController extends AbstractController
 
 
     /**
- * @Route("/fiche-produit-{id}", name="app_produit_show")
- */
+    * @Route("/fiche-produit-{id}", name="app_produit_show")
+    */
 
 public function showFiche(Produit $produit): Response
 {

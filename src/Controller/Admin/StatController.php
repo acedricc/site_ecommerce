@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Controller\Admin;
-
-use App\Repository\ClientRepository;
 use App\Repository\CommandeRepository;
 use App\Repository\ProduitRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class StatController extends AbstractController
 {
     #[Route('/stat', name: 'app_stat')]
-    public function index(ProduitRepository $pr, CommandeRepository $cr, ClientRepository $clientRepository ): Response
+    public function index(ProduitRepository $pr, CommandeRepository $cr, UserRepository $userRepository ): Response
     {
     
         $produits = $pr->findAll();
@@ -30,7 +29,7 @@ class StatController extends AbstractController
 
 
         return $this->render('admin/stat/index.html.twig', [
-            "clients" => $clientRepository->findAll(),
+            "users" => $userRepository->findAll(),
             "commandes" => $cr->findAll(),
             "produits" => $produits,
             "produitFavori" => $produitFavori
