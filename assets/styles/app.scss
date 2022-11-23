@@ -1,7 +1,12 @@
-@import "~@fortawesome/fontawesome-free/css/all.min.css"; 
-@import "~bootstrap/scss/bootstrap"; 
+$primary: #3b4f84;
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+@import "~bootstrap/scss/bootstrap";
+
 
 body {
-    background-color: rgba(110, 46, 220, 0.465);
+    background-color: rgb(21, 114, 135);
 }
-
+.vignette {
+    height: 100px;
+    width: auto;
+}

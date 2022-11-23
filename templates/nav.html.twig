@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Eboutik</a>
+    <a class="navbar-brand" href="{{ path('app_home') }}">Eboutik</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -13,7 +13,7 @@
 		  </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="{{ path('app_register') }}">
 		  	<i class="fa fa-user-plus"></i>
 		  </a>
         </li>
@@ -21,7 +21,7 @@
 			<li class="nav-item">
 					<a class="nav-link" id="linkPseudoUser" href=" {#  {{ is_granted('ROLE_ADMIN') ? path('app_admin_statistique_show') #} : path('app_profil') }}">
 						{{ app.user.pseudo }}
-					{# </a> #}
+					 </a> 
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" id="LinkSignOutIcon" href="{{ path('app_logout') }}">
@@ -37,8 +37,8 @@
             produits
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">liste</a></li>
-            <li><a class="dropdown-item" href="#">ajouter</a></li>
+            <li><a class="dropdown-item" href="{{ path('app_admin_produit_index') }}">liste</a></li>
+            <li><a class="dropdown-item" href="{{ path('app_admin_produit_new') }}">ajouter</a></li>
           </ul>
         </li>
 		 <li class="nav-item dropdown">
@@ -46,8 +46,8 @@
             clients
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">liste</a></li>
-            <li><a class="dropdown-item" href="#">ajouter</a></li>
+            <li><a class="dropdown-item" href="{{ path('app_admin_user_index') }}">liste</a></li>
+            <li><a class="dropdown-item" href="{{ path('app_admin_user_new') }}">ajouter</a></li>
           </ul>
         </li>
 		 <li class="nav-item dropdown">
@@ -55,8 +55,8 @@
             Commandes
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">liste</a></li>
-            <li><a class="dropdown-item" href="#">ajouter</a></li>
+            <li><a class="dropdown-item" href="{{ path('app_admin_commande_index') }}">liste</a></li>
+            <li><a class="dropdown-item" href="{{ path('app_admin_commande_new') }}">ajouter</a></li>
           </ul>
         </li>
 	

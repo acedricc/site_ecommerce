@@ -31,8 +31,8 @@
                 <td>{{ produit.prix }}</td>
                 <td>{{ produit.stock }}</td>
                 <td>
-                    <a href="{{ path('app_produit_show', {'id': produit.id}) }}">show</a>
-                    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
+                    <a href="{{ path('app_admin_produit_show', {'id': produit.id}) }}">show</a>
+                    <a href="{{ path('app_admin_produit_edit', {'id': produit.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -43,5 +43,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_produit_new') }}">Create new</a>
+    <a href="{{ path('app_admin_produit_new') }}">Create new</a>
 {% endblock %}
