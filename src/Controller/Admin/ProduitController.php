@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Controller\Admin;
-
 use App\Entity\Produit;
 use App\Form\ProduitType;
 use App\Repository\ProduitRepository;
@@ -25,8 +23,19 @@ class ProduitController extends AbstractController
     #[Route('/new', name: 'app_admin_produit_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ProduitRepository $produitRepository): Response
     {
+        //Creation de variable produit a partir de l'entité class(Produit)
         $produit = new Produit();
+        //Creation d'un formulaire a partir de class ProduitType
+        //La methode createForm prend en compte trois parametre (string $type, mixed $data = null, array $options = [])
+        //Le premier parametre est obligatoire et les deux autres optionelle 
         $form = $this->createForm(ProduitType::class, $produit);
+        //Pour traiter les données du formulaire
+        /*Inspecte la requête donnée et appelle {@link submit()} si le formulaire a été soumis.
+        * En interne, la demande est transmise au réseau configuré
+        * Instance {@link RequestHandlerInterface}, qui détermine s'il faut
+        * soumettre ou non le formulaire.
+        * La methode handleRequest prend 1 parametre (mixed $request = null)*/
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

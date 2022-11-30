@@ -11,6 +11,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class StatController extends AbstractController
 {
     #[Route('/stat', name: 'app_stat')]
+
+    /**
+    * @Route("/admin-statistique", name="app_admin_statistique_show")
+    */
     public function index(ProduitRepository $pr, CommandeRepository $cr, UserRepository $userRepository ): Response
     {
     
@@ -24,7 +28,7 @@ class StatController extends AbstractController
         }
 
         $produitFavori = $pr->produitBestSeller()[0]["produit"];
-        dd("test");
+      
 
 
 

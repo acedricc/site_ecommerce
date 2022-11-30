@@ -19,7 +19,7 @@
         </li>
 		{% else %}
 			<li class="nav-item">
-					<a class="nav-link" id="linkPseudoUser" href=" {#  {{ is_granted('ROLE_ADMIN') ? path('app_admin_statistique_show') #} : path('app_profil') }}">
+					<a class="nav-link" id="linkPseudoUser" href="   {{ is_granted('ROLE_ADMIN') ? path('app_admin_statistique_show')  : path('app_profil') }}">
 						{{ app.user.pseudo }}
 					 </a> 
 				</li>
@@ -70,8 +70,8 @@
 			</li>
 			</div>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <form class="d-flex" role="search" action="{{ path('app_recherche_ajax') }}" id="formSearch">
+        <input id="search" name="search" class="form-control me-2" type="text" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>

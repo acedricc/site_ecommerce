@@ -1,20 +1,71 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfilController!{% endblock %}
+{% block title %}Page Profil Client{% endblock %}
+
+{% block h1 %}Profil client{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <strong>Pseudo : </strong>{{ app.user.pseudo }}
+        </li>
+        <li class="list-group-item">
+            <strong>Identité : </strong>{{ app.user.prenom ~ " " ~ app.user.nom }}
+        </li>
+        <li class="list-group-item">
+            <strong>Adresse : </strong>{{ app.user.adresse ~ " " ~ app.user.codePostal ~ " " ~ app.user.ville }}
+        </li>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        <li class="list-group-item">
+            <strong>E-mail : </strong>{{ app.user.email }}
+        </li>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/bootstrap5V2/src/Controller/ProfilController.php'|file_link(0) }}">src/Controller/ProfilController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/bootstrap5V2/templates/profil/index.html.twig'|file_link(0) }}">templates/profil/index.html.twig</a></code></li>
+        <li class="list-group-item">
+            <strong>Type : </strong>
+                {% for role in app.user.roles %}
+                    {% if role == "ROLE_ADMIN" %}
+                        Administrateur
+                    {% elseif role == "ROLE_CLIENT" %}
+                        Client
+                    {% elseif role == "ROLE_MODO" %}
+                        Modérateur
+                    {% endif %}
+                {% endfor %}
+
+                {# Afficher les rôles de l'utilisateur en remplaçant
+                    ROLE_ADMIN par Administrateur
+                    ROLE_CLIENT par Client
+                    ROLE_MODO par Modérateur
+                #}
+        </li>
+
+        <li class="list-group-item">
+            <strong>Mes commandes : </strong>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Numéro</th>
+                        <th>Date</th>
+                        <th>Montant</th>
+                        <th>État</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cmd in app.user.commandes %}
+                        <tr>
+                            <td> <a href="{{ path('app_profil_commande', {id: cmd.id}) }}" class="btn btn-primary" title="Voir le détail de la commande"> {{ cmd.id }} </a></td>
+                            <td>{{ cmd.dateEnregistrement|date("d/m/y") }}</td>
+                            <td>{{ cmd.montant }} €</td>
+                            <td>{{ cmd.etat|upper }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">Aucune commande</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </li>
+
     </ul>
-</div>
 {% endblock %}
