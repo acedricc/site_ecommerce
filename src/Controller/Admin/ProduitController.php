@@ -28,13 +28,17 @@ class ProduitController extends AbstractController
         //Creation d'un formulaire a partir de class ProduitType
         //La methode createForm prend en compte trois parametre (string $type, mixed $data = null, array $options = [])
         //Le premier parametre est obligatoire et les deux autres optionelle 
+        //Avec une valeure de retour de type
         $form = $this->createForm(ProduitType::class, $produit);
         //Pour traiter les données du formulaire
+         //La methode handleRequest prend en compte 1 parametre (mixed $request = null)
+        //Le premier parametre est optionelle 
+        //Avec une valeure de retour de type
         /*Inspecte la requête donnée et appelle {@link submit()} si le formulaire a été soumis.
         * En interne, la demande est transmise au réseau configuré
         * Instance {@link RequestHandlerInterface}, qui détermine s'il faut
-        * soumettre ou non le formulaire.
-        * La methode handleRequest prend 1 parametre (mixed $request = null)*/
+        * soumettre ou non le formulaire.*/
+       
 
         $form->handleRequest($request);
 

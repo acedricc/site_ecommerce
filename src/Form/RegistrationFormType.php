@@ -42,13 +42,13 @@ class RegistrationFormType extends AbstractType
                     new NotBlank([
                         'message' => 'Please enter a password',
                     ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Le mot de passe doit comporter {{ limit }} caractère minimum',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 25,
-                        'maxMessage' => 'Le mot de passe ne peut pas dépasser {{ limit }} caractère',
-                    ]),
+                    // new Length([
+                    //     'min' => 6,
+                    //     'minMessage' => 'Le mot de passe doit comporter {{ limit }} caractère minimum',
+                    //     // max length allowed by Symfony for security reasons
+                    //     'max' => 25,
+                    //     'maxMessage' => 'Le mot de passe ne peut pas dépasser {{ limit }} caractère',
+                    // ]),
                     new Regex([
                         "pattern" => "/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{6,32})$/",
                         "message" => "Le mot de passe ne correspond pas au modèle"  
