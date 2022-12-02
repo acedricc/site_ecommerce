@@ -27,7 +27,19 @@
                 <tr>
                     <td>{{ ligne.produit.titre }}</td>
                     <td>{{ ligne.produit.prix }}€</td>
-                    <td>{{ ligne.quantite }}</td>
+                    <td>{{ ligne.quantite }} 
+                    
+                    <div class="d-inline-flex flex-column justify-content-between">
+                    
+
+                    <button class="btn btn-primary" id="btn" idSecret="{{ligne.produit.id}}">+</button>
+                    <button class="btn btn-danger" id="btn2" idSecret="{{ligne.produit.id}}">-</button>
+                  
+
+                    </div>
+                    
+                    </td>
+                   
                     <td>
                     {{ ligne.quantite * ligne.produit.prix }}€
                     <a href="{{ path("app_panier_supprimer", {id: ligne.produit.id}) }}" title="Supprimer un article" onclick="return confirm('Confirmer la suppression ?')">
@@ -57,6 +69,46 @@
         </tfoot>
     </table>
 
+<script>
+window.addEventListener("load",()=>{
+   let boutons = [
+        $("#btn"),
+        $("#btn2")  
+   ]
+   console.log(boutons)
+   boutons.forEach(element => {
+       element.click((event)=>{
+           event.preventDefault()
+       var $url= "{{ path('app_panier_modifier', {id : ligne.produit.id} )}}
+       console.log($url);
+           if (element.attr("id","btn2")) {
+               $.ajax(
+                   {
+                    url:$url,
+                    data:'qte=-',
+                    dataType:"json",
+                    sucess: (data)=> {
+                        
+                        }
+                   }
+               )       
+            }else{
+            // $.ajax(
+
+            //        url:{{path('app_panier_modifier')}},
+            //        data:'qte=+',dataType:"json",
+            //        sucess: (data)=> {
+                       
+            //          }
+            //    )  
+           }
+       })
+   });
+
+
+})
+
+</script>
 {% endblock %}
 
 {% block h1 %}Mon panier{% endblock %}

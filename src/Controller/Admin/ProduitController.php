@@ -41,12 +41,14 @@ class ProduitController extends AbstractController
        
 
         $form->handleRequest($request);
-
+         //isSubmitted & isValid est une fonction qui prend aucun paramettre et qui retourne un booléen
         if ($form->isSubmitted() && $form->isValid()) {
              // on vérifie qu'un fichier a été téléversé
              $fichier = $form->get("photo")->getData();
              if( $fichier ){
                  // on récupère le nom du fichier 
+                 //pathinfo est une methode qui prend 2 parametre qui retourne un array ou un string
+                 //le premier parametre est obligatoire et le deuxieme optionelle 
                  $nomFichier = pathinfo($fichier->getClientOriginalName(), PATHINFO_FILENAME);
                  // La classe AsciiSlugger va remplacer les caractères spéciaux par des caractères autorisés dans les URL
                  $slugger = new AsciiSlugger();

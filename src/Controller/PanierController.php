@@ -15,12 +15,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+#[Route('/panier')]
 class PanierController extends AbstractController
 {
-    #[Route('/panier', name: 'app_panier')]
+    #[Route('/', name: 'app_panier')]
     public function index(Session $session): Response
     {
         $panier = $session->get("panier", []);
+        // var_dump($panier);die;
         return $this->render('panier/index.html.twig', [
             'panier' => $panier,
         ]);
@@ -118,5 +121,41 @@ public function valider(Session $session, ProduitRepository $produitRepository, 
     $this->addFlash("danger", "Le panier est vide. Vous ne pouvez pas valider la commande.");
     return $this->redirectToRoute("app_panier");
 }
+#[Route('/modifier-{id}', name: 'app_panier_modifier',requirements:["id"=>"\d+"])]
+
+public function modifier(ProduitRepository $pr, Session $session, Request $rq,$id)
+{
+    var_dump("ok");die;
+    $quantite = $rq->query->get("qte","+") ?: "+";
+    $produit = $pr->find($id);
+    $panier = $session->get("panier", []); // on récupère ce qu'il y a dans le panier en session
+
+    $produitDejaDansPanier = false;
+    foreach ($panier as $indice => $ligne) {
+        if ($produit->getId() == $ligne["produit"]->getId()) {
+            $panier[$indice]["quantite"] += $quantite;
+            $produitDejaDansPanier = true;
+            break;  // pour sortir de la boucle foreach
+        }
+    }
+    if (!$produitDejaDansPanier) {
+        $panier[] = ["quantite" => $quantite, "produit" => $produit];  // on ajoute une ligne au panier => $panier est un array d'array
+    }
+
+
+    $session->set("panier", $panier);  // je remets $panier dans la session, à l'indice 'panier'
+    //dd($produit); // dd : Dump and Die
+    
+
+    //return $this->redirectToRoute("app_home");
+    $nb = 0;
+    foreach ($panier as $ligne){
+        $nb += $ligne["quantite"];
+    }
+
+
+    return $this->json($nb);
+}
+
 
 }
