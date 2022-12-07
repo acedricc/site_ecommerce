@@ -1,14 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Page d'accueil{% endblock %}
+{% block title %}Vetements!{% endblock %}
 
 {% block body %}
-    <div class="card-deck">
-        {% for produit in listeProduits %}
+<div class="card-deck">
+        {% for produit in tailles %}
             {{ include("produit/card.html.twig") }}
         {% else %}
             Aucun produit enregistré
         {% endfor %}
     </div>
-
 {% endblock %}

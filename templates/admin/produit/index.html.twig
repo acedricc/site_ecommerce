@@ -11,6 +11,7 @@
                 <th>Id</th>
                 <th>Reference</th>
                 <th>Categorie</th>
+                <th>Taille</th>
                 <th>Titre</th>
                 <th>Description</th>
                 <th>Photo</th>
@@ -25,6 +26,7 @@
                 <td>{{ produit.id }}</td>
                 <td>{{ produit.reference }}</td>
                 <td>{{ produit.categorie }}</td>
+                <td>{{ produit.taille }}</td>
                 <td>{{ produit.titre }}</td>
                 <td>{{ produit.description }}</td>
                 <td><img class="" width="100" src="{{ asset(image_path ~ produit.photo ) }}" alt="{{ produit.titre }}"></td>

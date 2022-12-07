@@ -3,6 +3,7 @@ namespace App\Controller\Admin;
 use App\Entity\Produit;
 use App\Form\ProduitType;
 use App\Repository\ProduitRepository;
+use App\Service\GestionImage;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +22,7 @@ class ProduitController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_produit_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ProduitRepository $produitRepository): Response
+    public function new(Request $request, ProduitRepository $produitRepository, GestionImage $gestionImage): Response
     {
         //Creation de variable produit a partir de l'entité class(Produit)
         $produit = new Produit();
@@ -38,34 +39,13 @@ class ProduitController extends AbstractController
         * En interne, la demande est transmise au réseau configuré
         * Instance {@link RequestHandlerInterface}, qui détermine s'il faut
         * soumettre ou non le formulaire.*/
-       
+        // dd($request->request);
 
         $form->handleRequest($request);
          //isSubmitted & isValid est une fonction qui prend aucun paramettre et qui retourne un booléen
         if ($form->isSubmitted() && $form->isValid()) {
-             // on vérifie qu'un fichier a été téléversé
-             $fichier = $form->get("photo")->getData();
-             if( $fichier ){
-                 // on récupère le nom du fichier 
-                 //pathinfo est une methode qui prend 2 parametre qui retourne un array ou un string
-                 //le premier parametre est obligatoire et le deuxieme optionelle 
-                 $nomFichier = pathinfo($fichier->getClientOriginalName(), PATHINFO_FILENAME);
-                 // La classe AsciiSlugger va remplacer les caractères spéciaux par des caractères autorisés dans les URL
-                 $slugger = new AsciiSlugger();
-                 $nomFichier = $slugger->slug($nomFichier);
-                 // La fonction PHP 'uniquid' va générer un string unique sur le serveur
-                 $nomFichier .= "_" . uniqid();
-                 // on rajoute l'extension du nom de fichier original
-                 $nomFichier .= "." . $fichier->guessExtension();
-                 // on copie le fichier dans le dossier public/images avec le nouveau nom de fichier 
-                 $fichier->move("images", $nomFichier);
- 
-                 $produit->setPhoto($nomFichier);
-             }
- 
-             // Enregistre les données du produit en BDD
-           
-            $produitRepository->save($produit, true);
+             //on executre la methode manageImage quon a cree dans le service gestionImage
+            $gestionImage->manageImage($produit, $form, $produitRepository);
 
             return $this->redirectToRoute('app_admin_produit_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -85,30 +65,14 @@ class ProduitController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_admin_produit_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Produit $produit, ProduitRepository $produitRepository): Response
+    public function edit(Request $request, Produit $produit, ProduitRepository $produitRepository,GestionImage $gestionImage): Response
     {
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if( $fichier = $form->get("photo")->getData() ){
-                $nomFichier = pathinfo($fichier->getClientOriginalName(), PATHINFO_FILENAME);
-                $slugger = new AsciiSlugger();
-                $nomFichier = $slugger->slug($nomFichier);
-                $nomFichier .= "_" . uniqid();
-                $nomFichier .= "." . $fichier->guessExtension();
-                $fichier->move("images", $nomFichier);
-
-                if( $produit->getPhoto() ){
-                    $fichier = $this->getParameter("image_directory") . $produit->getPhoto();
-                    if( file_exists($fichier) ){
-                        unlink($fichier);
-                    } 
-                 }                    
-                $produit->setPhoto($nomFichier);
-            }
-            $produitRepository->save($produit, true);
-
+            $gestionImage->manageImage($produit, $form, $produitRepository);
+           
             return $this->redirectToRoute('app_admin_produit_index', [], Response::HTTP_SEE_OTHER);
         }
 

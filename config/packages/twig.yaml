@@ -3,6 +3,7 @@ twig:
     form_themes: ['bootstrap_5_layout.html.twig']
     globals:
         image_path: "/images/"
+        cat_dir: 'app_categorie_'
 
 when@test:
     twig:

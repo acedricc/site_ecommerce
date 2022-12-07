@@ -16,6 +16,7 @@ class ProduitType extends AbstractType
         $builder
             ->add('reference')
             ->add('categorie')
+            ->add('taille')
             ->add('titre')
             ->add('description')
             ->add('photo',FileType::class, [

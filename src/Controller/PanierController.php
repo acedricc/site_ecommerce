@@ -125,8 +125,8 @@ public function valider(Session $session, ProduitRepository $produitRepository, 
 
 public function modifier(ProduitRepository $pr, Session $session, Request $rq,$id)
 {
-    var_dump("ok");die;
-    $quantite = $rq->query->get("qte","+") ?: "+";
+    // var_dump("ok");die;
+    $quantite = $rq->query->get("qte", "+") ?: "+";
     $produit = $pr->find($id);
     $panier = $session->get("panier", []); // on récupère ce qu'il y a dans le panier en session
 

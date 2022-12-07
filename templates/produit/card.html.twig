@@ -1,5 +1,7 @@
 
 {% block section %}
+
+
 <div class="col-4 my-2">
     <div class="card" style="style="margin-right: 0;margin-left: 0;"">
         <img class="card-img-top mx-auto w-100" src="{{ asset(image_path ~ produit.photo ) }}" alt="{{ produit.titre }}">
@@ -7,6 +9,7 @@
             <h5 class="card-title">Nom : {{ produit.titre }}</h5>
             {# <p class="card-text">Référence : {{ produit.reference }}</p> #}
             <p class="card-text">Catégorie : {{ produit.categorie }}</p>
+            <p class="card-text">Taille : {{ produit.taille }}</p>
             <p class="card-text">Prix : {{ produit.prix }} €</p>
             <p class="card-text">Stock : {{ produit.stock }}</p>
             <a href="{{ path('app_produit_show', {id: produit.id}) }}" class="btn btn-primary">Voir</a>
@@ -17,7 +20,14 @@
                 </button>
             </form>
         </div>
+        <div>
+        <i></i>
+        <span>liked!</span>
+        </div>
     </div>
+       
+</div>
+
 
 </div>
 
@@ -47,4 +57,14 @@
         });
     });
 </script>
- {% endblock %}
+
+
+
+<script>
+
+  $(function() {
+    $( "i" ).click(function() {
+      $( "i,span" ).toggleClass( "press", 1000 );
+    });
+  });
+{% endblock %}

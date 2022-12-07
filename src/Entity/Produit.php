@@ -40,6 +40,9 @@ class Produit
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Detail::class)]
     private Collection $details;
 
+    #[ORM\Column(length: 3, nullable: true)]
+    private ?string $taille = null;
+
     public function __construct()
     {
         $this->details = new ArrayCollection();
@@ -160,6 +163,18 @@ class Produit
                 $detail->setProduit(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTaille(): ?string
+    {
+        return $this->taille;
+    }
+
+    public function setTaille(?string $taille): self
+    {
+        $this->taille = $taille;
 
         return $this;
     }

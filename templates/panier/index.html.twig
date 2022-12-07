@@ -48,6 +48,30 @@
                 </td>
                 </tr>
                 {% set total = total + ligne.quantite * ligne.produit.prix %}
+                <script>
+                    window.addEventListener("load",()=>{
+                    let boutons = [
+                            $("#btn"),
+                            $("#btn2")  
+                    ]
+                    console.log(boutons)
+                    $("#btn2").click((event)=>{
+                        event.preventDefault()
+                        var url= "{{ path('app_panier_modifier', {id : ligne.produit.id} )}}";
+                        console.log(url);
+                        $.ajax(
+                        {
+                            url:url,
+                            data:'qte=-',
+                            dataType:"json",
+                            sucess: (data)=> {
+                                
+                            }
+                        }
+                        ) 
+                    })
+                });
+            </script>
             {% else %}
                 <tr>
                     <td colspan="4">Le panier est vide... pour l'instant</td>
@@ -68,47 +92,4 @@
             </tr>
         </tfoot>
     </table>
-
-<script>
-window.addEventListener("load",()=>{
-   let boutons = [
-        $("#btn"),
-        $("#btn2")  
-   ]
-   console.log(boutons)
-   boutons.forEach(element => {
-       element.click((event)=>{
-           event.preventDefault()
-       var $url= "{{ path('app_panier_modifier', {id : ligne.produit.id} )}}
-       console.log($url);
-           if (element.attr("id","btn2")) {
-               $.ajax(
-                   {
-                    url:$url,
-                    data:'qte=-',
-                    dataType:"json",
-                    sucess: (data)=> {
-                        
-                        }
-                   }
-               )       
-            }else{
-            // $.ajax(
-
-            //        url:{{path('app_panier_modifier')}},
-            //        data:'qte=+',dataType:"json",
-            //        sucess: (data)=> {
-                       
-            //          }
-            //    )  
-           }
-       })
-   });
-
-
-})
-
-</script>
 {% endblock %}
-
-{% block h1 %}Mon panier{% endblock %}
