@@ -26,14 +26,15 @@
             {% for ligne in panier %}
                 <tr>
                     <td>{{ ligne.produit.titre }}</td>
-                    <td>{{ ligne.produit.prix }}€</td>
-                    <td>{{ ligne.quantite }} 
+                    <td><span>{{ ligne.produit.prix }}</span>€</td>
+                    <td>
                     
-                    <div class="d-inline-flex flex-column justify-content-between">
+                    <div class="d-inline-flex  justify-content-between">
                     
 
-                    <button class="btn btn-primary" id="btn" idSecret="{{ligne.produit.id}}">+</button>
-                    <button class="btn btn-danger" id="btn2" idSecret="{{ligne.produit.id}}">-</button>
+                    <button class="btn btn-primary btnPlusMoins" id="plus-{{ligne.produit.id}}" idSecret="{{ path("app_panier_ajouter_card", {id: ligne.produit.id}) }}">+</button>
+                    <div class="quantite">{{ ligne.quantite }} </div> 
+                    <button class="btn btn-danger btnPlusMoins" id="moins-{{ligne.produit.id}}" idSecret="{{ path("app_panier_ajouter_card", {id: ligne.produit.id}) }}">-</button>
                   
 
                     </div>
@@ -41,37 +42,14 @@
                     </td>
                    
                     <td>
-                    {{ ligne.quantite * ligne.produit.prix }}€
+                    <span class='prix'>{{ ligne.quantite * ligne.produit.prix }}€</span> 
                     <a href="{{ path("app_panier_supprimer", {id: ligne.produit.id}) }}" title="Supprimer un article" onclick="return confirm('Confirmer la suppression ?')">
                     <i class="fa fa-times text-danger"></i>
                     </a>           
                 </td>
                 </tr>
                 {% set total = total + ligne.quantite * ligne.produit.prix %}
-                <script>
-                    window.addEventListener("load",()=>{
-                    let boutons = [
-                            $("#btn"),
-                            $("#btn2")  
-                    ]
-                    console.log(boutons)
-                    $("#btn2").click((event)=>{
-                        event.preventDefault()
-                        var url= "{{ path('app_panier_modifier', {id : ligne.produit.id} )}}";
-                        console.log(url);
-                        $.ajax(
-                        {
-                            url:url,
-                            data:'qte=-',
-                            dataType:"json",
-                            sucess: (data)=> {
-                                
-                            }
-                        }
-                        ) 
-                    })
-                });
-            </script>
+             
             {% else %}
                 <tr>
                     <td colspan="4">Le panier est vide... pour l'instant</td>
@@ -92,4 +70,38 @@
             </tr>
         </tfoot>
     </table>
+            <script>
+    window.addEventListener("load", () => {
+        
+        $(".btnPlusMoins").click(function(event){
+            event.preventDefault();
+            let cible = $(this);
+            let id = $(this).attr("id");
+            let url = $(this).attr("idSecret");            
+            let arr = id.split('-');
+            if(arr[0] == "plus") {                   
+                qte = 1;               
+            } else if(arr[0] == "moins") {                
+                qte = -1; 
+            } 
+            
+            $.ajax({
+                url: url,
+                data: "qte=" +  qte,
+                dataType: "json",
+                success: (data) => {
+                    // 
+                    let info = data[0].split("/");
+                    console.log(info);
+                    cible.parents("td").children("div").children(".quantite").html(info[0]);
+                    cible.parents("td").next().children(".prix").html(info[1] * info[0] + '€');
+                },
+                error: (jqXHR,status, error) => {
+                    console.log("ERREUR AJAX" , status,error);
+                }
+            });           
+        });
+
+    });
+</script>
 {% endblock %}
