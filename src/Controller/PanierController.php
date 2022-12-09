@@ -127,19 +127,24 @@ public function valider(Session $session, ProduitRepository $produitRepository, 
 public function ajouterCard($id, ProduitRepository $pr, Session $session, Request $rq)
 {        
     $quantite = $rq->query->get("qte");        
+    $nouveauPrixTotal = $rq->query->get("nouveauPrixTotal");        
     $produit = $pr->find($id);
     $panier = $session->get("panier", []);
     $nb = 0;
+    $prixTotal = 0;
+
     foreach ($panier as $indice => $ligne) {
         if ($produit->getId() == $ligne["produit"]->getId()) {
             $panier[$indice]["quantite"] += $quantite;
             $nb = $panier[$indice]["quantite"];
             
-            break;  // pour sortir de la boucle foreach
+            // break;  // pour sortir de la boucle foreach
         }
+        $prixTotal += $panier[$indice]["quantite"] * $ligne["produit"]->getPrix();
     }
+        // dd($prixTotal);
     $session->set("panier", $panier);       
-    return $this->json([$nb . "/". $produit->getPrix()]);
+    return $this->json($nb . "/". $produit->getPrix() . "/" . $prixTotal);
 }
 
 
