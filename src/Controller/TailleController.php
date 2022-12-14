@@ -9,13 +9,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TailleController extends AbstractController
 {
-    #[Route('/taille', name: 'app_taille')]
-    public function taille(ProduitRepository $produitRepository , $taille): Response
+    #[Route('/taille/{tail}', name: 'app_taille_tail')]
+    public function taille(ProduitRepository $produitRepository , $tail): Response
     {
-        $tailles = $produitRepository->findByTailleField($taille);
+        // dd($tailles);
+        $produitsByTail = $produitRepository->findByTailleField($tail);
+        $tailles = $produitRepository->findAllTaille();
 
         return $this->render('taille/index.html.twig', [
+            "listeProduits" => $produitRepository->findAll(),
             'tailles' => $tailles,
+            'produitsByTail' => $produitsByTail,
         ]);
     }
+
 }

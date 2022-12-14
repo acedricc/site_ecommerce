@@ -14,9 +14,12 @@ class CategorieController extends AbstractController
     public function catFilter(ProduitRepository $produitRepository , $cat): Response
     {
         $cats = $produitRepository->findByCategorieField($cat);
+        
+        $tailles =$produitRepository->findAllTaille();
         // dd($cats);
         return $this->render('categorie/index.html.twig', [
             'cats' => $cats,
+            'tailles' => $tailles,
         ]);
     }
 

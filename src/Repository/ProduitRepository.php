@@ -85,16 +85,28 @@ class ProduitRepository extends ServiceEntityRepository
        ;
    }
 
-   public function findByTailleField($value): ?Produit
+   public function findByTailleField($value): array
    {
        return $this->createQueryBuilder('p')
            ->andWhere('p.taille = :val')
            ->setParameter('val', $value)
            ->orderBy('p.id', 'ASC')
            ->getQuery()
-           ->getOneOrNullResult()
+           ->getResult()
        ;
-   }
+   }   
+   public function findAllTaille(): array
+   {
+       return $this->createQueryBuilder('p')
+            ->select('p.taille')
+            ->distinct()
+           ->orderBy('p.taille', 'ASC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }                                                    
+
+   
 //    public function findOneBySomeField($value): ?Produit
 //    {
 //        return $this->createQueryBuilder('p')

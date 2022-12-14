@@ -43,6 +43,9 @@ class Produit
     #[ORM\Column(length: 3, nullable: true)]
     private ?string $taille = null;
 
+    #[ORM\Column(length: 10)]
+    private ?string $Genre = null;
+
     public function __construct()
     {
         $this->details = new ArrayCollection();
@@ -175,6 +178,18 @@ class Produit
     public function setTaille(?string $taille): self
     {
         $this->taille = $taille;
+
+        return $this;
+    }
+
+    public function getGenre(): ?string
+    {
+        return $this->Genre;
+    }
+
+    public function setGenre(string $Genre): self
+    {
+        $this->Genre = $Genre;
 
         return $this;
     }

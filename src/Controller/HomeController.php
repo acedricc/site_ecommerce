@@ -13,8 +13,12 @@ class HomeController extends AbstractController
    
     public function index(ProduitRepository $produitRepository): Response
     {
+        
+        $tailles =$produitRepository->findAllTaille();
+        // dd($tailles);
         return $this->render('home/index.html.twig', [
-           "listeProduits" => $produitRepository->findAll()
+           "listeProduits" => $produitRepository->findAll(),
+           'tailles' => $tailles
         ]);
     }
 }

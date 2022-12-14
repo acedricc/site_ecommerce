@@ -7,6 +7,7 @@
         <img class="card-img-top mx-auto w-100" src="{{ asset(image_path ~ produit.photo ) }}" alt="{{ produit.titre }}">
         <div class="card-body">
             <h5 class="card-title">Nom : {{ produit.titre }}</h5>
+              <h5 class="card-title">Type : {{ produit.genre }}</h5>
             {# <p class="card-text">Référence : {{ produit.reference }}</p> #}
             <p class="card-text">Catégorie : {{ produit.categorie }}</p>
             <p class="card-text">Taille : {{ produit.taille }}</p>
