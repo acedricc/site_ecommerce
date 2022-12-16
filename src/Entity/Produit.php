@@ -44,7 +44,9 @@ class Produit
     private ?string $taille = null;
 
     #[ORM\Column(length: 10)]
-    private ?string $Genre = null;
+    private ?string $genre = null;
+
+
 
     public function __construct()
     {
@@ -184,12 +186,12 @@ class Produit
 
     public function getGenre(): ?string
     {
-        return $this->Genre;
+        return $this->genre;
     }
 
-    public function setGenre(string $Genre): self
+    public function setGenre(string $genre): self
     {
-        $this->Genre = $Genre;
+        $this->genre = $genre;
 
         return $this;
     }
