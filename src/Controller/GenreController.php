@@ -10,9 +10,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class GenreController extends AbstractController
 {
     #[Route('/genre/{genre}', name: 'app_genre')]
-    public function index(ProduitRepository $produitRepository , $produitGenre): Response
+    public function index(ProduitRepository $produitRepository , $genre): Response
     {
-        $produitsByGenre = $produitRepository->findByGenre($produitGenre);
+        $produitsByGenre = $produitRepository->findByGenre($genre);
         $tailles =$produitRepository->findAllTaille();
  
         return $this->render('genre/index.html.twig', [

@@ -44,6 +44,7 @@
 			<div class="col-2">Photo</div>
 			<div class="col-10">
 				<img class="vignette" src="{{ image_path ~ produit.photo }}" alt="Image de {{ produit.titre }}">
+				<img src="{{ asset(image_path ~ produit.photo) | imagine_filter('miniature') }}" />
 			</div>
 		</li>
 
