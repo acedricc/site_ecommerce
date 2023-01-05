@@ -118,6 +118,17 @@ class ProduitRepository extends ServiceEntityRepository
        ;
    }  
 
+   public function findAllGenre(): array
+   {
+       return $this->createQueryBuilder('p')
+            ->select('p.genre')
+            ->distinct()
+           ->orderBy('p.genre', 'ASC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }  
+
    
 //    public function findOneBySomeField($value): ?Produit
 //    {

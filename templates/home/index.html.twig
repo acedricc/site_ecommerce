@@ -14,9 +14,18 @@
 					</li>
 
 				{% endfor %}
+
+				{% for produit in produitsByGenres %}
+
+					<li class="list-group-item">
+						<a class="nav-link" href="{{ path('app_genre', {'genre': indice.produitsByGenre}) }}">{{ indice.produitsByGenre }}</a>
+					</li>
+
+				{% endfor %}
 			</ul>
+
 		</div>
-        
+
 		<div class="col-10">
 			<div class="card-deck">
 				{% for produit in listeProduits %}
