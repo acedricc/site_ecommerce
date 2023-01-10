@@ -46,11 +46,15 @@ class Produit
     #[ORM\Column(length: 10)]
     private ?string $genre = null;
 
+    #[ORM\OneToMany(mappedBy: 'images', targetEntity: Photos::class)]
+    private Collection $photos;
+
 
 
     public function __construct()
     {
         $this->details = new ArrayCollection();
+        $this->photos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -192,6 +196,36 @@ class Produit
     public function setGenre(string $genre): self
     {
         $this->genre = $genre;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Photos>
+     */
+    public function getPhotos(): Collection
+    {
+        return $this->photos;
+    }
+
+    public function addPhoto(Photos $photo): self
+    {
+        if (!$this->photos->contains($photo)) {
+            $this->photos->add($photo);
+            $photo->setImages($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhoto(Photos $photo): self
+    {
+        if ($this->photos->removeElement($photo)) {
+            // set the owning side to null (unless already changed)
+            if ($photo->getImages() === $this) {
+                $photo->setImages(null);
+            }
+        }
 
         return $this;
     }

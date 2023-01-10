@@ -15,7 +15,9 @@ class CategorieController extends AbstractController
     {
         $cats = $produitRepository->findByCategorieField($cat);
         
-        $tailles =$produitRepository->findAllTaille();
+        $tailles = $produitRepository->findAllTaille();
+
+        $produitsByGenres = $produitRepository->findAllGenre();
 
         // $tailleCategories =$produitRepository->findByTailleField($tailleCategorie);
 
@@ -23,6 +25,7 @@ class CategorieController extends AbstractController
         return $this->render('categorie/index.html.twig', [
             'cats' => $cats,
             'tailles' => $tailles,
+            'produitsByGenres' => $produitsByGenres,
             // 'tailleCategories' => $tailleCategories
         ]);
     }

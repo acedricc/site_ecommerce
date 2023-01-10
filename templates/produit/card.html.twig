@@ -1,8 +1,9 @@
 {% block section %}
 
-	<div class="col-3">
+	<div class="col-4">
 		<div class="card" style="style=" margin-right: 0;margin-left: 0;"">
-			{# <img class="card-img-top mx-auto w-100" src="{{ asset(image_path ~ produit.photo ) | imagine_filter('miniature') }}" alt="{{ produit.titre }}"> #}
+			<img class="card-img-top mx-auto w-100" src="{{ asset(image_path ~ produit.photo )|imagine_filter('article') }}" alt="{{ produit.titre }}">
+			{# | imagine_filter('miniature') #}
 			<div class="card-body">
 				<h5 class="card-title">Nom :
 					{{ produit.titre }}</h5>
