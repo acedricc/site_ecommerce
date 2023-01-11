@@ -14,8 +14,8 @@ class Taille
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $taillelettre = null;
+    #[ORM\Column(length: 3)]
+    private ?string $taillelettre = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 12, scale: 2)]
     private ?string $taillechaussure = null;

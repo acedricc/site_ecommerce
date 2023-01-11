@@ -42,14 +42,15 @@
 
 <script>
 	window.addEventListener("load", () => {
-$("#form {{ produit.id }}").on("submit", (evtSubmit) => {
-evtSubmit.preventDefault();
-console.log($("#form {{ produit.id }}[name='qte']").val());
+$("#form{{ produit.id }}").on("submit", (evtSubmit) => {
+	//evtSubmit.preventDefault();
+console.log($("#form{{ produit.id }} [name='qte']").val());
 $.ajax({
 url: "{{ path('app_panier_ajouter', {id: produit.id}) }}",
-data: "qte=" + $("#form {{ produit.id }}[name='qte']").val(),
+data: "qte=" + $("#form{{ produit.id }} [name='qte']").val(),
 dataType: "json",
 success: (data) => {
+console.log(data);
 $("#nombre").html(data);
 console.log("nb produits dans le panier = " + data);
 },

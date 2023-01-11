@@ -35,6 +35,7 @@ public function ajouter($id, ProduitRepository $pr, Session $session, Request $r
 
     $quantite = $rq->query->get("qte", 1) ?: 1;
     $produit = $pr->find($id);
+        dd($produit);
     $panier = $session->get("panier", []); // on récupère ce qu'il y a dans le panier en session
 
     $produitDejaDansPanier = false;
