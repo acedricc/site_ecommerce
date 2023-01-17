@@ -1,28 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Vetements!{% endblock %}
+{% block title %}Taille index{% endblock %}
 
 {% block body %}
+    <h1>Taille index</h1>
 
-<div class="row justify-content-start">
-    <div class="col-2">
-        <ul class="list-group">
-        {% for indice in tailles %}
-
-            <li class="list-group-item"><a class="nav-link" href="{{ path('app_taille_tail', {'tail': indice.taille}) }}">{{ indice.taille }}</a></li>
-           
-            {% endfor %}
-</ul>
-    </div>
-    <div class="col-10">
-<div class="card-deck">
-
-
-        {% for produit in produitsByTail %}
-            {{ include("produit/card.html.twig") }}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Size</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for taille in tailles %}
+            <tr>
+                <td>{{ taille.id }}</td>
+                <td>{{ taille.size }}</td>
+                <td>
+                    <a href="{{ path('app_taille_show', {'id': taille.id}) }}">show</a>
+                    <a href="{{ path('app_taille_edit', {'id': taille.id}) }}">edit</a>
+                </td>
+            </tr>
         {% else %}
-            Aucun produit enregistré
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
         {% endfor %}
-    </div>
-    </div>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_taille_new') }}">Create new</a>
 {% endblock %}

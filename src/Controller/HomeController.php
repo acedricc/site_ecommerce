@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\ProduitRepository;
+use App\Repository\TailleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,14 +11,14 @@ class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
    
-    public function index(ProduitRepository $produitRepository): Response
+    public function index(TailleRepository $tailleRepository,$size): Response
     {
         
-        $tailles =$produitRepository->findAllTaille();
+        $produitSize =$tailleRepository->findByTailleField($size);
         // dd($tailles);
         return $this->render('home/index.html.twig', [
-           "listeProduits" => $produitRepository->findAll(),
-           'tailles' => $tailles
+        
+           'produitSizes' => $produitSize
         ]);
     }
 }

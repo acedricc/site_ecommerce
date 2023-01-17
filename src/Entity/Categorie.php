@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CategorieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
@@ -16,15 +18,13 @@ class Categorie
     #[ORM\Column(length: 50)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 20)]
-    private ?string $genre = null;
+    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Produit::class)]
+    private Collection $produits;
 
-    #[ORM\Column(length: 20)]
-    private ?string $couleur = null;
-
-    #[ORM\Column(length: 20)]
-    private ?string $marque = null;
-
+    public function __construct()
+    {
+        $this->produits = new ArrayCollection();
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -42,39 +42,34 @@ class Categorie
         return $this;
     }
 
-    public function getGenre(): ?string
+    /**
+     * @return Collection<int, Produit>
+     */
+    public function getProduits(): Collection
     {
-        return $this->genre;
+        return $this->produits;
     }
 
-    public function setGenre(string $genre): self
+    public function addProduit(Produit $produit): self
     {
-        $this->genre = $genre;
+        if (!$this->produits->contains($produit)) {
+            $this->produits->add($produit);
+            $produit->setCategorie($this);
+        }
 
         return $this;
     }
 
-    public function getCouleur(): ?string
+    public function removeProduit(Produit $produit): self
     {
-        return $this->couleur;
-    }
-
-    public function setCouleur(string $couleur): self
-    {
-        $this->couleur = $couleur;
+        if ($this->produits->removeElement($produit)) {
+            // set the owning side to null (unless already changed)
+            if ($produit->getCategorie() === $this) {
+                $produit->setCategorie(null);
+            }
+        }
 
         return $this;
     }
 
-    public function getMarque(): ?string
-    {
-        return $this->marque;
-    }
-
-    public function setMarque(string $marque): self
-    {
-        $this->marque = $marque;
-
-        return $this;
-    }
 }

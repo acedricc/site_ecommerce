@@ -2,24 +2,23 @@
 
 namespace App\Entity;
 
-use App\Repository\TailleRepository;
+use App\Repository\GenreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: TailleRepository::class)]
-class Taille
+#[ORM\Entity(repositoryClass: GenreRepository::class)]
+class Genre
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 3)]
-    private ?string $size = null;
+    #[ORM\Column(length: 20)]
+    private ?string $type = null;
 
-    #[ORM\ManyToMany(targetEntity: Produit::class, mappedBy: 'taille')]
+    #[ORM\OneToMany(mappedBy: 'genre', targetEntity: Produit::class)]
     private Collection $produits;
 
     public function __construct()
@@ -27,20 +26,19 @@ class Taille
         $this->produits = new ArrayCollection();
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getSize(): ?string
+    public function getType(): ?string
     {
-        return $this->size;
+        return $this->type;
     }
 
-    public function setSize(string $size): self
+    public function setType(string $type): self
     {
-        $this->size = $size;
+        $this->type = $type;
 
         return $this;
     }
@@ -57,7 +55,7 @@ class Taille
     {
         if (!$this->produits->contains($produit)) {
             $this->produits->add($produit);
-            $produit->addTaille($this);
+            $produit->setGenre($this);
         }
 
         return $this;
@@ -66,10 +64,12 @@ class Taille
     public function removeProduit(Produit $produit): self
     {
         if ($this->produits->removeElement($produit)) {
-            $produit->removeTaille($this);
+            // set the owning side to null (unless already changed)
+            if ($produit->getGenre() === $this) {
+                $produit->setGenre(null);
+            }
         }
 
         return $this;
     }
-
 }

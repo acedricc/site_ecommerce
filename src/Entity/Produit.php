@@ -19,9 +19,6 @@ class Produit
     #[ORM\Column(length: 20)]
     private ?string $reference = null;
 
-    #[ORM\Column(length: 20, nullable: true)]
-    private ?string $categorie = null;
-
     #[ORM\Column(length: 100)]
     private ?string $titre = null;
 
@@ -40,14 +37,21 @@ class Produit
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Detail::class)]
     private Collection $details;
 
-    #[ORM\Column(length: 3, nullable: true)]
-    private ?string $taille = null;
-
-    #[ORM\Column(length: 10)]
-    private ?string $genre = null;
+ 
 
     #[ORM\OneToMany(mappedBy: 'images', targetEntity: Photos::class)]
     private Collection $photos;
+
+    #[ORM\ManyToMany(targetEntity: Taille::class, inversedBy: 'produits')]
+    private Collection $taille;
+
+    #[ORM\ManyToOne(inversedBy: 'produits')]
+    private ?Categorie $categorie = null;
+
+    #[ORM\ManyToOne(inversedBy: 'produits')]
+    private ?Genre $genre = null;
+
+
 
 
 
@@ -55,6 +59,8 @@ class Produit
     {
         $this->details = new ArrayCollection();
         $this->photos = new ArrayCollection();
+        $this->taille = new ArrayCollection();
+       
     }
 
     public function getId(): ?int
@@ -74,17 +80,8 @@ class Produit
         return $this;
     }
 
-    public function getCategorie(): ?string
-    {
-        return $this->categorie;
-    }
 
-    public function setCategorie(?string $categorie): self
-    {
-        $this->categorie = $categorie;
 
-        return $this;
-    }
 
     public function getTitre(): ?string
     {
@@ -176,29 +173,7 @@ class Produit
         return $this;
     }
 
-    public function getTaille(): ?string
-    {
-        return $this->taille;
-    }
 
-    public function setTaille(?string $taille): self
-    {
-        $this->taille = $taille;
-
-        return $this;
-    }
-
-    public function getGenre(): ?string
-    {
-        return $this->genre;
-    }
-
-    public function setGenre(string $genre): self
-    {
-        $this->genre = $genre;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Photos>
@@ -229,4 +204,55 @@ class Produit
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Taille>
+     */
+    public function getTaille(): Collection
+    {
+        return $this->taille;
+    }
+
+    public function addTaille(Taille $taille): self
+    {
+        if (!$this->taille->contains($taille)) {
+            $this->taille->add($taille);
+        }
+
+        return $this;
+    }
+
+    public function removeTaille(Taille $taille): self
+    {
+        $this->taille->removeElement($taille);
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getGenre(): ?Genre
+    {
+        return $this->genre;
+    }
+
+    public function setGenre(?Genre $genre): self
+    {
+        $this->genre = $genre;
+
+        return $this;
+    }
+
+  
+
 }

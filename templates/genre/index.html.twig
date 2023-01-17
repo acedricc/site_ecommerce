@@ -1,29 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Vetements!
-{% endblock %}
+{% block title %}Genre index{% endblock %}
 
 {% block body %}
-	<div class="row">
-		<div class="col-2">
-			<ul class="list-group">
-				{% for indice in tailles %}
+    <h1>Genre index</h1>
 
-					<li class="list-group-item">
-						<a class="nav-link" href="{{ path('app_taille_tail', {'tail': indice.taille}) }}">{{ indice.taille }}</a>
-					</li>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Type</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for genre in genres %}
+            <tr>
+                <td>{{ genre.id }}</td>
+                <td>{{ genre.type }}</td>
+                <td>
+                    <a href="{{ path('app_genre_show', {'id': genre.id}) }}">show</a>
+                    <a href="{{ path('app_genre_edit', {'id': genre.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-				{% endfor %}
-			</ul>
-		</div>
-		<div class="col-10">
-			<div class="row">
-				{% for produit in produitsByGenre %}
-					{{ include("produit/card.html.twig") }}
-				{% else %}
-					Aucun produit enregistré
-				{% endfor %}
-			</div>
-		</div>
-	</div>
+    <a href="{{ path('app_genre_new') }}">Create new</a>
 {% endblock %}

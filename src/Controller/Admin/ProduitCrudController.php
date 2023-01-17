@@ -23,13 +23,11 @@ class ProduitCrudController extends AbstractCrudController
         return [
             IdField::new('id'),
             TextField::new('reference'),
-            TextField::new('categorie'),
             TextField::new('titre'),
             TextEditorField::new('description'),
             TextField::new('photo'),
             MoneyField::new('prix')->setCurrency('EUR'),
-            IntegerField::new('stock'),
-            TextField::new('taille'),
+            IntegerField::new('stock')
             
 
 

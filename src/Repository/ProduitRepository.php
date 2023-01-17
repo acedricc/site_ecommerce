@@ -73,61 +73,63 @@ class ProduitRepository extends ServiceEntityRepository
    /**
     * @return Produit[] Returns an array of Produit objects
     */
-   public function findByCategorieField($value): array
-   {
-       return $this->createQueryBuilder('p')
-           ->andWhere('p.categorie = :val')
-           ->setParameter('val', $value)
-           ->orderBy('p.id', 'ASC')
-        //    ->setMaxResults(10)
-           ->getQuery()
-           ->getResult()
-       ;
-   }
 
-   public function findByTailleField($value): array
-   {
-       return $this->createQueryBuilder('p')
-           ->andWhere('p.taille = :val')
-           ->setParameter('val', $value)
-           ->orderBy('p.id', 'ASC')
-           ->getQuery()
-           ->getResult()
-       ;
-   }   
-   public function findAllTaille(): array
-   {
-       return $this->createQueryBuilder('p')
-            ->select('p.taille')
-            ->distinct()
-           ->orderBy('p.taille', 'ASC')
-           ->getQuery()
-           ->getResult()
-       ;
-   }    
+    
+//    public function findByCategorieField($value): array
+//    {
+//        return $this->createQueryBuilder('p')
+//            ->andWhere('p.categorie = :val')
+//            ->setParameter('val', $value)
+//            ->orderBy('p.id', 'ASC')
+//         //    ->setMaxResults(10)
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }
+
+//    public function findByTailleField($value): array
+//    {
+//        return $this->createQueryBuilder('p')
+//            ->andWhere('p.taille = :val')
+//            ->setParameter('val', $value)
+//            ->orderBy('p.id', 'ASC')
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }   
+//    public function findAllTaille(): array
+//    {
+//        return $this->createQueryBuilder('p')
+//             ->select('p.taille')
+//             ->distinct()
+//            ->orderBy('p.taille', 'ASC')
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }    
    
-   public function findByGenre($value): array
-   {
-       return $this->createQueryBuilder('p')
-           ->andWhere('p.genre = :val')
-           ->setParameter('val', $value)
-           ->orderBy('p.id', 'ASC')
-        //    ->setMaxResults(10)
-           ->getQuery()
-           ->getResult()
-       ;
-   }  
+//    public function findByGenre($value): array
+//    {
+//        return $this->createQueryBuilder('p')
+//            ->andWhere('p.genre = :val')
+//            ->setParameter('val', $value)
+//            ->orderBy('p.id', 'ASC')
+//         //    ->setMaxResults(10)
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }  
 
-   public function findAllGenre(): array
-   {
-       return $this->createQueryBuilder('p')
-            ->select('p.genre')
-            ->distinct()
-           ->orderBy('p.genre', 'ASC')
-           ->getQuery()
-           ->getResult()
-       ;
-   }  
+//    public function findAllGenre(): array
+//    {
+//        return $this->createQueryBuilder('p')
+//             ->select('p.genre')
+//             ->distinct()
+//            ->orderBy('p.genre', 'ASC')
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }  
 
    
 //    public function findOneBySomeField($value): ?Produit
