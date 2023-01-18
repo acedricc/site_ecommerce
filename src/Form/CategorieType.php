@@ -3,7 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Categorie;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,10 +16,23 @@ class CategorieType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('couleur')
-            ->add('marque')
-            // ->add('produits')
-        ;
+            ->add('isParent', CheckboxType::class, [     
+                "required" => false,
+            ])
+            ->add('parent', EntityType::class, [
+                "class" => Categorie::class,
+                "choice_label" => "nom",
+                "placeholder" => "",                
+                "required" => false,
+                // 'query_builder' => function (EntityRepository $er) {
+                //     return $er->createQueryBuilder('p')
+                //         ->where('p.isParent', true)
+                //          ->getQuery()
+                //         ->getResult();
+                // },
+                
+            ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

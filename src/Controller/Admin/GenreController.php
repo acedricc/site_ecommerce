@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\Genre;
 use App\Form\GenreType;
@@ -10,18 +10,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/genre')]
+#[Route('admin/genre')]
 class GenreController extends AbstractController
 {
-    #[Route('/', name: 'app_genre_index', methods: ['GET'])]
+    #[Route('/', name: 'app_admin_genre_index', methods: ['GET'])]
     public function index(GenreRepository $genreRepository): Response
     {
-        return $this->render('genre/index.html.twig', [
+        return $this->render('admin/genre/index.html.twig', [
             'genres' => $genreRepository->findAll(),
         ]);
     }
 
-    #[Route('/new', name: 'app_genre_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_admin_genre_new', methods: ['GET', 'POST'])]
     public function new(Request $request, GenreRepository $genreRepository): Response
     {
         $genre = new Genre();
@@ -31,24 +31,24 @@ class GenreController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $genreRepository->save($genre, true);
 
-            return $this->redirectToRoute('app_genre_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin_genre_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('genre/new.html.twig', [
+        return $this->renderForm('admin/genre/new.html.twig', [
             'genre' => $genre,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_genre_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_admin_genre_show', methods: ['GET'])]
     public function show(Genre $genre): Response
     {
-        return $this->render('genre/show.html.twig', [
+        return $this->render('admin/genre/show.html.twig', [
             'genre' => $genre,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_genre_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_admin_genre_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Genre $genre, GenreRepository $genreRepository): Response
     {
         $form = $this->createForm(GenreType::class, $genre);
@@ -57,22 +57,22 @@ class GenreController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $genreRepository->save($genre, true);
 
-            return $this->redirectToRoute('app_genre_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin_genre_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('genre/edit.html.twig', [
+        return $this->renderForm('admin/genre/edit.html.twig', [
             'genre' => $genre,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_genre_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_admin_genre_delete', methods: ['POST'])]
     public function delete(Request $request, Genre $genre, GenreRepository $genreRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$genre->getId(), $request->request->get('_token'))) {
             $genreRepository->remove($genre, true);
         }
 
-        return $this->redirectToRoute('app_genre_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_admin_genre_index', [], Response::HTTP_SEE_OTHER);
     }
 }

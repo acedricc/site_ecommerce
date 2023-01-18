@@ -2,7 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Categorie;
+use App\Entity\Genre;
 use App\Entity\Produit;
+use App\Entity\Taille;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,10 +19,27 @@ class ProduitType extends AbstractType
     {
         $builder
             ->add('reference')
-            ->add('categorie')
-            ->add('genre')
-            ->add('taille')
             ->add('titre')
+            ->add('categorie', EntityType::class, [
+                "class"         => Categorie::class,
+                "choice_label"  => "nom",
+                "placeholder"   => ""
+
+
+            ])
+            ->add('genre',  EntityType::class, [
+                "class"         => Genre::class,
+                "choice_label"  => "type",
+                "placeholder"   => ""
+            ])
+          
+            ->add('taille',  EntityType::class, [
+                "class"         => Taille::class,
+                "choice_label"  => "size",
+                "placeholder"   => "",
+                'multiple' => true,
+            ])
+
             ->add('description')
             ->add('photo',FileType::class, [
                 /* 
@@ -37,8 +58,11 @@ class ProduitType extends AbstractType
                     ])
                 ]
             ])
+            ->add('couleur')
+            ->add('marque')
             ->add('prix')
             ->add('stock')
+
         ;
     }
 

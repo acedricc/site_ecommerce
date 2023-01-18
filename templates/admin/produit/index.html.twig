@@ -11,49 +11,39 @@
                 <th>Id</th>
                 <th>Reference</th>
                 <th>Titre</th>
+                <th>Genre</th>
                 <th>Description</th>
-                <th>Prix</th>
-                <th>stock</th>
+                <th>Categorie</th>
+                <th>Taille</th>
                 <th>marque</th>
                 <th>couleur</th>
-                <th>genre</th>
-                <th>nom</th>
+                <th>Prix</th>
+                <th>stock</th>
+               
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for produit in produits %}
+       {% for produit in produits %}
             <tr>
                 <td>{{ produit.id }}</td>
                 <td>{{ produit.reference }}</td>
                 <td>{{ produit.titre }}</td>
+                <td>{{ produit.genre.type }}</td>
                 <td>{{ produit.description }}</td>
+                <td>{{ produit.categorie.nom }}</td>
+                {# <td>{{ produit.taille }}</td> #}
+                <td><img class="" width="100" src="{{ asset(image_path ~ produit.photo ) }}" alt="{{ produit.titre }}"></td>
+                <td>{{ produit.marque }}</td>
+                <td>{{ produit.couleur }}</td>
                 <td>{{ produit.prix }}</td>
                 <td>{{ produit.stock }}</td>
-
-        {% for categorie in produit %}
-                <td>{{ categorie.marque }}</td>
-                <td>{{ categorie.couleur }}</td>
-                <td>{{ categorie.genre }}</td>
-                <td>{{ categorie.nom }}</td>
-        {% endfor %}
-        {% for taille in produit %}
-                 <td>{{ taille.size }}</td>
-               
-                
-        {% endfor %}
-                 <td>
-                <img class="" width="100" src="{{ asset(image_path ~ produit.photo ) }}" alt="{{ produit.titre }}"></td>
-
+                <td>
                     <a href="{{ path('app_admin_produit_show', {'id': produit.id}) }}">show</a>
                     <a href="{{ path('app_admin_produit_edit', {'id': produit.id}) }}">edit</a>
                 </td>
-              
-              
-
-                 
-
             </tr>
+
         {% else %}
             <tr>
                 <td colspan="9">no records found</td>

@@ -35,14 +35,12 @@ class Produit
     private ?int $stock = null;
 
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Detail::class)]
-    private Collection $details;
-
- 
+    private Collection $details; 
 
     #[ORM\OneToMany(mappedBy: 'images', targetEntity: Photos::class)]
     private Collection $photos;
 
-    #[ORM\ManyToMany(targetEntity: Taille::class, inversedBy: 'produits')]
+    #[ORM\ManyToMany(targetEntity: Taille::class, inversedBy: 'produits', cascade: ['persist'])]
     private Collection $taille;
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
@@ -51,9 +49,11 @@ class Produit
     #[ORM\ManyToOne(inversedBy: 'produits')]
     private ?Genre $genre = null;
 
+    #[ORM\Column(length: 20)]
+    private ?string $couleur = null;
 
-
-
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $marque = null;
 
     public function __construct()
     {
@@ -249,6 +249,30 @@ class Produit
     public function setGenre(?Genre $genre): self
     {
         $this->genre = $genre;
+
+        return $this;
+    }
+
+    public function getCouleur(): ?string
+    {
+        return $this->couleur;
+    }
+
+    public function setCouleur(string $couleur): self
+    {
+        $this->couleur = $couleur;
+
+        return $this;
+    }
+
+    public function getMarque(): ?string
+    {
+        return $this->marque;
+    }
+
+    public function setMarque(?string $marque): self
+    {
+        $this->marque = $marque;
 
         return $this;
     }
