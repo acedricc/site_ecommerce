@@ -7,10 +7,11 @@
 	<div class="row justify-content-start">
 		<div class="col-2">
 			<ul class="list-group">
-				{% for indice in produitSize %}
+				{% for taille in tailles %}
 
 					<li class="list-group-item">
-						<a class="nav-link" href="{{ path('app_taille_tail', {'tail': indice.produitSize}) }}">{{ indice.produitSize }}</a>
+						{# <a class="nav-link" href="{{ path('app_taille_tail', {'tail': indice.produitSize}) }}">{{ indice.produitSize }}</a> #}
+						<a class="nav-link" href="">{{ taille.size }}</a>
 					</li>
 
 				{% endfor %}

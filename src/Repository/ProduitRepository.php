@@ -4,8 +4,11 @@ namespace App\Repository;
 
 use App\Entity\Detail;
 use App\Entity\Produit;
+use App\Entity\Taille;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
+use PhpParser\Node\Expr;
 
 /**
  * @extends ServiceEntityRepository<Produit>
@@ -75,38 +78,42 @@ class ProduitRepository extends ServiceEntityRepository
     */
 
     
-//    public function findByCategorieField($value): array
+
+
+//    public function findByTaille($value): array
 //    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.categorie = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//         //    ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
+//     return $this->createQueryBuilder('p')        
+//     ->leftJoin('p', 't',\Doctrine\ORM\Query\Expr\Join::WITH,'p.id = :champ_id' )
+//     ->setParameter('champ_id', $champ->getId())
+//     ->addSelect('IFNULL(-c.year,0) as HIDDEN year')
+//     ->where('t.league=:league_id')      
+//     ->setParameter('league_id', $champ->getLeague())
+//     ->addorderBy('year')
+//     ->addorderBy('t.nom')
+//     ->getQuery()
+//     ->getResult()
 //        ;
 //    }
 
-//    public function findByTailleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.taille = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }   
-//    public function findAllTaille(): array
-//    {
-//        return $this->createQueryBuilder('p')
-//             ->select('p.taille')
-//             ->distinct()
-//            ->orderBy('p.taille', 'ASC')
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }    
+   public function findByTailleField($size): array
+   {
+    return $this->createQueryBuilder('p')
+    ->select('p')
+    ->from('*', 'p')
+    ->innerJoin('pt ON p.id = pt.produit_id','t ON pt.taille_id=t.id')
+    ->where('t.size ="M"')
+    ->setParameter('size',$size)
+    ->getQuery()
+    ->getResult();
+   }
+ 
+     public function findAllProduitsByTailles($size)
+    {
+       return $this->createQueryBuilder('p')
+        ->leftJoin(Taille::class, "t", Join::WITH, "p.taille = t")
+        ->andWhere("t.size = :size")
+        ->setParameter("size", $size);
+   }    
    
 //    public function findByGenre($value): array
 //    {
