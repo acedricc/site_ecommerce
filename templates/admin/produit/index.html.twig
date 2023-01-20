@@ -32,7 +32,11 @@
                 <td>{{ produit.genre.type }}</td>
                 <td>{{ produit.description }}</td>
                 <td>{{ produit.categorie.nom }}</td>
-                {# <td>{{ produit.taille }}</td> #}
+                <td>
+        {% for laTaille in produit.taille %}
+                {{ laTaille.size }} <br>
+        {% endfor %}       
+                </td>
                 <td><img class="" width="100" src="{{ asset(image_path ~ produit.photo ) }}" alt="{{ produit.titre }}"></td>
                 <td>{{ produit.marque }}</td>
                 <td>{{ produit.couleur }}</td>

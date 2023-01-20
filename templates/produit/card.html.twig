@@ -10,18 +10,21 @@
 				<h5 class="card-title">Nom :
 					{{ produit.titre }}</h5>
 				<h5 class="card-title">Type :
-					{{ produit.genre }}</h5>
+					{{ produit.genre.type }}</h5>
 				{# <p class="card-text">Référence : {{ produit.reference }}</p> #}
 				<p class="card-text">Catégorie :
-					{{ categorie.nom }}</p>
+					{{ produit.categorie.nom }}</p>
 				<p class="card-text">Marque :
-					{{ categorie.marque }}</p>
+					{{ produit.marque }}</p>
 				<p class="card-text">Couleur :
-					{{ categorie.couleur }}</p>
-				<p class="card-text">Genre :
-					{{ categorie.genre }}</p>
+					{{ produit.couleur }}</p>
 				<p class="card-text">Taille :
-					{{ taille.size }}</p>
+				{% for taille in produit.taille %}
+						{{ taille.size ~ ", " }}
+				{% endfor %}
+				</p>
+
+				
 				<p class="card-text">Prix :
 					{{ produit.prix }}
 					€</p>
