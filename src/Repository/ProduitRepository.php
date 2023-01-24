@@ -9,6 +9,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 use PhpParser\Node\Expr;
+use Proxies\__CG__\App\Entity\Genre;
 
 /**
  * @extends ServiceEntityRepository<Produit>
@@ -106,6 +107,23 @@ class ProduitRepository extends ServiceEntityRepository
     ->getQuery()
     ->getResult();
    }
+   //Creation d'une une methode avec un parametre et une valeur de retour(tableau)
+   public function findProductsByGenre($name):array
+{
+    //on va dans la table produit
+    return $this->createQueryBuilder('p')
+    // on selectione la table genre
+     ->addSelect('g')
+       //on join la table produit avec genre 
+     ->leftJoin('p.genre', 'g')
+   
+
+     ->where('g.type = :type')
+     ->setParameter('type', $name)
+     ->getQuery()
+     ->getResult()
+    ; 
+}
  
      public function findAllProduitsByTailles($size)
     {
@@ -114,11 +132,12 @@ class ProduitRepository extends ServiceEntityRepository
         ->andWhere("t.size = :size")
         ->setParameter("size", $size);
    }    
-   
+ 
 //    public function findByGenre($value): array
 //    {
 //        return $this->createQueryBuilder('p')
-//            ->andWhere('p.genre = :val')
+//            ->join(Genre::class,'genre.type','g')
+//            ->andWhere('genre.type = :val')
 //            ->setParameter('val', $value)
 //            ->orderBy('p.id', 'ASC')
 //         //    ->setMaxResults(10)
@@ -127,25 +146,5 @@ class ProduitRepository extends ServiceEntityRepository
 //        ;
 //    }  
 
-//    public function findAllGenre(): array
-//    {
-//        return $this->createQueryBuilder('p')
-//             ->select('p.genre')
-//             ->distinct()
-//            ->orderBy('p.genre', 'ASC')
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }  
 
-   
-//    public function findOneBySomeField($value): ?Produit
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

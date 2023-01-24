@@ -18,11 +18,10 @@ class HomeController extends AbstractController
         $tailles =$tailleRepository->findAll();
         // $size =$produitRepository->findAllProduitsByTailles('M');
         // dd($size);
-        return $this->render('home/index.html.twig', [
-        
+        return $this->render('home/index.html.twig', [       
            'tailles' => $tailles,
-           'listeProduits' => $listeProduits 
-
+           'listeProduits' => $listeProduits
+           
         ]);
     }
 }

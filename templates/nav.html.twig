@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="{{ path('app_home') }}">Eboutik</a>
@@ -6,7 +7,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-         {# <li class="nav-item">
+          {# <li class="nav-item">
                <a class="nav-link" href="{{ path('app_categorie_cat', {'cat': 'vetement'}) }}">Vétements</a>
             </li>
 
@@ -16,16 +17,18 @@
 
              <li class="nav-item">
                <a class="nav-link" href="{{ path('app_categorie_cat', {'cat': 'chaussure'}) }}">Chaussures</a>
-            </li>
+            </li> #}
 
-              <li class="nav-item">
-               <a class="nav-link" href="{{ path('app_genre', {'genre': 'homme'}) }}">Homme</a>
+                <li class="nav-item">
+               <a class="nav-link" href="{{ path('app_genre', {'type': 'Homme'}) }}">Homme</a>
             </li>
 
              <li class="nav-item">
-               <a class="nav-link" href="{{ path('app_genre', {'genre': 'femme'}) }}">Femme</a>
-            </li> #}
-
+               <a class="nav-link" href="{{ path('app_genre', {'type': 'Femme'}) }}">Femme</a>
+            </li> 
+            <li class="nav-item">
+          <a class="nav-link" href="{{ path('app_genre', {'type': 'Enfant'}) }}">Enfant</a>
+       </li> 
 
 
 
