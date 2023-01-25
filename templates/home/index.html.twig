@@ -9,20 +9,33 @@
 			<ul class="list-group">
 				{% for taille in tailles %}
 
-					<li class="list-group-item">
+					<li
+						class="list-group-item">
 						{# <a class="nav-link" href="{{ path('app_taille_tail', {'tail': indice.produitSize}) }}">{{ indice.produitSize }}</a> #}
 						<a class="nav-link" href="">{{ taille.size }}</a>
 					</li>
 
 				{% endfor %}
 				{# {% for produit in produitsByGenres %}
-
+								
+													<li class="list-group-item">
+													</li>
+												{% endfor %} #}
+			</ul>
+			<ul class="list-group">
+				{% for key in couleurs %}
 					<li class="list-group-item">
-						<a class="nav-link" href="{{ path('app_genre', {'genre': indice.produitsByGenre}) }}">{{ indice.produitsByGenre }}</a>
+						<a class="nav-link" href="{{ path('app_couleur_color', {'color': key.couleur }) }}">{{ key.couleur }}</a>
 					</li>
+				{% endfor %}
+				{# {% for produit in couleurs %}				
+					<li class="list-group-item">
+						<a class="nav-link" href="{{ path('app_couleur_color', {'color': produit.couleur}) }}">{{ produit.couleur }}</a>
+
+					</li>
+
 				{% endfor %} #}
 			</ul>
-
 		</div>
 
 		<div class="col-10">

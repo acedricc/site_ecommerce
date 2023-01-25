@@ -74,41 +74,8 @@ class ProduitRepository extends ServiceEntityRepository
 
 }
 
-   /**
-    * @return Produit[] Returns an array of Produit objects
-    */
-
-    
-
-
-//    public function findByTaille($value): array
-//    {
-//     return $this->createQueryBuilder('p')        
-//     ->leftJoin('p', 't',\Doctrine\ORM\Query\Expr\Join::WITH,'p.id = :champ_id' )
-//     ->setParameter('champ_id', $champ->getId())
-//     ->addSelect('IFNULL(-c.year,0) as HIDDEN year')
-//     ->where('t.league=:league_id')      
-//     ->setParameter('league_id', $champ->getLeague())
-//     ->addorderBy('year')
-//     ->addorderBy('t.nom')
-//     ->getQuery()
-//     ->getResult()
-//        ;
-//    }
-
-   public function findByTailleField($size): array
-   {
-    return $this->createQueryBuilder('p')
-    ->select('p')
-    ->from('*', 'p')
-    ->innerJoin('pt ON p.id = pt.produit_id','t ON pt.taille_id=t.id')
-    ->where('t.size ="M"')
-    ->setParameter('size',$size)
-    ->getQuery()
-    ->getResult();
-   }
-   //Creation d'une une methode avec un parametre et une valeur de retour(tableau)
-   public function findProductsByGenre($name):array
+//Creation d'une une methode avec un parametre et une valeur de retour(tableau)
+      public function findProductsByGenre($name):array
 {
     //on va dans la table produit
     return $this->createQueryBuilder('p')
@@ -116,35 +83,97 @@ class ProduitRepository extends ServiceEntityRepository
      ->addSelect('g')
        //on join la table produit avec genre 
      ->leftJoin('p.genre', 'g')
-   
-
      ->where('g.type = :type')
      ->setParameter('type', $name)
      ->getQuery()
      ->getResult()
     ; 
 }
- 
-     public function findAllProduitsByTailles($size)
-    {
-       return $this->createQueryBuilder('p')
-        ->leftJoin(Taille::class, "t", Join::WITH, "p.taille = t")
-        ->andWhere("t.size = :size")
-        ->setParameter("size", $size);
-   }    
- 
-//    public function findByGenre($value): array
+
+// public function findByCouleur(): array
+// {
+//     return $this->createQueryBuilder('p')
+//          ->select('p.couleur')
+//          ->distinct()
+//         ->orderBy('p.couleur', 'ASC')
+//         ->getQuery()
+//         ->getResult()
+//     ;
+// }  
+
+public function findByCouleur($value): array
+{
+    return $this->createQueryBuilder('p')
+        ->andWhere('p.couleur = :val')
+        ->setParameter('val', $value)
+        ->orderBy('p.id', 'ASC')
+        ->getQuery()
+        ->getResult()
+    ;
+}  
+
+public function findAllCouleur(): array
+{
+    return $this->createQueryBuilder('p')
+         ->select('p.couleur')
+         ->distinct()
+        ->orderBy('p.couleur', 'ASC')
+        ->getQuery()
+        ->getScalarResult()
+    ;
+} 
+
+
+// public function findByCouleur($color): array
+// {
+//     return $this->createQueryBuilder('p')
+//         ->andWhere('p.couleur = :val')
+//         ->setParameter('val', $color)
+//         ->orderBy('p.couleur', 'ASC')
+//         ->getQuery()
+//         ->getResult()
+//     ;
+// } 
+
+
+   /**
+    * @return Produit[] Returns an array of Produit objects
+    */
+
+//    public function findByTailleField($size): array
+//    {
+//     return $this->createQueryBuilder('p')
+//     ->select('p')
+//     ->from('*', 'p')
+//     ->innerJoin('pt ON p.id = pt.produit_id','t ON pt.taille_id=t.id')
+//     ->where('t.size ="M"')
+//     ->setParameter('size',$size)
+//     ->getQuery()
+//     ->getResult();
+//    }
+
+//    public function findTaille($name):array
+//    { 
+//     $query = $this->createQueryBuilder('p')
+//     ->select('*') // to make Doctrine actually use the join
+//     ->join('produit_taille',Taille::class,"t",)
+//     ->where('t.size = :size')
+//     ->setParameter('size', $name)
+//     ->getQuery();
+//     return $query->getResult();
+// }
+
+//    public function findOneBySomeField($value): ?Produit
 //    {
 //        return $this->createQueryBuilder('p')
-//            ->join(Genre::class,'genre.type','g')
-//            ->andWhere('genre.type = :val')
+//            ->andWhere('p.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//         //    ->setMaxResults(10)
 //            ->getQuery()
-//            ->getResult()
+//            ->getOneOrNullResult()
 //        ;
-//    }  
+//    }
+
+  
 
 
 }
