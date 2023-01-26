@@ -7,20 +7,48 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul
 				class="navbar-nav me-auto mb-2 mb-lg-0">
-				{# <li class="nav-item">
-				               <a class="nav-link" href="{{ path('app_categorie_cat', {'cat': 'vetement'}) }}">Vétements</a>
-				            </li>
-				
-				             <li class="nav-item">
-				               <a class="nav-link" href="{{ path('app_categorie_cat', {'cat': 'accesoires'}) }}">Accesoires</a>
-				            </li>
-				
-				             <li class="nav-item">
-				               <a class="nav-link" href="{{ path('app_categorie_cat', {'cat': 'chaussure'}) }}">Chaussures</a>
-				            </li> #}
+{# <li class="nav-item">
+<a class="nav-link" href="{{ path('app_categorie_cat', {'cat': 'vetement'}) }}">Vétements</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="{{ path('app_categorie_cat', {'cat': 'accesoires'}) }}">Accesoires</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="{{ path('app_categorie_cat', {'cat': 'chaussure'}) }}">Chaussures</a>
+</li> #}
 
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path('app_genre', {'type': 'Homme'}) }}">Homme</a>
+					<ul id="menu-accordeon">
+						<li>
+							<a href="#">Vetement</a>
+							<ul>
+								<li><a href="#"></a></li>
+								<li><a href="#"></a></li>
+								<li><a href="#"></a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">Accesoires</a>
+							<ul>
+								<li><a href="#">Lien sous menu 2</a></li>
+								<li><a href="#">Lien sous menu 2</a></li>
+								<li><a href="#">Lien sous menu 2</a></li>
+								<li><a href="#">Lien sous menu 2</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">Chaussures</a>
+							<ul>
+								<li><a href="#">Lien sous menu 3</a></li>
+								<li><a href="#">Lien sous menu 3</a></li>
+								<li><a href="#">Lien sous menu 3</a></li>
+								<li><a href="#">Lien sous menu 3</a></li>
+							</ul>
+						</li>
+					</ul>
 				</li>
 
 				<li class="nav-item">
@@ -29,8 +57,6 @@
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path('app_genre', {'type': 'Enfant'}) }}">Enfant</a>
 				</li>
-
-        
 
 
 				{% if not app.user %}

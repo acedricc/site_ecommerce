@@ -123,19 +123,16 @@ public function findAllCouleur(): array
     ;
 } 
 
-
-// public function findByCouleur($color): array
-// {
-//     return $this->createQueryBuilder('p')
-//         ->andWhere('p.couleur = :val')
-//         ->setParameter('val', $color)
-//         ->orderBy('p.couleur', 'ASC')
-//         ->getQuery()
-//         ->getResult()
-//     ;
-// } 
-
-
+public function findAllMarque(): array
+{
+    return $this->createQueryBuilder('p')
+         ->select('p.marque')
+         ->distinct()
+        ->orderBy('p.marque', 'ASC')
+        ->getQuery()
+        ->getScalarResult()
+    ;
+} 
    /**
     * @return Produit[] Returns an array of Produit objects
     */
@@ -151,17 +148,6 @@ public function findAllCouleur(): array
 //     ->getQuery()
 //     ->getResult();
 //    }
-
-//    public function findTaille($name):array
-//    { 
-//     $query = $this->createQueryBuilder('p')
-//     ->select('*') // to make Doctrine actually use the join
-//     ->join('produit_taille',Taille::class,"t",)
-//     ->where('t.size = :size')
-//     ->setParameter('size', $name)
-//     ->getQuery();
-//     return $query->getResult();
-// }
 
 //    public function findOneBySomeField($value): ?Produit
 //    {

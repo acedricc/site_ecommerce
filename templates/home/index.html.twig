@@ -16,25 +16,14 @@
 					</li>
 
 				{% endfor %}
-				{# {% for produit in produitsByGenres %}
-								
-													<li class="list-group-item">
-													</li>
-												{% endfor %} #}
+			
 			</ul>
 			<ul class="list-group">
 				{% for key in couleurs %}
 					<li class="list-group-item">
 						<a class="nav-link" href="{{ path('app_couleur_color', {'color': key.couleur }) }}">{{ key.couleur }}</a>
 					</li>
-				{% endfor %}
-				{# {% for produit in couleurs %}				
-					<li class="list-group-item">
-						<a class="nav-link" href="{{ path('app_couleur_color', {'color': produit.couleur}) }}">{{ produit.couleur }}</a>
-
-					</li>
-
-				{% endfor %} #}
+				{% endfor %}	
 			</ul>
 		</div>
 

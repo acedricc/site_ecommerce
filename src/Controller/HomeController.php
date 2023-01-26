@@ -16,13 +16,15 @@ class HomeController extends AbstractController
     {
         $listeProduits = $produitRepository->findAll();
         $tailles =$tailleRepository->findAll();
+        $marques= $produitRepository->findAllMarque();
         $couleurs =$produitRepository->findAllCouleur();
         // $size =$produitRepository->findAllProduitsByTailles('M');
         //dd($couleurs);
         return $this->render('home/index.html.twig', [       
            'tailles' => $tailles,
            'listeProduits' => $listeProduits,
-           'couleurs' => $couleurs
+           'couleurs' => $couleurs,
+           'marques' => $marques
            
         ]);
     }

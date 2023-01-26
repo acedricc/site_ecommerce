@@ -1,28 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Vetements!{% endblock %}
+{% block title %}Vetements!
+{% endblock %}
 
 {% block body %}
 
-<div class="row justify-content-start">
-    <div class="col-2">
-        <ul class="list-group">
-        {% for produit in couleurs %}
+	<div class="row justify-content-start">
+		<div class="col-2">
+			<ul class="list-group">
+				{% for produit in couleurs %}
 
-            <li class="list-group-item"><a class="nav-link" href="{{ path('app_couleur_color', {'color': produit.couleur}) }}">{{ produit.couleur }}</a></li>
-           
-            {% endfor %}
-</ul>
-    </div>
-    <div class="col-10">
-<div class="card-deck">
+					<li class="list-group-item">
+						<a class="nav-link" href="{{ path('app_couleur_color', {'color': produit.couleur}) }}">{{ produit.couleur }}</a>
+					</li>
 
+				{% endfor %}
+			</ul>
+		</div>
+		<div class="col-10">
+			<div class="card-deck">
 
-        {% for produit in produitsByCouleurs %}
-            {{ include("produit/card.html.twig") }}
-        {% else %}
-            Aucun produit enregistré
-        {% endfor %}
-    </div>
-    </div>
-{% endblock %}
+				<div class="row">
+					{% for produit in produitsByCouleurs %}
+						{{ include("produit/card.html.twig") }}
+					{% else %}
+						Aucun produit enregistré
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	{% endblock %}
