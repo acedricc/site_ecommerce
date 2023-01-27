@@ -74,7 +74,7 @@ class ProduitRepository extends ServiceEntityRepository
 
 }
 
-//Creation d'une une methode avec un parametre et une valeur de retour(tableau)
+//Creation d'une une methode avec un parametre et une valeur de retour(array)
       public function findProductsByGenre($name):array
 {
     //on va dans la table produit
