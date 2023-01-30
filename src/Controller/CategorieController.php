@@ -10,11 +10,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CategorieController extends AbstractController
 {
-    #[Route('/categorie{cat}', name: 'app_categorie')]
-    public function index(CategorieRepository $categorieRepository, $cat): Response
+    #[Route('/categorie/{cat}', name: 'app_categorie')]
+    public function index(ProduitRepository $produitRepository, $cat): Response
     {
        
-        $catParents = $categorieRepository->findByCategorieParent($cat);
+        $catParents = $produitRepository->findProductsByCat($cat);
         // dd($catParents);
         return $this->render('categorie/index.html.twig', [
             'controller_name' => 'CategorieController',

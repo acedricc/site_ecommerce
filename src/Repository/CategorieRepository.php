@@ -46,8 +46,7 @@ class CategorieRepository extends ServiceEntityRepository
    
    {
        return $this->createQueryBuilder('c')
-        //    ->andWhere('c.is_parent = :val')
-             ->leftJoin('', '')
+        //  ->andWhere('c.is_parent = :val')
            ->andWhere('c.nom = :val')
            ->setParameter('val', $value)
            ->getQuery()

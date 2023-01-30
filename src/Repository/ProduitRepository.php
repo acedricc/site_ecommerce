@@ -90,6 +90,18 @@ class ProduitRepository extends ServiceEntityRepository
     ; 
 }
 
+public function findProductsByCat($name):array
+{
+    return $this->createQueryBuilder('p')
+     ->addSelect('c')
+     ->leftJoin('p.categorie', 'c')
+     ->where('c.nom = :cat')
+     ->setParameter('cat', $name)
+     ->getQuery()
+     ->getResult()
+    ; 
+}
+
 // public function findByCouleur(): array
 // {
 //     return $this->createQueryBuilder('p')
@@ -133,6 +145,7 @@ public function findAllMarque(): array
         ->getScalarResult()
     ;
 } 
+
    /**
     * @return Produit[] Returns an array of Produit objects
     */

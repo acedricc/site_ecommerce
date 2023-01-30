@@ -16,26 +16,28 @@
 			<div class="col-2">Titre</div>
 			<div class="col-10">{{produit.titre}}</div>
 		</li>
-			<li class="list-group-item d-flex">
+		<li class="list-group-item d-flex">
 			<div class="col-2">Genre</div>
-			<div class="col-10">{{categorie.genre}}</div>
+			<div class="col-10">{{produit.genre.type}}</div>
 		</li>
 		<li class="list-group-item d-flex">
 			<div class="col-2">Catégorie</div>
-			<div class="col-10">{{categorie.nom}}</div>
+			<div class="col-10">{{produit.categorie.nom}}</div>
 		</li>
 		<li class="list-group-item d-flex">
 			<div class="col-2">Marque</div>
-			<div class="col-10">{{categorie.marque}}</div>
+			<div class="col-10">{{produit.marque}}</div>
 		</li>
 		<li class="list-group-item d-flex">
 			<div class="col-2">Couleur</div>
-			<div class="col-10">{{categorie.couleur}}</div>
+			<div class="col-10">{{produit.couleur}}</div>
 		</li>
-	
+
 		<li class="list-group-item d-flex">
 			<div class="col-2">Taille</div>
-			<div class="col-10">{{taille.size}}</div>
+			{% for taille in produit.taille %}
+				{{ taille.size ~ ", " }}
+			{% endfor %}
 		</li>
 		<li class="list-group-item d-flex">
 			<div class="col-2">Prix</div>
@@ -53,7 +55,7 @@
 			<div class="col-2">Photo</div>
 			<div class="col-10">
 				<img class="vignette" src="{{ '/images/' ~ produit.photo }}" alt="Image de {{ produit.titre }}">
-				
+
 			</div>
 		</li>
 

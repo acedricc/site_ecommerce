@@ -28,13 +28,14 @@
 		</div>
 
 		<div class="col-10">
-			<div class="row">
+			{{ include("produit/card2.html.twig") }}
+			{# <div class="row">
 				{% for produit in listeProduits %}
 					{{ include("produit/card.html.twig") }}
 				{% else %}
 					Aucun produit enregistré
 				{% endfor %}
-			</div>
+			</div> #}
 		</div>
 	</div>
 

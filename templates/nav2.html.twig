@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+	</head>
+	<body>
+		<div class="wraper">
+			<nav class="navbar">
+				<div class="logo">
+					<a class="navbar-brand" href="{{ path('app_home') }}">CedShop</a>
+				</div>
+				<ul class="liens">
+					<li class="lien lien-deroulant">
+						<a href="{{ path('app_genre', {'type': 'Homme'}) }}">Homme</a>
+						<div class="sous-menu">
+							<ul class="liens">
+								<li class="lien">
+									<a href="{{ path('app_categorie', {'cat':'Vêtement'}) }}">Vetement</a>
+								</li>
+								<li class="lien">
+									<a href="">Chaussure</a>
+								</li>
+								<li class="lien">
+									<a href="">Accesoire</a>
+								</li>
+
+							</ul>
+						</div>
+					</li>
+
+
+					<li class="lien lien-deroulant">
+						<a href="{{ path('app_genre', {'type': 'Femme'}) }}">Femme</a>
+						<div class="sous-menu">
+							<ul class="liens">
+								<li class="lien">
+									<a href="{{ path('app_categorie', {'cat':'Vêtement'}) }}">Vetement</a>
+								</li>
+								<li class="lien">
+									<a href="">Chaussure</a>
+								</li>
+								<li class="lien">
+									<a href="">Accesoire</a>
+								</li>
+
+							</ul>
+						</div>
+					</li>
+
+					<li class="lien lien-deroulant">
+						<a href="{{ path('app_genre', {'type': 'Enfant'}) }}">Enfant</a>
+						<div class="sous-menu">
+							<ul class="liens">
+								<li class="lien">
+									<a href="{{ path('app_categorie', {'cat':'Vêtement'}) }}">Vetement</a>
+								</li>
+								<li class="lien">
+									<a href="">Chaussure</a>
+								</li>
+								<li class="lien">
+									<a href="">Accesoire</a>
+								</li>
+
+							</ul>
+						</div>
+					</li>
+
+					<li class="lien lien-deroulant">
+						<a href="{{ path('app_categorie', {'cat':'Vêtement'}) }}">Vetement</a>
+						<div class="sous-menu">
+							<ul class="liens">
+								<li class="lien">
+									<a href="">Vetement</a>
+								</li>
+								<li class="lien">
+									<a href="">Chaussure</a>
+								</li>
+								<li class="lien">
+									<a href="">Accesoire</a>
+								</li>
+
+							</ul>
+						</div>
+					</li>
+
+				</ul>
+				{% if not app.user %}
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="{{ path('app_login') }}">
+							<i class="fa fa-sign-in-alt"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('app_register') }}">
+							<i class="fa fa-user-plus"></i>
+						</a>
+					</li>
+				{% else %}
+					<li class="nav-item">
+						<a class="nav-link" id="linkPseudoUser" href="   {{ is_granted('ROLE_ADMIN') ? path('app_admin_statistique_show')  : path('app_profil') }}">
+							{{ app.user.pseudo }}
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="LinkSignOutIcon" href="{{ path('app_logout') }}">
+							<i class="fa fa-sign-out-alt"></i>
+						</a>
+					</li>
+
+
+				{% endif %}
+
+				{% if is_granted("ROLE_ADMIN") %}
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							produits
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a class="dropdown-item" href="{{ path('app_admin_produit_index') }}">liste</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="{{ path('app_admin_produit_new') }}">ajouter</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							clients
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a class="dropdown-item" href="{{ path('app_admin_user_index') }}">liste</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="{{ path('app_admin_user_new') }}">ajouter</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Commandes
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a class="dropdown-item" href="{{ path('app_admin_commande_index') }}">liste</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="{{ path('app_admin_commande_new') }}">ajouter</a>
+							</li>
+						</ul>
+					</li>
+
+				{% endif %}
+				<div class="supportNombrePanier">
+					<li class="nav-item active">
+						<a class="nav-link" href="{{ path('app_panier') }}">
+							<i class="fa fa-shopping-cart"></i>
+							<div id="nombre"></div>
+						</a>
+					</li>
+				</div>
+			</ul>
+			<form class="d-flex" role="search" action="{{ path('app_recherche_ajax') }}" id="formSearch">
+				<input id="search" name="search" class="form-control me-2" type="text" placeholder="Recherche" aria-label="Search">
+				<button class="btn btn-outline-success" type="submit">Recherche</button>
+			</form>
+		</nav>
+	</body>
+</html></div></body></html>
