@@ -53,6 +53,16 @@ class CategorieRepository extends ServiceEntityRepository
            ->getResult()
        ;
    }
+   public function findProductsByCat($name):array
+{
+    return $this->createQueryBuilder('c')
+    //  ->leftJoin('p.categorie', 'c')
+     ->where('c.parent_id = :cat')
+     ->setParameter('cat', $name)
+     ->getQuery()
+     ->getResult()
+    ; 
+}
 
 //    public function findOneBySomeField($value): ?Categorie
 //    {

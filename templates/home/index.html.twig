@@ -7,35 +7,38 @@
 	<div class="row justify-content-start">
 		<div class="col-2">
 			<ul class="list-group">
-				{% for taille in tailles %}
 
-					<li
-						class="list-group-item">
-						{# <a class="nav-link" href="{{ path('app_taille_tail', {'tail': indice.produitSize}) }}">{{ indice.produitSize }}</a> #}
-						<a class="nav-link" href="">{{ taille.size }}</a>
-					</li>
 
-				{% endfor %}
-			
+				<select name="" id="">
+					<p class="card-text">Taille :
+						{% for taille in tailles %}
+							{# <a class="nav-link" href="{{ path('app_taille_tail', {'tail': indice.produitSize}) }}">{{ indice.produitSize }}</a> #}
+							<option value="">{{ taille.size ~ " " }}
+							{% endfor %}
+						</p>
+					</p>
+				</select>
+
+
 			</ul>
 			<ul class="list-group">
 				{% for key in couleurs %}
 					<li class="list-group-item">
 						<a class="nav-link" href="{{ path('app_couleur_color', {'color': key.couleur }) }}">{{ key.couleur }}</a>
 					</li>
-				{% endfor %}	
+				{% endfor %}
 			</ul>
 		</div>
 
 		<div class="col-10">
 			{{ include("produit/card2.html.twig") }}
-			{# <div class="row">
+			<div class="row">
 				{% for produit in listeProduits %}
 					{{ include("produit/card.html.twig") }}
 				{% else %}
 					Aucun produit enregistré
 				{% endfor %}
-			</div> #}
+			</div>
 		</div>
 	</div>
 

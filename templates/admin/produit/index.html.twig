@@ -1,60 +1,63 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Produit index{% endblock %}
+{% block title %}Produit index
+{% endblock %}
 
 {% block body %}
-    <h1>Produit index</h1>
+	<h1>Produit index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Reference</th>
-                <th>Titre</th>
-                <th>Genre</th>
-                <th>Description</th>
-                <th>Categorie</th>
-                <th>Taille</th>
-                <th>marque</th>
-                <th>couleur</th>
-                <th>Prix</th>
-                <th>stock</th>
-               
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-       {% for produit in produits %}
-            <tr>
-                <td>{{ produit.id }}</td>
-                <td>{{ produit.reference }}</td>
-                <td>{{ produit.titre }}</td>
-                <td>{{ produit.genre.type }}</td>
-                <td>{{ produit.description }}</td>
-                <td>{{ produit.categorie.nom }}</td>
-                <td>
-        {% for laTaille in produit.taille %}
-                {{ laTaille.size }} <br>
-        {% endfor %}       
-                </td>
-                <td><img class="" width="100" src="{{ asset(image_path ~ produit.photo ) }}" alt="{{ produit.titre }}"></td>
-                <td>{{ produit.marque }}</td>
-                <td>{{ produit.couleur }}</td>
-                <td>{{ produit.prix }}</td>
-                <td>{{ produit.stock }}</td>
-                <td>
-                    <a href="{{ path('app_admin_produit_show', {'id': produit.id}) }}">show</a>
-                    <a href="{{ path('app_admin_produit_edit', {'id': produit.id}) }}">edit</a>
-                </td>
-            </tr>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Reference</th>
+				<th>Titre</th>
+				<th>Genre</th>
+				<th>Description</th>
+				<th>Categorie</th>
+				<th>Taille</th>
+				<th>marque</th>
+				<th>couleur</th>
+				<th>Prix</th>
+				<th>stock</th>
 
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for produit in produits %}
+				<tr>
+					<td>{{ produit.id }}</td>
+					<td>{{ produit.reference }}</td>
+					<td>{{ produit.titre }}</td>
+					<td>{{ produit.genre.type }}</td>
+					<td>{{ produit.description }}</td>
+					<td>{{ produit.categorie.nom }}</td>
+					<td>
+                    
+						{% for laTaille in produit.taille %}
+							{{ laTaille.size }}
+							<br>
+						{% endfor %}
+					</td>
+					<td><img class="" width="100" src="{{ asset(image_path ~ produit.photo ) }}" alt="{{ produit.titre }}"></td>
+					<td>{{ produit.marque }}</td>
+					<td>{{ produit.couleur }}</td>
+					<td>{{ produit.prix }}</td>
+					<td>{{ produit.stock }}</td>
+					<td>
+						<a href="{{ path('app_admin_produit_show', {'id': produit.id}) }}">show</a>
+						<a href="{{ path('app_admin_produit_edit', {'id': produit.id}) }}">edit</a>
+					</td>
+				</tr>
 
-    <a href="{{ path('app_admin_produit_new') }}">Create new</a>
+			{% else %}
+				<tr>
+					<td colspan="9">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_admin_produit_new') }}">Create new</a>
 {% endblock %}
