@@ -110,6 +110,7 @@ Nav2 .navbar-brand {
 .cont {
   display: flex;
   justify-content: space-evenly;
+ 
 }
 //NAV GPT
 // .navbar {
@@ -166,3 +167,9 @@ Nav2 .navbar-brand {
 //   margin-right: 0;
 //   margin-top: 10px;
 // }
+
+.d-block{
+width: 100%;
+height: 45vh;
+max-height:45vh ;
+}
