@@ -38,6 +38,7 @@ class ProduitType extends AbstractType
                 "choice_label"  => "size",
                 "placeholder"   => "",
                 'multiple' => true,
+                'expanded' => true
             ])
 
             ->add('description')
