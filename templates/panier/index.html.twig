@@ -98,12 +98,16 @@
                 success: (data) => {
                     let info = data.split("/");
                     let prixCasseCouille = Math.round((info[1] * info[0]) *100) / 100
-
+                    let prixTotal = Math.round((info[2]) *100) / 100
+                    
                     console.log((info[1] * info[0]) % 1.0)
                     console.log((info[1] * info[0]))
-                    // console.log(prixCasseCouille.toString().split("."))
-                    if(prixCasseCouille.toString().split(".")[1].length !== 2 ){
-                        prixCasseCouille += "0"
+                    
+                    if(prixCasseCouille.toString().indexOf(".") === -1){
+                    prixCasseCouille = prixCasseCouille + ".00"
+                    }
+                    if(prixTotal.toString().indexOf(".") === -1){
+                    prixTotal = prixTotal + ".00"
                     }
     
                     cible.parents("td").children("div").children(".quantite").html(info[0]);
@@ -119,3 +123,4 @@
     });
 </script>
 {% endblock %}
+ 

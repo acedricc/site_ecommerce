@@ -171,6 +171,21 @@ public function findAllMarque(): array
 //            ->getOneOrNullResult()
 //        ;
 //    }
+public function findByGenreAndCat($genre , $cat) :array
+{
+    return $this->createQueryBuilder('p')
+    ->addSelect('c')
+    ->leftJoin('p.categorie', 'c')     
+    ->where('c.nom = :cat')
+    ->setParameter('cat', $cat)
+    ->addSelect('g')
+    ->leftJoin('p.genre', 'g')     
+    ->andWhere('g.type = :type')
+    ->setParameter('type', $genre)
+     ->getQuery()
+     ->getResult()
+    ; 
+}
 
   
 

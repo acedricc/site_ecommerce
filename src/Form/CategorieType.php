@@ -16,9 +16,7 @@ class CategorieType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('isParent', CheckboxType::class, [     
-                "required" => false,
-            ])
+
             ->add('parent', EntityType::class, [
                 "class" => Categorie::class,
                 "choice_label" => "nom",

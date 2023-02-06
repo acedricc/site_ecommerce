@@ -80,9 +80,6 @@ class Produit
         return $this;
     }
 
-
-
-
     public function getTitre(): ?string
     {
         return $this->titre;

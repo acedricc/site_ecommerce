@@ -24,9 +24,9 @@ class ProduitType extends AbstractType
                 "class"         => Categorie::class,
                 "choice_label"  => "nom",
                 "placeholder"   => ""
-
-
             ])
+              
+            
             ->add('genre',  EntityType::class, [
                 "class"         => Genre::class,
                 "choice_label"  => "type",

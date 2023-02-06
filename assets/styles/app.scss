@@ -14,7 +14,8 @@ body {
   padding: 0px;
 }
 
-Nav2 .navbar-brand {
+// Nav2
+ .navbar-brand {
   color: rgb(21, 114, 135);
 }
 .wraper {
@@ -40,6 +41,7 @@ list-style: none;
 }
 .liens .lien {
   list-style: none;
+  padding: 9px;
 }
 .liens .lien a {
   color: #f5f5f5;
@@ -56,12 +58,14 @@ list-style: none;
   position: absolute;
   display: none;
   background: #555;
-  width: 250px;
+  width: 200px;
   margin-left: 5px;
   top: 65px;
   text-align: center;
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
+  z-index: 2;
+  margin-left: -52px;
 }
 .lien-deroulant:hover .sous-menu .liens {
   display: block;
@@ -74,53 +78,54 @@ list-style: none;
 
 //MegaMenu
 
-.megamenu {
-  position: absolute;
-  background: #555;
-  width: 80%;
-  top: 65px;
-  left: 10%;
-  padding: 20px;
-  border-bottom-left-radius: 2rem;
-  border-bottom-right-radius: 2rem;
-  display: none;
-}
+// .megamenu {
+//   position: absolute;
+//   background: #555;
+//   width: 80%;
+//   top: 65px;
+//   left: 10%;
+//   padding: 20px;
+//   border-bottom-left-radius: 2rem;
+//   border-bottom-right-radius: 2rem;
+//   display: none;
+// }
 
-.lien-mega:hover .megamenu {
-  display: block;
-  transition: all 0.3s ease-in;
-  top: 54px;
-}
+// .lien-mega:hover .megamenu {
+//   display: block;
+//   transition: all 0.3s ease-in;
+//   top: 54px;
+// }
 
-.containerm {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  text-align: center;
-}
+// .containerm {
+//   display: flex;
+//   justify-content: space-evenly;
+//   align-items: center;
+//   text-align: center;
+// }
 
-.colone ul {
-  display: block;
-}
-.colone ul li {
-  margin: 20px;
-}
-.colone .photo {
-  height: 200px;
-  width: 200px;
-  margin: auto;
-  border-radius: 1rem;
-  border: solid 3px #f5f5f5;
-}
-.colone h2 {
-  font: 10px;
-}
+// .colone ul {
+//   display: block;
+// }
+// .colone ul li {
+//   margin: 20px;
+// }
+// .colone .photo {
+//   height: 200px;
+//   width: 200px;
+//   margin: auto;
+//   border-radius: 1rem;
+//   border: solid 3px #f5f5f5;
+// }
+// .colone h2 {
+//   font: 10px;
+// }
 
+//CARD CATEGORIE
 .cont {
   display: flex;
   justify-content: space-evenly;
  
-}
+ }
 
 
 
@@ -181,7 +186,8 @@ list-style: none;
 // }
 
 .d-block{
-width: 100%;
+  width: 100%;
+  height: 100%;
 
 }
 .carousel-item {
