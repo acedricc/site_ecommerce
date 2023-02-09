@@ -1,53 +1,63 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link
+		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
 
 
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-            {% if app.request.pathinfo starts with '/admin' %}
-            {{ encore_entry_link_tags('admin') }}
-            {% endif %}
-            
-        {% endblock %}
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+			{% if app.request.pathinfo starts with '/admin' %}
+				{{ encore_entry_link_tags('admin') }}
+			{% endif %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-            {% if app.request.pathinfo starts with '/admin' %}
-            {{ encore_entry_script_tags('admin') }}
-            {% endif %}
-        {% endblock %}
-    </head>
-    <body>
-      {% block nav %}
-                {{ include("nav2.html.twig") }}
-            {% endblock %}
-        <div class="container">
-          
+		{% endblock %}
 
-            {# {{ include("messages.html.twig") }} #}
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+			{% if app.request.pathinfo starts with '/admin' %}
+				{{ encore_entry_script_tags('admin') }}
+			{% endif %}
+		{% endblock %}
+	</head>
+	<body>
+		{% block nav %}
+			{{ include("nav2.html.twig") }}
+		{% endblock %}
+		<h1>
+			{% block h1 %}Bienvenue
+			{% endblock %}
+		</h1>
+		{% block large %}{% endblock %}
+		{% block liste %}{% endblock %}
+		<div
+			class="container">
+			{# {{ include("messages.html.twig") }} #}
+			<div id="main">
+				{% block body %}
+					<p>Ceci est le contenu de la balise
+						<code>block body</code>
+						du fichier
+						<mark>base.html.twig</mark>
+					</p>
+					{# <p>Le nombre est {{ nombre }}</p> #}
+					{# <p>Bonjour M. {{ nom }}</p> #}
+				{% endblock %}
 
-            <div id="main">
-            <h1>{% block h1 %}Bienvenue{% endblock %}</h1>
+			</div>
 
-            {% block body %}
-                <p>Ceci est le contenu de la balise <code>block body</code> du fichier 
-                    <mark>base.html.twig</mark>
-                </p>
-                {# <p>Le nombre est {{ nombre }}</p> #}
-                {# <p>Bonjour M. {{ nom }}</p> #}
-            {% endblock %}
-            </div>
-            
-            <footer>
-                {% block footer %}
-                    <p> Ceci est le footer de la page a Cedric ;)</p>
-                {% endblock %}
-            </footer>
-        </div>
-    </body>
+			<footer>
+				{% block footer %}
+					<p>
+						Ceci est le footer de la page a Cedric ;)</p>
+				{% endblock %}
+			</footer>
+		</div>
+	</body>
 </html>

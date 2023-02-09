@@ -146,21 +146,32 @@ public function findAllMarque(): array
     ;
 } 
 
+public function findByMarque($value): array
+{
+    return $this->createQueryBuilder('p')
+        ->andWhere('p.marque = :val')
+        ->setParameter('val', $value)
+        ->orderBy('p.marque', 'ASC')
+        ->getQuery()
+        ->getResult()
+    ;
+}  
+
    /**
     * @return Produit[] Returns an array of Produit objects
     */
 
-//    public function findByTailleField($size): array
-//    {
-//     return $this->createQueryBuilder('p')
-//     ->select('p')
-//     ->from('*', 'p')
-//     ->innerJoin('pt ON p.id = pt.produit_id','t ON pt.taille_id=t.id')
-//     ->where('t.size ="M"')
-//     ->setParameter('size',$size)
-//     ->getQuery()
-//     ->getResult();
-//    }
+   public function findByTailleField($size): array
+   {
+    return $this->createQueryBuilder('p')
+    ->select('p')
+    ->addSelect('t')
+    ->leftJoin('p.taille', 't')     
+    ->where('t.size = :size')
+    ->setParameter('size', $size)
+    ->getQuery()
+    ->getResult();
+   }
 
 //    public function findOneBySomeField($value): ?Produit
 //    {
@@ -182,6 +193,36 @@ public function findByGenreAndCat($genre , $cat) :array
     ->leftJoin('p.genre', 'g')     
     ->andWhere('g.type = :type')
     ->setParameter('type', $genre)
+     ->getQuery()
+     ->getResult()
+    ; 
+}
+public function findByMarqueAndCat($mark , $cat) :array
+{
+    return $this->createQueryBuilder('p')
+    ->addSelect('c')
+    ->leftJoin('p.categorie', 'c')     
+    ->where('c.nom = :cat')
+    ->setParameter('cat', $cat)
+    ->addSelect('p')  
+    ->andWhere('p.marque = :marque')
+    ->setParameter('marque', $mark)
+     ->getQuery()
+     ->getResult()
+    ; 
+}
+
+public function findByTailleAndCat($size , $cat) :array
+{
+    return $this->createQueryBuilder('p')
+    ->addSelect('c')
+    ->leftJoin('p.categorie', 'c')     
+    ->where('c.nom = :cat')
+    ->setParameter('cat', $cat)
+    ->addSelect('t')
+    ->leftJoin('p.taille', 't')     
+    ->andWhere('t.size = :size')
+    ->setParameter('size', $size)
      ->getQuery()
      ->getResult()
     ; 

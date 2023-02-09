@@ -30,31 +30,4 @@ public function showFiche(Produit $produit): Response
         "nb" => $nb
     ]);
 }
-/**
-* @Route("/categorie/{cat}", name="app_produit_categorie")
-*/
-public function filterByCategorie(ProduitRepository $produitRepository, $cat): Response
-{
-    $catParents = $produitRepository->findProductsByCat($cat);
-    
-    return $this->render('categorie/index.html.twig', [
-        'controller_name' => 'CategorieController',
-        'catParents' =>  $catParents,
-    
-    ]);
-}
-/**
-* @Route("/genre/categorie/{genre}/{cat}", name="app_produit_genre_categorie")
-*/
-public function filterByGenreAndCat(ProduitRepository $produitRepository,$genre, $cat): Response
-{
-    $catParents = $produitRepository->findByGenreAndCat($genre,$cat);
-    
-    return $this->render('filtre/index.html.twig', [
-        'produitsFiltre' =>  $catParents,
-    
-    ]);
-}
-
-
 }

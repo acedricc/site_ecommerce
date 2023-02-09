@@ -18,7 +18,7 @@ class HomeController extends AbstractController
       
         $listeProduits = $produitRepository->findAll();
         $tailles =$tailleRepository->findAll();
-        $marques= $produitRepository->findAllMarque();
+        $marques = $produitRepository->findAllMarque();
         $couleurs =$produitRepository->findAllCouleur();
         // $size =$produitRepository->findAllProduitsByTailles('M');
         //dd($couleurs);
@@ -27,6 +27,7 @@ class HomeController extends AbstractController
            'listeProduits' => $listeProduits,
            'couleurs' => $couleurs,
            'marques' => $marques,
+          
         
            
         ]);

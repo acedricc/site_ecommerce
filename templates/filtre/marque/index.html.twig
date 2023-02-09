@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vetements!
+{% endblock %}
+
+{% block body %}
+
+	<div class="row justify-content-start">
+		<div class="col-2">
+			<ul class="list-group">
+				{% for produit in marques %}
+					<li class="list-group-item">
+						<a class="nav-link" href="{{ path('app_marque_mark', {'mark': produit.marque}) }}">{{ produit.marque }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+		<div class="col-10">
+			<div class="card-deck">
+
+				<div class="row">
+					{% for produit in produitsByMarques %}
+						{{ include("produit/card.html.twig") }}
+					{% else %}
+						Aucun produit enregistré
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
+		{# <div class="col-10">
+			<div class="row">
+				{% for produit in produitsFiltreCatMarques %}
+					{{ include("produit/card.html.twig") }}
+				{% else %}
+					Aucun produit enregistré
+				{% endfor %}
+			</div>
+
+		</div> #}
+	{% endblock %}
