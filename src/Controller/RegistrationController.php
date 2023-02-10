@@ -13,12 +13,15 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class RegistrationController extends AbstractController
 {
     #[Route('/inscription', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator,LoginAuthentificator $authenticator, EntityManagerInterface $entityManager  ): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator,LoginAuthentificator $authenticator, EntityManagerInterface $entityManager,MailerInterface $mailer  ): Response
     {
+        
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -31,20 +34,35 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+           
             $user->setRoles(["ROLE_CLIENT"]);
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
+                 //Email
+                 $email = (new Email())
+                 ->from($user->getEmail())
+                 ->to('cedric.akakpo@lepoles.org ')
+                 ->subject('Inscription')
+                 ->text('Sending emails is fun again!')
+                 ->html($user->getPseudo());
+                 $mailer->send($email);
+
+               
 
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,
-                $request
+                $request,
+              
             );
         }
+     
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+    
+} 
     }
-}
+    
