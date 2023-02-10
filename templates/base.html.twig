@@ -30,16 +30,24 @@
 		{% block nav %}
 			{{ include("nav2.html.twig") }}
 		{% endblock %}
-		<h1>
-			{% block h1 %}Bienvenue
+
+		{{ include("messages.html.twig") }}
+		<h1 class="titre-h1">
+			{% block h1 %}
+				{% if not app.user %}
+					Bienvenue
+				{% else %}
+					Bienvenue
+					{{ app.user.pseudo}}
+				{% endif %}
 			{% endblock %}
 		</h1>
-		{% block large %}{% endblock %}
+
+
 		{% block liste %}{% endblock %}
-		<div
-			class="container">
-			{# {{ include("messages.html.twig") }} #}
-			<div id="main">
+		<div class="container-fluid">
+			<div id="main"> {% block large %}{% endblock %}
+
 				{% block body %}
 					<p>Ceci est le contenu de la balise
 						<code>block body</code>

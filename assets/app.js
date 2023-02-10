@@ -41,6 +41,7 @@ $(() => {
       data: "search=" + $("#formSearch #search").val(),
       dataType: "html",
       success: (data) => {
+        console.log(data);
         $("#main").html(data);
       },
       error: (jqXHR, status, error) => {

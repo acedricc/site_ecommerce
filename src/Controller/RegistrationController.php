@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 class RegistrationController extends AbstractController
 {
@@ -40,14 +40,24 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
                  //Email
-                 $email = (new Email())
+                 $email = (new TemplatedEmail())
                  ->from($user->getEmail())
-                 ->to('cedric.akakpo@lepoles.org ')
+                 ->to('admin.recipices@lepoles.org ')
                  ->subject('Inscription')
-                 ->text('Sending emails is fun again!')
-                 ->html($user->getPseudo());
+                //  ->text('Sending emails is fun again!')
+                //  ->html($user->getPseudo());
+
+                // path of the Twig template to render
+                ->htmlTemplate('registration/signup.html.twig')
+                // pass variables (name => value) to the template
+                ->context([
+                    // 'expiration_date' => new \DateTime('+7 days'),
+                    'users' => $user,
+                    
+                ]);
                  $mailer->send($email);
 
+                 $this->addFlash('success' ,'Votre compte a bien été crée');
                
 
             return $userAuthenticator->authenticateUser(
