@@ -46,7 +46,9 @@ class ProduitRepository extends ServiceEntityRepository
     public function recherche($value): array
     {
         return $this->createQueryBuilder('p')
-            ->where('p.titre LIKE :val')
+            ->where('p.titre LIKE :val OR p.couleur LIKE :val OR p.marque LIKE :val OR p.description LIKE :val  OR c.nom LIKE :val  ')
+            ->leftJoin('p.categorie', 'c')
+            // ->leftJoin('p.taille', 't')  
             ->setParameter('val', "%$value%")
             ->orderBy('p.titre', 'ASC')
             ->getQuery()
@@ -227,8 +229,5 @@ public function findByTailleAndCat($size , $cat) :array
      ->getResult()
     ; 
 }
-
-  
-
 
 }

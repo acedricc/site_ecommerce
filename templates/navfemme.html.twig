@@ -14,19 +14,24 @@
 				</div>
 				<ul class="liens">
 					<li class="lien lien-deroulant">
-						<a href="{{ path('app_produit_genre', {'type': 'Homme'}) }}">Homme</a>
+						<a href="{{ path('app_produit_genre_categorie', {'genre': 'Femme', 'cat': 'Vêtement'}) }}">Vêtements</a>
 						<div class="sous-menu">
 							<ul class="liens">
 								<li class="lien">
-									<a href="{{ path('app_produit_genre_categorie', {'genre': 'Homme', 'cat': 'Vêtement'}) }}">Vêtements</a>
+									<a href="{{ path('app_produit_genre_categorie', {'genre': 'Femme', 'cat': 'Veste'}) }}">Veste</a>
 
 								</li>
 								<li class="lien">
-									<a href="{{ path('app_produit_genre_categorie', {'genre': 'Homme', 'cat': 'Chaussure'}) }}">Chaussure</a>
+									<a href="{{ path('app_produit_genre_categorie', {'genre': 'Femme', 'cat': 'Pantalon'}) }}">Pantalon</a>
 								</li>
 								<li class="lien">
-									<a href="{{ path('app_produit_genre_categorie', {'genre': 'Homme', 'cat': 'Accessoire'}) }}">Accesoire</a>
+									<a href="{{ path('app_produit_genre_categorie', {'genre': 'Femme', 'cat': 'T-shirt'}) }}">T-shirt</a>
 								</li>
+
+								<li class="lien">
+									<a href="{{ path('app_produit_genre_categorie', {'genre': 'Femme', 'cat': 'Sweat à capuche et sweat'}) }}">Sweat à capuche et sweat</a>
+								</li>
+
 
 							</ul>
 						</div>
@@ -34,61 +39,39 @@
 
 
 					<li class="lien lien-deroulant">
-						<a href="{{ path('app_produit_genre', {'type': 'Femme'}) }}">Femme</a>
+						<a href="{{ path('app_produit_genre_categorie', {'genre': 'Femme', 'cat': 'Chaussure'}) }}">Chaussure</a>
 						<div class="sous-menu">
 							<ul class="liens">
 								<li class="lien">
-									<a href="{{ path('app_produit_genre_categorie', {'genre': 'Femme', 'cat': 'Vêtement'}) }}">Vêtements</a>
+									<a href="{{ path('app_produit_genre_categorie', {'genre': 'Femme', 'cat': 'Basket'}) }}">Basket</a>
 
 								</li>
 								<li class="lien">
-									<a href="{{ path('app_produit_genre_categorie', {'genre': 'Femme', 'cat': 'Chaussure'}) }}">Chaussure</a>
+									<a href="{{ path('app_produit_genre_categorie', {'genre': 'Femme', 'cat': 'Botte'}) }}">Botte</a>
 								</li>
 								<li class="lien">
-									<a href="{{ path('app_produit_genre_categorie', {'genre': 'Enfant', 'cat': 'Accessoire'}) }}">Accesoire</a>
+									<a href="{{ path('app_produit_genre_categorie', {'genre': 'Femme', 'cat': 'Chaussures de villes'}) }}">Chaussures de villes</a>
 								</li>
-
 							</ul>
 						</div>
 					</li>
-
 					<li class="lien lien-deroulant">
-						<a href="{{ path('app_produit_genre', {'type': 'Enfant'}) }}">Enfant</a>
+						<a href="{{ path('app_produit_genre_categorie', {'genre': 'Femme', 'cat': 'Accessoire'}) }}">Accessoire</a>
 						<div class="sous-menu">
 							<ul class="liens">
 								<li class="lien">
-									<a href="{{ path('app_produit_genre_categorie', {'genre': 'Enfant', 'cat': 'Vêtement'}) }}">Vêtements</a>
+									<a href="{{ path('app_produit_genre_categorie', {'genre': 'Femme', 'cat': 'Sac à bandoulière'}) }}">Sac à bandoulière</a>
 
 								</li>
 								<li class="lien">
-									<a href="{{ path('app_produit_genre_categorie', {'genre': 'Enfant', 'cat': 'Chaussure'}) }}">Chaussure</a>
+									<a href="{{ path('app_produit_genre_categorie', {'genre': 'Femme', 'cat': 'Casquette'}) }}">Casquette</a>
 								</li>
 								<li class="lien">
-									<a href="{{ path('app_produit_genre_categorie', {'genre': 'Enfant', 'cat': 'Accessoire'}) }}">Accesoire</a>
+									<a href="{{ path('app_produit_genre_categorie', {'genre': 'Femme', 'cat': 'Bonnet'}) }}">Bonnet</a>
 								</li>
-
 							</ul>
 						</div>
 					</li>
-
-					<li class="lien lien-deroulant">
-						<a href="{{ path('app_produit_categorie', {'cat':'Accessoire'}) }}">Accesoire</a>
-						<div class="sous-menu">
-							<ul class="liens">
-								<li class="lien">
-									<a href="{{ path('app_produit_categorie', {'cat':'Casquette'}) }}">Casquette</a>
-								</li>
-								<li class="lien">
-									<a href="">Bonnet</a>
-								</li>
-								<li class="lien">
-									<a href="{{ path('app_produit_categorie', {'cat':'Sac à bandoulière'}) }}">Sac & Saccoche</a>
-								</li>
-
-							</ul>
-						</div>
-					</li>
-
 				</ul>
 				{% if not app.user %}
 					<li class="nav-item">

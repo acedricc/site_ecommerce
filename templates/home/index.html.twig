@@ -1,23 +1,18 @@
 {% extends 'base.html.twig' %}
 {% block title %}Page d'accueil
 {% endblock %}
+{% set currentPath = path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) %}
 {% block large %}
-	{{ include("home/carrousel.html.twig") }}
-
+	{% if currentPath != '' %}
+		{{ include("home/carrousel.html.twig") }}
+	{% endif %}
 {% endblock %}
 {% block body %}
-
-	<div class="card123">
-		{{ include("produit/card2.html.twig") }}
-		<div class="row">
-			{% for produit in listeProduits %}
-				{# {{ include("produit/card.html.twig") }} #}
-			{% else %}
-				Aucun produit enregistré
-			{% endfor %}
+	<div class="container">
+		<div class="row mb-4">
+			{{ include("filtre/allfiltre.html.twig") }}
+			{{ include("produit/card2.html.twig") }}
 		</div>
 	</div>
-	
 {% endblock %}
-
-

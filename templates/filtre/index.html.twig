@@ -5,10 +5,11 @@
 {% endblock %}
 
 {% block body %}
+	{{ include("filtre/allfiltre.html.twig") }}
 	<div class="row">
 		<div class="col-10">
 			<div class="row">
-				{% for produit in produitsFiltreCatGenres %}
+				{% for produit in listeProduits %}
 					{{ include("produit/card.html.twig") }}
 				{% else %}
 					Aucun produit enregistré

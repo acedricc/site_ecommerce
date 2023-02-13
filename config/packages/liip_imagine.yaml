@@ -27,4 +27,19 @@ liip_imagine:
         #   size: 0.1
         #   position: bottomright
 
-            
+
+
+    imgAccueil:
+      quality: 80
+      filters:
+        upscale:
+          min: [1000,600]
+        thumbnail:
+          size: [1000,600]
+          mode: outbound
+        # watermark:
+        #   image: ../public/imgages/haut-jordan_636243907e55c.jpg
+        #   size: 0.1
+        #   position: bottomright
+
+    

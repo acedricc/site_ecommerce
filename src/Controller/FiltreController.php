@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Repository\TailleRepository;
 use App\Repository\GenreRepository;
 use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -9,13 +10,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FiltreController extends AbstractController
 {
-    #[Route('/filtre', name: 'app_filtre')]
-    public function index(): Response
-    {
-        return $this->render('filtre/index.html.twig', [
-          
-        ]);
-    }
 
 /**
 * @Route("/categorie/{cat}", name="app_produit_categorie")
@@ -25,21 +19,29 @@ public function filterByCategorie(ProduitRepository $produitRepository, $cat): R
     $catParents = $produitRepository->findProductsByCat($cat);
     
     return $this->render('filtre/index.html.twig', [
-        'catParents' =>  $catParents,
+        'listeProduits' =>  $catParents,
     
     ]);
 }
 /**
 * @Route("/genre/{type}", name="app_produit_genre")
 */
-public function filterByGenre(ProduitRepository $produitRepository ,$type): Response
+public function filterByGenre(TailleRepository $tailleRepository,ProduitRepository $produitRepository ,$type): Response
 {
-    $produitsByGenre = $produitRepository->findProductsByGenre($type);
+    $listeProduits = $produitRepository->findProductsByGenre($type);
+    $tailles =$tailleRepository->findAll();
+    $marques = $produitRepository->findAllMarque();
+    $couleurs =$produitRepository->findAllCouleur();
     
-    return $this->render('filtre/genre/index.html.twig', [
-        'produitsByGenre' => $produitsByGenre, 
+    return $this->render('filtre/index.html.twig', [
+        'listeProduits' => $listeProduits, 
+        'tailles' => $tailles,
+        'couleurs' => $couleurs,
+        'marques' => $marques,
     ]);
 }
+
+
 /**
 * @Route("/genre/categorie/{genre}/{cat}", name="app_produit_genre_categorie")
 */
@@ -48,7 +50,7 @@ public function filterByGenreAndCat(ProduitRepository $produitRepository,$genre,
     $catGenres = $produitRepository->findByGenreAndCat($genre,$cat);
     
     return $this->render('filtre/index.html.twig', [ 
-        'produitsFiltreCatGenres' =>  $catGenres,
+        'listeProduits' =>  $catGenres,
     
     ]);
 }
@@ -61,8 +63,8 @@ public function filterByMarqueAndCat(ProduitRepository $produitRepository,$mark,
 {
     $catMarques = $produitRepository->findByMarqueAndCat($mark,$cat);
     // dd( $catMarques);
-    return $this->render('filtre/marque-categorie/index.html.twig', [ 
-        'produitsFiltreCatMarques' =>  $catMarques,
+    return $this->render('filtre/index.html.twig', [ 
+        'listeProduits' =>  $catMarques,
     
     ]);
 }
@@ -74,8 +76,8 @@ public function filterByTailleAndCat(ProduitRepository $produitRepository,$size,
 {
     $catTailles = $produitRepository->findByTailleAndCat($size,$cat);
     dd( $catTailles);
-    return $this->render('filtre/marque-categorie/index.html.twig', [ 
-        'produitsFiltreCatTailles' =>  $catTailles,
+    return $this->render('filtre/index.html.twig', [ 
+        'listeProduits' =>  $catTailles,
     
     ]);
 }
@@ -86,8 +88,8 @@ public function filterByTailleAndCat(ProduitRepository $produitRepository,$size,
 public function filterTaille(ProduitRepository $produitRepository,$size): Response
 {
     $produitTaille = $produitRepository->findByTailleField($size);
-     return $this->render('filtre/taille/index.html.twig', [
-        'tailles' => $produitTaille,
+     return $this->render('filtre/index.html.twig', [
+        'listeProduits' => $produitTaille,
     ]);
 }
 /**
@@ -116,7 +118,6 @@ public function filterByMarque(ProduitRepository $produitRepository,$mark): Resp
         'produitsByMarques' => $produitsByMarques,
     ]);
 }
-
 
 }
 
