@@ -184,20 +184,42 @@ public function findByMarque($value): array
 //            ->getOneOrNullResult()
 //        ;
 //    }
-public function findByGenreAndCat($genre , $cat) :array
+
+public function findByMultipleAttributes($genre = null , $cat = null, $size = null , $mark = null) :array
 {
-    return $this->createQueryBuilder('p')
-    ->addSelect('c')
-    ->leftJoin('p.categorie', 'c')     
-    ->where('c.nom = :cat')
-    ->setParameter('cat', $cat)
-    ->addSelect('g')
-    ->leftJoin('p.genre', 'g')     
-    ->andWhere('g.type = :type')
-    ->setParameter('type', $genre)
-     ->getQuery()
-     ->getResult()
-    ; 
+    $query = $this->createQueryBuilder('p');
+
+    if (!empty($cat) ) {
+        $query->addSelect('c')
+        ->leftJoin('p.categorie', 'c')     
+        ->where('c.nom = :cat')
+        ->setParameter('cat', $cat);
+    }
+    if (!empty($genre) ) {
+        $query->addSelect('g')
+        ->leftJoin('p.genre', 'g')     
+        ->andWhere('g.type = :type')
+        ->setParameter('type', $genre);
+    }
+   
+  
+if (!empty($size)) {
+    $query->addSelect('t')
+    ->leftJoin('p.taille', 't')     
+    ->where('t.size = :size')
+    ->setParameter('size', $size);
+  
+}
+
+if (!empty($mark)) {
+    $query->addSelect('p')
+    ->andWhere('p.marque = :marque')
+    ->setParameter('marque', $mark);
+  
+}
+  
+    return $query->getQuery()
+                ->getResult(); 
 }
 public function findByMarqueAndCat($mark , $cat) :array
 {

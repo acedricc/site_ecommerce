@@ -3,70 +3,106 @@
 {% block title %}Fiche produit
 {% endblock %}
 
-{% block h1 %}Fiche produit n˚{{ produit.id }}
-{% endblock %}
-
 {% block body %}
-	<ul class="list-group">
-		<li class="list-group-item d-flex">
-			<div class="col-2">Référence</div>
-			<div class="col-10">{{produit.reference}}</div>
-		</li>
-		<li class="list-group-item d-flex">
-			<div class="col-2">Titre</div>
-			<div class="col-10">{{produit.titre}}</div>
-		</li>
-		<li class="list-group-item d-flex">
-			<div class="col-2">Genre</div>
-			<div class="col-10">{{produit.genre.type}}</div>
-		</li>
-		<li class="list-group-item d-flex">
-			<div class="col-2">Catégorie</div>
-			<div class="col-10">{{produit.categorie.nom}}</div>
-		</li>
-		<li class="list-group-item d-flex">
-			<div class="col-2">Marque</div>
-			<div class="col-10">{{produit.marque}}</div>
-		</li>
-		<li class="list-group-item d-flex">
-			<div class="col-2">Couleur</div>
-			<div class="col-10">{{produit.couleur}}</div>
-		</li>
+	<div class="col-6 d-flex justify-content-center">
+		<img class="" src="{{ '/images/' ~ produit.photo }}" alt="Image de {{ produit.titre }}">
+		<div class="col-6">
+			<ul class="list-group">
+				<li class="list-group-item d-flex">
+					<div class="col-3">Titre</div>
+					<div class="col-9">{{produit.titre}}</div>
+				</li>
+				<li class="list-group-item d-flex">
+					<div class="col-4">Genre</div>
+					<div class="col-8">{{produit.genre.type}}</div>
+				</li>
+				<li class="list-group-item d-flex">
+					<div class="col-4">Catégorie</div>
+					<div class="col-8">{{produit.categorie.nom}}</div>
+				</li>
+				<li class="list-group-item d-flex">
+					<div class="col-4">Taille</div>
+					{% for taille in produit.taille %}
+						{{ taille.size ~ ", " }}
+					{% endfor %}
+				</li>
+				<li class="list-group-item d-flex">
+					<div class="col-4">Prix</div>
+					<div class="col-8">{{produit.prix}}</div>
+				</li>
+			</ul>
+		</div>
 
-		<li class="list-group-item d-flex">
-			<div class="col-2">Taille</div>
-			{% for taille in produit.taille %}
-				{{ taille.size ~ ", " }}
-			{% endfor %}
-		</li>
-		<li class="list-group-item d-flex">
-			<div class="col-2">Prix</div>
-			<div class="col-10">{{produit.prix}}</div>
-		</li>
-		<li class="list-group-item d-flex">
-			<div class="col-2">Description</div>
-			<div class="col-10">{{produit.description}}</div>
-		</li>
-		<li class="list-group-item d-flex">
-			<div class="col-2">Stock</div>
-			<div class="col-10">{{produit.stock}}</div>
-		</li>
-		<li class="list-group-item d-flex">
-			<div class="col-2">Photo</div>
-			<div class="col-10">
-				<img class="vignette" src="{{ '/images/' ~ produit.photo }}" alt="Image de {{ produit.titre }}">
 
-			</div>
-		</li>
+	</div>
 
-		<li class="list-group-item d-flex">
-			<div class="col-2">Popularité</div>
-			<div class="col-10">Ce produit est apparu dans
-				{{produit.details|length}}
-				commande(s)</div>
-		</li>
 
-	</ul>
+	<div class="dropdown">
+		<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+			Information supplémentaires
+		</button>
+
+		<ul class="dropdown-menu">
+			<li class="list-group-item d-flex">
+				<div class="col-4">Référence</div>
+				<div class="col-8">{{produit.reference}}</div>
+			</li>
+			<li class="list-group-item d-flex">
+				<div class="col-4">Titre</div>
+				<div class="col-8">{{produit.titre}}</div>
+			</li>
+			<li class="list-group-item d-flex">
+				<div class="col-4">Genre</div>
+				<div class="col-8">{{produit.genre.type}}</div>
+			</li>
+			<li class="list-group-item d-flex">
+				<div class="col-4">Catégorie</div>
+				<div class="col-8">{{produit.categorie.nom}}</div>
+			</li>
+			<li class="list-group-item d-flex">
+				<div class="col-4">Marque</div>
+				<div class="col-8">{{produit.marque}}</div>
+			</li>
+			<li class="list-group-item d-flex">
+				<div class="col-4">Couleur</div>
+				<div class="col-8">{{produit.couleur}}</div>
+			</li>
+
+			<li class="list-group-item d-flex">
+				<div class="col-4">Taille</div>
+				{% for taille in produit.taille %}
+					{{ taille.size ~ ", " }}
+				{% endfor %}
+			</li>
+			<li class="list-group-item d-flex">
+				<div class="col-4">Prix</div>
+				<div class="col-8">{{produit.prix}}</div>
+			</li>
+			<li class="list-group-item d-flex">
+				<div class="col-4">Description</div>
+				<div class="col-8">{{produit.description}}</div>
+			</li>
+			<li class="list-group-item d-flex">
+				<div class="col-4">Stock</div>
+				<div class="col-8">{{produit.stock}}</div>
+			</li>
+			{# <li class="list-group-item d-flex">
+																																																																										<div class="col-4">Photo</div>
+																																																																										<div class="col-8">
+																																																																										
+																																																																						
+																																																																										</div>
+																																																																									</li> #}
+
+			<li class="list-group-item d-flex">
+				<div class="col-4">Popularité:</div>
+				<div class="col-9 offset-1">Ce produit est apparu dans
+					{{produit.details|length}}
+					commande(s)</div>
+			</li>
+		</ul>
+	</div>
+
 
 	<div class="d-flex justify-content-between mt-3">
 		<a href="{{ path("app_home") }}" class="btn btn-secondary">

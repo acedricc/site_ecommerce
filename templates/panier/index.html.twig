@@ -27,6 +27,8 @@
                 <tr>
                     <td>{{ ligne.produit.titre }}</td>
                     <td><span>{{ ligne.produit.prix }}</span>€</td>
+                    {# <td>{{ ligne.produit.taille.size }}</td> #}
+
                     <td>                    
                         <div class="d-inline-flex  justify-content-between">
                             <button class="btn btn-primary btnPlusMoins" id="plus-{{ligne.produit.id}}" idSecret="{{ path("app_panier_ajouter_card", {id: ligne.produit.id}) }}",name="qte" type="number" min="0"  max="{{ ligne.produit.stock }}">+</button>

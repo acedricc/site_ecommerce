@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block body %}
-	{{ include("filtre/allfiltre.html.twig") }}
+	{# {{ include("filtre/allfiltre.html.twig") }} #}
 	<div class="row">
-		<div class="col-10">
+		<div class="col-9 ">
 			<div class="row">
 				{% for produit in listeProduits %}
-					{{ include("produit/card.html.twig") }}
+					{{ include("produit/cardtest.html.twig") }}
 				{% else %}
 					Aucun produit enregistré
 				{% endfor %}

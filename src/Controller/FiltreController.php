@@ -10,34 +10,35 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FiltreController extends AbstractController
 {
-
+//////////////////////////FILTRE POUR TRIER PAR CATEGORIE///////////////////////////////////////////////////////
 /**
 * @Route("/categorie/{cat}", name="app_produit_categorie")
 */
-public function filterByCategorie(ProduitRepository $produitRepository, $cat): Response
+public function filterByCategorie(ProduitRepository $produitRepository,$cat): Response
 {
-    $catParents = $produitRepository->findProductsByCat($cat);
+    $catParents = $produitRepository->findByMultipleAttributes($cat);
     
     return $this->render('filtre/index.html.twig', [
         'listeProduits' =>  $catParents,
     
     ]);
 }
+//////////////////////////FILTRE POUR TRIER PAR CATEGORIE///////////////////////////////////////////////////////
 /**
 * @Route("/genre/{type}", name="app_produit_genre")
 */
 public function filterByGenre(TailleRepository $tailleRepository,ProduitRepository $produitRepository ,$type): Response
 {
     $listeProduits = $produitRepository->findProductsByGenre($type);
-    $tailles =$tailleRepository->findAll();
-    $marques = $produitRepository->findAllMarque();
-    $couleurs =$produitRepository->findAllCouleur();
+    // $tailles =$tailleRepository->findAll();
+    // $marques = $produitRepository->findAllMarque();
+    // $couleurs =$produitRepository->findAllCouleur();
     
     return $this->render('filtre/index.html.twig', [
         'listeProduits' => $listeProduits, 
-        'tailles' => $tailles,
-        'couleurs' => $couleurs,
-        'marques' => $marques,
+        // 'tailles' => $tailles,
+        // 'couleurs' => $couleurs,
+        // 'marques' => $marques,
     ]);
 }
 
@@ -47,7 +48,7 @@ public function filterByGenre(TailleRepository $tailleRepository,ProduitReposito
 */
 public function filterByGenreAndCat(ProduitRepository $produitRepository,$genre, $cat): Response
 {
-    $catGenres = $produitRepository->findByGenreAndCat($genre,$cat);
+    $catGenres = $produitRepository->findByMultipleAttributes($genre, $cat);
     
     return $this->render('filtre/index.html.twig', [ 
         'listeProduits' =>  $catGenres,
@@ -56,12 +57,12 @@ public function filterByGenreAndCat(ProduitRepository $produitRepository,$genre,
 }
 
 /**
-* @Route("/marque/categorie/{mark}/{cat}", name="app_produit_mark_categorie")
+* @Route("/genre/categorie/{genre}/{mark}/{cat}", name="app_produit_mark_categorie")
 */
 
-public function filterByMarqueAndCat(ProduitRepository $produitRepository,$mark, $cat): Response
+public function filterByMarqueAndCat(ProduitRepository $produitRepository, $genre, $mark, $cat): Response
 {
-    $catMarques = $produitRepository->findByMarqueAndCat($mark,$cat);
+    $catMarques = $produitRepository->findByMultipleAttributes($genre, $cat, null, $mark);
     // dd( $catMarques);
     return $this->render('filtre/index.html.twig', [ 
         'listeProduits' =>  $catMarques,
