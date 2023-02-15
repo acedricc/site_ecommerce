@@ -16,15 +16,14 @@
 					<p class="card-title">Pour
 						{{ produit.genre.type }}</p>
 
+					<select name="" id="">
 					<p class="card-text">Taille :
 						{% for taille in produit.taille %}
-							<button type="button" class="btn btn-light">
-								<option value="{{ taille.size ~ ", " }}">{{ taille.size ~ ", " }}
-								{% endfor %}
-							</p>
-						</button>
-
+							<option value="{{ taille.size ~ ", " }}">{{ taille.size ~ ", " }}
+							{% endfor %}
+						</p>
 					</p>
+				</select>
 				</p>
 
 			</p>

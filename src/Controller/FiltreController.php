@@ -10,26 +10,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FiltreController extends AbstractController
 {
-//////////////////////////FILTRE POUR TRIER PAR CATEGORIE///////////////////////////////////////////////////////
+//////////////////////////FILTRE POUR TRIER PAR GENRE///////////////////////////////////////////////////////
 /**
-* @Route("/categorie/{cat}", name="app_produit_categorie")
+* @Route("/genre/{genre}", name="app_produit_genre")
 */
-public function filterByCategorie(ProduitRepository $produitRepository,$cat): Response
+public function filterByGenre(TailleRepository $tailleRepository,ProduitRepository $produitRepository ,$genre): Response
 {
-    $catParents = $produitRepository->findByMultipleAttributes($cat);
-    
-    return $this->render('filtre/index.html.twig', [
-        'listeProduits' =>  $catParents,
-    
-    ]);
-}
-//////////////////////////FILTRE POUR TRIER PAR CATEGORIE///////////////////////////////////////////////////////
-/**
-* @Route("/genre/{type}", name="app_produit_genre")
-*/
-public function filterByGenre(TailleRepository $tailleRepository,ProduitRepository $produitRepository ,$type): Response
-{
-    $listeProduits = $produitRepository->findProductsByGenre($type);
+    $listeProduits = $produitRepository->findByMultipleAttributes($genre, null, null, null, null);
     // $tailles =$tailleRepository->findAll();
     // $marques = $produitRepository->findAllMarque();
     // $couleurs =$produitRepository->findAllCouleur();
@@ -41,8 +28,63 @@ public function filterByGenre(TailleRepository $tailleRepository,ProduitReposito
         // 'marques' => $marques,
     ]);
 }
+//////////////////////////FILTRE POUR TRIER PAR CATEGORIE///////////////////////////////////////////////////////
+/**
+* @Route("/categorie/{cat}", name="app_produit_categorie")
+*/
+public function filterByCategorie(ProduitRepository $produitRepository,$cat): Response
+{
+    $catParents = $produitRepository->findByMultipleAttributes(null, $cat, null, null, null);
+    
+    return $this->render('filtre/index.html.twig', [
+        'listeProduits' =>  $catParents,
+    
+    ]);
+}
 
 
+//////////////////////////FILTRE POUR TRIER PAR TAILLE///////////////////////////////////////////////////////
+/**
+* @Route("/taille/{size}", name="app_taille")
+*/
+public function filterTaille(ProduitRepository $produitRepository,$size): Response
+{
+    $produitTaille = $produitRepository->findByMultipleAttributes(null, null, $size, null, null);
+     return $this->render('filtre/index.html.twig', [
+        'listeProduits' => $produitTaille,
+    ]);
+}
+//////////////////////////FILTRE POUR TRIER PAR MARQUE///////////////////////////////////////////////////////
+
+/**
+* @Route("/marque/{mark}", name="app_marque_mark")
+*/
+public function filterByMarque(ProduitRepository $produitRepository,$mark): Response
+{
+    $produitsByMarques = $produitRepository->findByMultipleAttributes(null, null, null, $mark, null);
+    // $marques = $produitRepository->findAllMarque();
+    return $this->render('filtre/index.html.twig', [
+        // 'listeProduits' => $produitRepository->findAll(),
+        // 'marques' => $marques,
+        'listeProduits' => $produitsByMarques,
+    ]);
+}
+//////////////////////////FILTRE POUR TRIER PAR COULEUR///////////////////////////////////////////////////////
+/**
+* @Route("/couleur/{color}", name="app_couleur_color")
+*/
+public function filterCouleur(ProduitRepository $produitRepository ,$color): Response
+{        
+    $produitsByCouleurs = $produitRepository->findByMultipleAttributes(null, null, null, null, $color);
+    // $couleurs = $produitRepository->findAllCouleur();
+    return $this->render('filtre/index.html.twig', [
+        // "listeProduits" => $produitRepository->findAll(),
+        // 'couleurs' => $couleurs,
+        'listeProduits' => $produitsByCouleurs,
+    ]);
+}
+
+//////////////////////////FILTRE POUR TRIER PAR GENRE & CATEGORIE///////////////////////////////////////////////////////
 /**
 * @Route("/genre/categorie/{genre}/{cat}", name="app_produit_genre_categorie")
 */
@@ -55,6 +97,33 @@ public function filterByGenreAndCat(ProduitRepository $produitRepository,$genre,
     
     ]);
 }
+
+//////////////////////////FILTRE POUR TRIER PAR GENRE & TAILLE///////////////////////////////////////////////////////
+/**
+* @Route("/genre/taille/{genre}/{size}", name="app_produit_genre_taille")
+*/
+public function findByProductIdAndSize(ProduitRepository $produitRepository,TailleRepository $tr, $productId, $size): Response
+{
+    $catTailles = $produitRepository->findByTaille($productId, $size);
+    dd( $catTailles);
+    return $this->render('filtre/index.html.twig', [ 
+        'listeProduits' =>  $catTailles,
+    
+    ]);
+}
+
+//////////////////////////FILTRE POUR TRIER PAR GENRE & MARQUE///////////////////////////////////////////////////////
+
+// public function filterByGenreAndTaille(ProduitRepository $produitRepository,$genre, $size): Response
+// {
+//     $produitsByGenreAndMarque = $produitRepository->findByMultipleAttributes($genre,  $size);
+//     dd( $catTailles);
+//     return $this->render('filtre/index.html.twig', [ 
+//         'listeProduits' =>  $catTailles,
+    
+//     ]);
+// }
+
 
 /**
 * @Route("/genre/categorie/{genre}/{mark}/{cat}", name="app_produit_mark_categorie")
@@ -70,56 +139,12 @@ public function filterByMarqueAndCat(ProduitRepository $produitRepository, $genr
     ]);
 }
 
-/**
-* @Route("/taille/categorie/{size}/{cat}", name="app_produit_taille_categorie")
-*/
-public function filterByTailleAndCat(ProduitRepository $produitRepository,$size, $cat): Response
-{
-    $catTailles = $produitRepository->findByTailleAndCat($size,$cat);
-    dd( $catTailles);
-    return $this->render('filtre/index.html.twig', [ 
-        'listeProduits' =>  $catTailles,
-    
-    ]);
-}
 
-/**
-* @Route("/taille/{size}", name="app_taille")
-*/
-public function filterTaille(ProduitRepository $produitRepository,$size): Response
-{
-    $produitTaille = $produitRepository->findByTailleField($size);
-     return $this->render('filtre/index.html.twig', [
-        'listeProduits' => $produitTaille,
-    ]);
-}
-/**
-* @Route("/couleur/{color}", name="app_couleur_color")
-*/
-public function filterCouleur(ProduitRepository $produitRepository ,$color): Response
-{        
-    $produitsByCouleurs = $produitRepository->findByCouleur($color);
-    $couleurs = $produitRepository->findAllCouleur();
-    return $this->render('filtre/couleur/index.html.twig', [
-        "listeProduits" => $produitRepository->findAll(),
-        'couleurs' => $couleurs,
-        'produitsByCouleurs' => $produitsByCouleurs,
-    ]);
-}
-/**
-* @Route("/marque/{mark}", name="app_marque_mark")
-*/
-public function filterByMarque(ProduitRepository $produitRepository,$mark): Response
-{
-    $produitsByMarques = $produitRepository->findByMarque($mark);
-    $marques = $produitRepository->findAllMarque();
-    return $this->render('filtre/marque/index.html.twig', [
-        'listeProduits' => $produitRepository->findAll(),
-        'marques' => $marques,
-        'produitsByMarques' => $produitsByMarques,
-    ]);
-}
+
+
+
 
 }
+
 
 

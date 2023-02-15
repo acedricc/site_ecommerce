@@ -42,17 +42,30 @@ class TailleRepository extends ServiceEntityRepository
    /**
     * @return Taille[] Returns an array of Taille objects
     */
-   public function findByTailleField($value): array
-   {
-       return $this->createQueryBuilder('t')
-           ->andWhere('t.size = :val')
-           ->setParameter('val', $value)
-           ->orderBy('t.id', 'ASC')
-           ->setMaxResults(10)
-           ->getQuery()
-           ->getResult()
-       ;
-   }
+    public function findByTailleField($value): array
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.size = :val')
+            ->setParameter('val', $value)
+            ->orderBy('t.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }   
+    
+    public function findByTaille($value): array
+    {
+        return $this->createQueryBuilder('t')
+            ->addSelect('p')
+            ->leftJoin('t.produits', 'p')
+            ->andWhere('t.size = :val')
+            ->setParameter('val', $value)
+            ->orderBy('t.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Taille
 //    {

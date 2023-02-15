@@ -26,6 +26,7 @@ class PanierController extends AbstractController
         // var_dump($panier);die;
         return $this->render('panier/index.html.twig', [
             'panier' => $panier,
+          
         ]);
     }
 

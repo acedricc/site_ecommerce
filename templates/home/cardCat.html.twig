@@ -1,6 +1,6 @@
 <div class="col-10">
 	<div>
-		<a class="liennone" href="{{ path('app_produit_genre', {'type': 'Homme'}) }}">
+		<a class="liennone" href="{{ path('app_produit_genre', {'genre': 'Homme'}) }}">
 			<p class="titre">Homme</p>
 			<img src="{{ asset('images/homme.png')|imagine_filter('imgAccueil') }}">
 		</a>
@@ -8,7 +8,7 @@
 	</div>
 
 	<div>
-		<a class="liennone" href="{{ path('app_produit_genre', {'type': 'Femme'}) }}">
+		<a class="liennone" href="{{ path('app_produit_genre', {'genre': 'Femme'}) }}">
 			<p class="titre">Femme</p>
 			<img src="{{ asset('images/pexels-inga-seliverstova-3394229.jpg')|imagine_filter('imgAccueil') }}">
 		</a>
@@ -16,7 +16,7 @@
 	</div>
 
 	<div>
-		<a class="liennone" href="{{ path('app_produit_genre', {'type': 'Enfant'}) }}">
+		<a class="liennone" href="{{ path('app_produit_genre', {'genre': 'Enfant'}) }}">
 			<p class="titre">Enfant</p>
 			<img src="{{ asset('images/pexels-marta-wave-6437462 (1).jpg')|imagine_filter('imgAccueil') }}">
 		</a>

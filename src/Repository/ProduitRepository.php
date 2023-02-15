@@ -76,56 +76,6 @@ class ProduitRepository extends ServiceEntityRepository
 
 }
 
-//Creation d'une une methode avec un parametre et une valeur de retour(array)
-      public function findProductsByGenre($name):array
-{
-    //on va dans la table produit
-    return $this->createQueryBuilder('p')
-    // on selectione la table genre
-     ->addSelect('g')
-       //on join la table produit avec genre 
-     ->leftJoin('p.genre', 'g')
-     ->where('g.type = :type')
-     ->setParameter('type', $name)
-     ->getQuery()
-     ->getResult()
-    ; 
-}
-
-public function findProductsByCat($name):array
-{
-    return $this->createQueryBuilder('p')
-     ->addSelect('c')
-     ->leftJoin('p.categorie', 'c')
-     ->where('c.nom = :cat')
-     ->setParameter('cat', $name)
-     ->getQuery()
-     ->getResult()
-    ; 
-}
-
-// public function findByCouleur(): array
-// {
-//     return $this->createQueryBuilder('p')
-//          ->select('p.couleur')
-//          ->distinct()
-//         ->orderBy('p.couleur', 'ASC')
-//         ->getQuery()
-//         ->getResult()
-//     ;
-// }  
-
-public function findByCouleur($value): array
-{
-    return $this->createQueryBuilder('p')
-        ->andWhere('p.couleur = :val')
-        ->setParameter('val', $value)
-        ->orderBy('p.id', 'ASC')
-        ->getQuery()
-        ->getResult()
-    ;
-}  
-
 public function findAllCouleur(): array
 {
     return $this->createQueryBuilder('p')
@@ -148,32 +98,12 @@ public function findAllMarque(): array
     ;
 } 
 
-public function findByMarque($value): array
-{
-    return $this->createQueryBuilder('p')
-        ->andWhere('p.marque = :val')
-        ->setParameter('val', $value)
-        ->orderBy('p.marque', 'ASC')
-        ->getQuery()
-        ->getResult()
-    ;
-}  
 
    /**
     * @return Produit[] Returns an array of Produit objects
     */
 
-   public function findByTailleField($size): array
-   {
-    return $this->createQueryBuilder('p')
-    ->select('p')
-    ->addSelect('t')
-    ->leftJoin('p.taille', 't')     
-    ->where('t.size = :size')
-    ->setParameter('size', $size)
-    ->getQuery()
-    ->getResult();
-   }
+
 
 //    public function findOneBySomeField($value): ?Produit
 //    {
@@ -185,16 +115,11 @@ public function findByMarque($value): array
 //        ;
 //    }
 
-public function findByMultipleAttributes($genre = null , $cat = null, $size = null , $mark = null) :array
+public function findByMultipleAttributes($genre = null, $cat = null, $size = null, $mark = null, $color = null) :array
 {
+    
     $query = $this->createQueryBuilder('p');
 
-    if (!empty($cat) ) {
-        $query->addSelect('c')
-        ->leftJoin('p.categorie', 'c')     
-        ->where('c.nom = :cat')
-        ->setParameter('cat', $cat);
-    }
     if (!empty($genre) ) {
         $query->addSelect('g')
         ->leftJoin('p.genre', 'g')     
@@ -202,10 +127,20 @@ public function findByMultipleAttributes($genre = null , $cat = null, $size = nu
         ->setParameter('type', $genre);
     }
    
+    if (!empty($cat) ) {
+        $query->addSelect('c')
+        ->leftJoin('p.categorie', 'c')     
+        ->where('c.nom = :cat')
+        ->setParameter('cat', $cat);
+    }
   
 if (!empty($size)) {
     $query->addSelect('t')
-    ->leftJoin('p.taille', 't')     
+    ->leftJoin('p.taille', 't') 
+    ->addSelect('tp')
+    ->leftJoin('t.taille', 't')     
+    ->where('t.size = :size')
+    ->setParameter('size', $size)  
     ->where('t.size = :size')
     ->setParameter('size', $size);
   
@@ -217,39 +152,31 @@ if (!empty($mark)) {
     ->setParameter('marque', $mark);
   
 }
+if (!empty($color)) {
+    $query->addSelect('p')
+    ->andWhere('p.couleur = :couleur')
+    ->setParameter('couleur', $color);
+  
+}
   
     return $query->getQuery()
                 ->getResult(); 
 }
-public function findByMarqueAndCat($mark , $cat) :array
+public function findByProductIdAndSize($productId, $size): array
 {
-    return $this->createQueryBuilder('p')
-    ->addSelect('c')
-    ->leftJoin('p.categorie', 'c')     
-    ->where('c.nom = :cat')
-    ->setParameter('cat', $cat)
-    ->addSelect('p')  
-    ->andWhere('p.marque = :marque')
-    ->setParameter('marque', $mark)
-     ->getQuery()
-     ->getResult()
-    ; 
+    $sql = "SELECT * FROM produit_taille pt
+            LEFT JOIN produit p ON pt.produit_id = p.id
+            LEFT JOIN taille t ON pt.taille_id = t.id 
+            WHERE p.id = :productId 
+            AND t.size = :size";
+
+    $query = $this->getEntityManager()->createNativeQuery($sql, new ResultSetMappingBuilder($this->getEntityManager()));
+    $query->setParameter('productId', $productId);
+    $query->setParameter('size', $size);
+
+    return $query->getResult();
 }
 
-public function findByTailleAndCat($size , $cat) :array
-{
-    return $this->createQueryBuilder('p')
-    ->addSelect('c')
-    ->leftJoin('p.categorie', 'c')     
-    ->where('c.nom = :cat')
-    ->setParameter('cat', $cat)
-    ->addSelect('t')
-    ->leftJoin('p.taille', 't')     
-    ->andWhere('t.size = :size')
-    ->setParameter('size', $size)
-     ->getQuery()
-     ->getResult()
-    ; 
-}
 
 }
+
