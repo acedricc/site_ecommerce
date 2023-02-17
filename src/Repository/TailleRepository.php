@@ -76,4 +76,16 @@ class TailleRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function findByTailleAndGenre( $produitId )
+{
+   $query = $this->createQueryBuilder('t');
+
+   $query->addSelect('p')
+   ->leftJoin('t.produits','p')
+   ->where('p.id = :id')
+   ->setParameter('id' ,$produitId);
+    return $query->getQuery()
+    ->getResult();
+}
 }

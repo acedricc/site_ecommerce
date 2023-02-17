@@ -162,19 +162,45 @@ if (!empty($color)) {
     return $query->getQuery()
                 ->getResult(); 
 }
-public function findByProductIdAndSize($productId, $size): array
+// public function findByProductIdAndSize($productId, $size): array
+// {
+//     $sql = "SELECT * FROM produit_taille pt
+//             LEFT JOIN produit p ON pt.produit_id = p.id
+//             LEFT JOIN taille t ON pt.taille_id = t.id 
+//             WHERE p.id = :productId 
+//             AND t.size = :size";
+
+//     $query = $this->getEntityManager()->createNativeQuery($sql, new ResultSetMappingBuilder($this->getEntityManager()));
+//     $query->setParameter('productId', $productId);
+//     $query->setParameter('size', $size);
+
+//     return $query->getResult();
+// }
+
+public function findByTailleAndGenre( $genre, $size )
 {
-    $sql = "SELECT * FROM produit_taille pt
-            LEFT JOIN produit p ON pt.produit_id = p.id
-            LEFT JOIN taille t ON pt.taille_id = t.id 
-            WHERE p.id = :productId 
-            AND t.size = :size";
+   $query = $this->createQueryBuilder('p');
 
-    $query = $this->getEntityManager()->createNativeQuery($sql, new ResultSetMappingBuilder($this->getEntityManager()));
-    $query->setParameter('productId', $productId);
-    $query->setParameter('size', $size);
-
-    return $query->getResult();
+   $query->addSelect('g')
+   ->leftJoin('p.genre','g')
+   ->where('g.type = :genre')
+   ->setParameter('genre' ,$genre)
+   ->addSelect('t')
+   ->leftJoin('p.taille','t')
+   ->where('t.size = :size')
+   ->setParameter('size' ,$size);
+    return $query->getQuery()
+    ->getResult();
+}
+public function findProductsByParentCategory($parent)
+{
+    $query = $this->createQueryBuilder('p');
+    
+    $query->addSelect('c')
+        ->join('p.categorie', 'c')
+        ->where('c.parent = :parent')
+        ->setParameter('parent', $parent);
+    return $query->getQuery()->getResult();
 }
 
 

@@ -7,10 +7,10 @@
 	<div class="carousel-inner">
 		<div class="carousel-item active">
 			<div class="">
-				<img src="images/vetement (2).jpg" class="d-block" alt="...">
+				<img src="images/vetement (2).jpg" class="w-100 h-100 imgcar" alt="...">
 				<div class="carousel-caption d-none d-md-block">
 					<a
-						class="liennone" href="{{ path('app_produit_categorie', {'cat':'Vêtement'}) }}">
+						class="text-decoration-none" href="{{ path('app_produit_categorie', {'parent':2}) }}">
 						{# mettre un filtre vetement pour homme  #}
 						<h5 class="carouselTitre">Vêtements</h5>
 					</a>
@@ -20,11 +20,11 @@
 		</div>
 		<div class="carousel-item">
 			<div class="">
-				<img src="images/" class="d-block w-100" alt="...">
+				<img src="images/" class="w-100 h-100 imgcar" alt="...">
 			</div>
 			<div class="carousel-caption d-none d-md-block">
 
-				<a class="liennone" href="{{ path('app_produit_categorie', {'cat':'Accessoire'}) }}">
+				<a class="text-decoration-none" href="{{ path('app_produit_categorie', {'parent':4}) }}">
 					<h5 class="carouselTitre">Accesoire</h5>
 				</a>
 				<p>Découvrez notre sélections de accesoires.</p>
@@ -32,10 +32,10 @@
 		</div>
 		<div class="carousel-item">
 			<div class="">
-				<img src="images/chose.jpg" class="d-block " alt="...">
+				<img src="images/chose.jpg" class="w-100 h-100 imgcar " alt="...">
 			</div>
 			<div class="carousel-caption d-none d-md-block">
-				<a class="liennone" href="{{ path('app_produit_categorie', {'cat':'Chaussure'}) }}">
+				<a class="text-decoration-none" href="{{ path('app_produit_categorie', {'parent':7}) }}">
 					<h5 class="carouselTitre">Chaussure</h5>
 				</a>
 				<p>Découvrez notre sélections de chaussures.</p>
