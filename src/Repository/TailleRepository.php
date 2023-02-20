@@ -54,18 +54,18 @@ class TailleRepository extends ServiceEntityRepository
         ;
     }   
     
-    public function findByTaille($value): array
-    {
-        return $this->createQueryBuilder('t')
-            ->addSelect('p')
-            ->leftJoin('t.produits', 'p')
-            ->andWhere('t.size = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->getQuery()
-            ->getResult()
-        ;
-    }
+    // public function findByTaille($value): array
+    // {
+    //     return $this->createQueryBuilder('t')
+    //         ->addSelect('p')
+    //         ->leftJoin('t.produits', 'p')
+    //         ->andWhere('t.size = :val')
+    //         ->setParameter('val', $value)
+    //         ->orderBy('t.id', 'ASC')
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
 
 //    public function findOneBySomeField($value): ?Taille
 //    {
@@ -77,7 +77,7 @@ class TailleRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-public function findByTailleAndGenre( $produitId )
+public function findByTailleAndGenrev2( $produitId )
 {
    $query = $this->createQueryBuilder('t');
 

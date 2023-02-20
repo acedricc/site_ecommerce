@@ -136,13 +136,10 @@ public function findByMultipleAttributes($genre = null, $cat = null, $size = nul
   
 if (!empty($size)) {
     $query->addSelect('t')
-    ->leftJoin('p.taille', 't') 
-    ->addSelect('tp')
-    ->leftJoin('t.taille', 't')     
-    ->where('t.size = :size')
-    ->setParameter('size', $size)  
-    ->where('t.size = :size')
-    ->setParameter('size', $size);
+   ->leftJoin('p.taille','t')
+   ->where('t.size = :size')
+   ->setParameter('size' , $size);
+
   
 }
 
@@ -162,6 +159,19 @@ if (!empty($color)) {
     return $query->getQuery()
                 ->getResult(); 
 }
+
+
+public function findProductsByParentCategory($parent)
+{
+    $query = $this->createQueryBuilder('p');
+    
+    $query->addSelect('c')
+        ->join('p.categorie', 'c')
+        ->where('c.parent = :parent')
+        ->setParameter('parent', $parent);
+    return $query->getQuery()->getResult();
+}
+
 // public function findByProductIdAndSize($productId, $size): array
 // {
 //     $sql = "SELECT * FROM produit_taille pt
@@ -177,32 +187,21 @@ if (!empty($color)) {
 //     return $query->getResult();
 // }
 
-public function findByTailleAndGenre( $genre, $size )
-{
-   $query = $this->createQueryBuilder('p');
+// public function findByTailleAndGenre( $genre, $size )
+// {
+//    $query = $this->createQueryBuilder('p');
 
-   $query->addSelect('g')
-   ->leftJoin('p.genre','g')
-   ->where('g.type = :genre')
-   ->setParameter('genre' ,$genre)
-   ->addSelect('t')
-   ->leftJoin('p.taille','t')
-   ->where('t.size = :size')
-   ->setParameter('size' ,$size);
-    return $query->getQuery()
-    ->getResult();
-}
-public function findProductsByParentCategory($parent)
-{
-    $query = $this->createQueryBuilder('p');
-    
-    $query->addSelect('c')
-        ->join('p.categorie', 'c')
-        ->where('c.parent = :parent')
-        ->setParameter('parent', $parent);
-    return $query->getQuery()->getResult();
-}
-
+//    $query->addSelect('g')
+//    ->leftJoin('p.genre','g')
+//    ->where('g.type = :genre')
+//    ->setParameter('genre' ,$genre)
+//    ->addSelect('t')
+//    ->leftJoin('p.taille','t')
+//    ->where('t.size = :size')
+//    ->setParameter('size' ,$size);
+//     return $query->getQuery()
+//     ->getResult();
+// }
 
 }
 

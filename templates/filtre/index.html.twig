@@ -1,4 +1,3 @@
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Vetements!
@@ -10,12 +9,13 @@
 		<div class="col-9 ">
 			<div class="row">
 				{% for produit in listeProduits %}
+
 					{{ include("produit/cardtest.html.twig") }}
 				{% else %}
 					Aucun produit enregistré
 				{% endfor %}
 			</div>
-			
+
 		</div>
 	</div>
 {% endblock %}

@@ -20,7 +20,7 @@ public function filterByGenre(TailleRepository $tailleRepository,ProduitReposito
     // $tailles =$tailleRepository->findAll();
     // $marques = $produitRepository->findAllMarque();
     // $couleurs =$produitRepository->findAllCouleur();
-    // dd($listeProduits);
+    // // dd($listeProduits);
     return $this->render('filtre/index.html.twig', [
         'listeProduits' => $listeProduits, 
         // 'tailles' => $tailles,
@@ -50,8 +50,11 @@ public function filterByCategorie(ProduitRepository $produitRepository,$parent =
 public function filterTaille(ProduitRepository $produitRepository,$size): Response
 {
     $produitTaille = $produitRepository->findByMultipleAttributes(null, null, $size, null, null);
+
+
      return $this->render('filtre/index.html.twig', [
         'listeProduits' => $produitTaille,
+        
     ]);
 }
 //////////////////////////FILTRE POUR TRIER PAR MARQUE///////////////////////////////////////////////////////
@@ -102,9 +105,9 @@ public function filterByGenreAndCat(ProduitRepository $produitRepository,$genre,
 /**
 * @Route("/genre/taille/{genre}/{size}", name="app_produit_genre_taille")
 */
-public function findByProductIdAndSize(ProduitRepository $produitRepository,TailleRepository $tr,$genre, $size): Response
+public function findByProductIdAndSize(ProduitRepository $produitRepository,$genre, $size): Response
 {
-    $catTailles = $tr->findByTailleAndGenre(2);
+    $catTailles = $produitRepository->findByTailleAndGenre([$genre, $size]);
     dd( $catTailles);
     return $this->render('filtre/index.html.twig', [ 
         'listeProduits' =>  $catTailles,

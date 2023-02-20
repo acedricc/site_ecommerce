@@ -13,18 +13,18 @@ class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
    
-    public function index(TailleRepository $tailleRepository,ProduitRepository $produitRepository, ): Response
+    public function index(TailleRepository $tailleRepository,ProduitRepository $produitRepository ): Response
     {
       
         $listeProduits = $produitRepository->findAll();
-        $tailles =$tailleRepository->findAll();
+        $tailles =  $tailleRepository->findAll();
         $marques = $produitRepository->findAllMarque();
         $couleurs =$produitRepository->findAllCouleur();
         // $size =$produitRepository->findAllProduitsByTailles('M');
-        //dd($couleurs);
+        // dd($tailles);
         return $this->render('home/index.html.twig', [       
-           'tailles' => $tailles,
            'listeProduits' => $listeProduits,
+           'tailles' => $tailles,
            'couleurs' => $couleurs,
            'marques' => $marques,
           
