@@ -76,23 +76,12 @@ class ProduitRepository extends ServiceEntityRepository
 
 }
 
-public function findAllCouleur(): array
+public function findContentField($value): array
 {
     return $this->createQueryBuilder('p')
-         ->select('p.couleur')
+         ->select('p.'.$value)
          ->distinct()
-        ->orderBy('p.couleur', 'ASC')
-        ->getQuery()
-        ->getScalarResult()
-    ;
-} 
-
-public function findAllMarque(): array
-{
-    return $this->createQueryBuilder('p')
-         ->select('p.marque')
-         ->distinct()
-        ->orderBy('p.marque', 'ASC')
+        ->orderBy('p.'.$value, 'ASC')
         ->getQuery()
         ->getScalarResult()
     ;
@@ -115,7 +104,7 @@ public function findAllMarque(): array
 //        ;
 //    }
 
-public function findByMultipleAttributes($genre = null, $cat = null, $size = null, $mark = null, $color = null) :array
+public function findByMultipleAttributes($genre = null, $cat = null, $size = null, $mark = null, $color = null, $parent = null) :array
 {
     
     $query = $this->createQueryBuilder('p');
@@ -129,18 +118,16 @@ public function findByMultipleAttributes($genre = null, $cat = null, $size = nul
    
     if (!empty($cat) ) {
         $query->addSelect('c')
-        ->leftJoin('p.categorie', 'c')     
-        ->where('c.nom = :cat')
-        ->setParameter('cat', $cat);
+        ->join('p.categorie', 'c')
+        ->andWhere('c.nom = :nom')
+        ->setParameter('nom', $cat);
     }
   
 if (!empty($size)) {
     $query->addSelect('t')
    ->leftJoin('p.taille','t')
-   ->where('t.size = :size')
-   ->setParameter('size' , $size);
-
-  
+   ->andWhere('t.size = :size')
+   ->setParameter('size' , $size);  
 }
 
 if (!empty($mark)) {
@@ -155,21 +142,16 @@ if (!empty($color)) {
     ->setParameter('couleur', $color);
   
 }
+   
+if (!empty($parent) ) {
+    $query->addSelect('c')
+    ->join('p.categorie', 'c')
+    ->andWhere('c.parent = :parent')
+    ->setParameter('parent', $parent);
+}
   
     return $query->getQuery()
                 ->getResult(); 
-}
-
-
-public function findProductsByParentCategory($parent)
-{
-    $query = $this->createQueryBuilder('p');
-    
-    $query->addSelect('c')
-        ->join('p.categorie', 'c')
-        ->where('c.parent = :parent')
-        ->setParameter('parent', $parent);
-    return $query->getQuery()->getResult();
 }
 
 // public function findByProductIdAndSize($productId, $size): array

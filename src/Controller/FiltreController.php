@@ -16,25 +16,33 @@ class FiltreController extends AbstractController
 */
 public function filterByGenre(TailleRepository $tailleRepository,ProduitRepository $produitRepository ,$genre): Response
 {
-    $listeProduits = $produitRepository->findByMultipleAttributes($genre, null, null, null, null);
-    // $tailles =$tailleRepository->findAll();
-    // $marques = $produitRepository->findAllMarque();
-    // $couleurs =$produitRepository->findAllCouleur();
-    // // dd($listeProduits);
+    $listeProduits = $produitRepository->findByMultipleAttributes($genre);
+    
     return $this->render('filtre/index.html.twig', [
         'listeProduits' => $listeProduits, 
-        // 'tailles' => $tailles,
-        // 'couleurs' => $couleurs,
-        // 'marques' => $marques,
     ]);
 }
+
 //////////////////////////FILTRE POUR TRIER PAR CATEGORIE///////////////////////////////////////////////////////
 /**
 * @Route("/categorie/{parent}", name="app_produit_categorie")
 */
-public function filterByCategorie(ProduitRepository $produitRepository,$parent = 2): Response
+public function filterByCategorie(ProduitRepository $produitRepository,$parent): Response
 {
-    $catParents = $produitRepository->findProductsByParentCategory($parent);
+    $catParents = $produitRepository->findByMultipleAttributes(null, null, null, null, null, $parent);
+    
+    return $this->render('filtre/index.html.twig', [
+        'listeProduits' =>  $catParents,    
+    ]);
+}
+
+
+/**
+* @Route("/categorie/acces/{cat}", name="app_produit_categoriev2")
+*/
+public function filterByCategoriev2(ProduitRepository $produitRepository,$cat): Response
+{
+    $catParents = $produitRepository->findByMultipleAttributes(null, $cat);
     
     return $this->render('filtre/index.html.twig', [
         'listeProduits' =>  $catParents,
@@ -49,7 +57,7 @@ public function filterByCategorie(ProduitRepository $produitRepository,$parent =
 */
 public function filterTaille(ProduitRepository $produitRepository,$size): Response
 {
-    $produitTaille = $produitRepository->findByMultipleAttributes(null, null, $size, null, null);
+    $produitTaille = $produitRepository->findByMultipleAttributes(null, null, $size);
 
 
      return $this->render('filtre/index.html.twig', [
@@ -64,11 +72,9 @@ public function filterTaille(ProduitRepository $produitRepository,$size): Respon
 */
 public function filterByMarque(ProduitRepository $produitRepository,$mark): Response
 {
-    $produitsByMarques = $produitRepository->findByMultipleAttributes(null, null, null, $mark, null);
-    // $marques = $produitRepository->findAllMarque();
-    return $this->render('filtre/index.html.twig', [
-        // 'listeProduits' => $produitRepository->findAll(),
-        // 'marques' => $marques,
+    $produitsByMarques = $produitRepository->findByMultipleAttributes(null, null, null, $mark);
+    
+    return $this->render('filtre/index.html.twig', [        
         'listeProduits' => $produitsByMarques,
     ]);
 }
@@ -79,10 +85,8 @@ public function filterByMarque(ProduitRepository $produitRepository,$mark): Resp
 public function filterCouleur(ProduitRepository $produitRepository ,$color): Response
 {        
     $produitsByCouleurs = $produitRepository->findByMultipleAttributes(null, null, null, null, $color);
-    // $couleurs = $produitRepository->findAllCouleur();
+    
     return $this->render('filtre/index.html.twig', [
-        // "listeProduits" => $produitRepository->findAll(),
-        // 'couleurs' => $couleurs,
         'listeProduits' => $produitsByCouleurs,
     ]);
 }
@@ -114,19 +118,6 @@ public function findByProductIdAndSize(ProduitRepository $produitRepository,$gen
     
     ]);
 }
-
-//////////////////////////FILTRE POUR TRIER PAR GENRE & MARQUE///////////////////////////////////////////////////////
-
-// public function filterByGenreAndTaille(ProduitRepository $produitRepository,$genre, $size): Response
-// {
-//     $produitsByGenreAndMarque = $produitRepository->findByMultipleAttributes($genre,  $size);
-//     dd( $catTailles);
-//     return $this->render('filtre/index.html.twig', [ 
-//         'listeProduits' =>  $catTailles,
-    
-//     ]);
-// }
-
 
 /**
 * @Route("/genre/categorie/{genre}/{mark}/{cat}", name="app_produit_mark_categorie")
