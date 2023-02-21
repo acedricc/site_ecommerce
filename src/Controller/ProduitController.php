@@ -25,9 +25,12 @@ public function showFiche(Produit $produit): Response
     foreach($details as $d){
         $nb += $d->getQuantite();
     }
+  
+
     return $this->render('produit/fiche_produit.html.twig', [
         'produit' => $produit,
         "nb" => $nb
     ]);
 }
+ 
 }

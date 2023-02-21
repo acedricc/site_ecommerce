@@ -17,26 +17,26 @@
 						{{ produit.genre.type }}</p>
 
 					<select name="" id="">
-					<p class="card-text">Taille :
-						{% for taille in produit.taille %}
-							<option value="{{ taille.size ~ ", " }}">{{ taille.size ~ ", " }}
-							{% endfor %}
+						<p class="card-text">Taille :
+							{% for taille in produit.taille %}
+								<option value="{{ taille.size ~ ", " }}">{{ taille.size ~ ", " }}
+								{% endfor %}
+							</p>
 						</p>
-					</p>
-				</select>
+					</select>
 				</p>
 
 			</p>
 
 		</div>
 
-		<div class="d-flex justify-content-between stockPrix">
+		<div class="justify-content-between stockPrix">
 			<p class="card-text">
 				Prix :
 				{{ produit.prix }}
 				€
 			</p>
-			<div class="d-flex align-items-baseline formBtn">
+			<div class="align-items-baseline formBtn">
 				<p class="card-text">Stock :
 					{{ produit.stock }}</p>
 				<form method="get" action="{{ path('app_panier_ajouter', {id: produit.id }) }}" id="form{{ produit.id }}">
@@ -49,4 +49,6 @@
 		</div>
 	</div>
 
-</div></div>{% endblock %}{{ include("produit/card-ajax.html.twig") }}
+</div>
+
+</div>{% endblock %}{{ include("produit/card-ajax.html.twig") }}

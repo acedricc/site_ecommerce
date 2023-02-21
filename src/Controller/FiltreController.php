@@ -1,6 +1,8 @@
 <?php
 
+
 namespace App\Controller;
+
 use App\Repository\TailleRepository;
 use App\Repository\GenreRepository;
 use App\Repository\ProduitRepository;
@@ -21,7 +23,11 @@ public function filterByGenre(TailleRepository $tailleRepository,ProduitReposito
     return $this->render('filtre/index.html.twig', [
         'listeProduits' => $listeProduits, 
     ]);
+
+  
+    
 }
+
 
 //////////////////////////FILTRE POUR TRIER PAR CATEGORIE///////////////////////////////////////////////////////
 /**
@@ -93,11 +99,11 @@ public function filterCouleur(ProduitRepository $produitRepository ,$color): Res
 
 //////////////////////////FILTRE POUR TRIER PAR GENRE & CATEGORIE///////////////////////////////////////////////////////
 /**
-* @Route("/genre/categorie/{genre}/{cat}", name="app_produit_genre_categorie")
+* @Route("/genre/categorie/{genre}/{parent}", name="app_produit_genre_categorie")
 */
-public function filterByGenreAndCat(ProduitRepository $produitRepository,$genre, $cat): Response
+public function filterByGenreAndCat(ProduitRepository $produitRepository,$genre, $parent): Response
 {
-    $catGenres = $produitRepository->findByMultipleAttributes($genre, $cat);
+    $catGenres = $produitRepository->findByMultipleAttributes($genre, null, null, null, null, $parent);
     
     return $this->render('filtre/index.html.twig', [ 
         'listeProduits' =>  $catGenres,
@@ -132,11 +138,6 @@ public function filterByMarqueAndCat(ProduitRepository $produitRepository, $genr
     
     ]);
 }
-
-
-
-
-
 
 }
 

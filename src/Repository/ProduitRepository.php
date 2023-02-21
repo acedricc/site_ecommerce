@@ -185,5 +185,13 @@ if (!empty($parent) ) {
 //     ->getResult();
 // }
 
+public function supprimerProduitSiStockNul(int $stock, Produit $produit): void
+{
+    if ($stock <= 0) {
+        $entityManager = $this->getEntityManager();
+        $entityManager->remove($produit);
+        $entityManager->flush();
+    }
+}
 }
 
