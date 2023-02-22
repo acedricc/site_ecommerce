@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Produit;
 use App\Repository\TailleRepository;
 use App\Repository\GenreRepository;
 use App\Repository\ProduitRepository;
@@ -16,7 +17,7 @@ class FiltreController extends AbstractController
 /**
 * @Route("/genre/{genre}", name="app_produit_genre")
 */
-public function filterByGenre(TailleRepository $tailleRepository,ProduitRepository $produitRepository ,$genre): Response
+public function filterByGenre(ProduitRepository $produitRepository ,$genre): Response
 {
     $listeProduits = $produitRepository->findByMultipleAttributes($genre);
     
@@ -24,8 +25,29 @@ public function filterByGenre(TailleRepository $tailleRepository,ProduitReposito
         'listeProduits' => $listeProduits, 
     ]);
 
-  
+   
     
+}
+
+public function supprimerProduit(Produit $produit)
+{
+    $stock = $produit->getStock();
+    $produitRepository = $this->getDoctrine()->getRepository(Produit::class);
+    $produitRepository->supprimerProduitSiStockNul($produit, $stock);
+    
+    return new Response('Produit supprimé avec succès.');
+}
+
+public function show(Produit $produit, ProduitRepository $produitRepository): Response
+{
+    $stock = $produit->getStock();
+    $produitRepository->supprimerProduitSiStockNul($stock, $produit);
+
+    // Le produit sera supprimé si le stock est inférieur ou égal à zéro.
+
+    return $this->render('produit/fiche_produit.html.twig', [
+        'produit' => $produit,
+    ]);
 }
 
 

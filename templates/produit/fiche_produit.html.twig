@@ -9,8 +9,8 @@
 		<div class="col-6">
 			<ul class="list-group">
 				<li class="list-group-item d-flex">
-					<div class="col-3">Titre</div>
-					<div class="col-9">{{produit.titre}}</div>
+					<div class="col-4">Titre</div>
+					<div class="col-8">{{produit.titre}}</div>
 				</li>
 				<li class="list-group-item d-flex">
 					<div class="col-4">Genre</div>
@@ -20,12 +20,12 @@
 					<div class="col-4">Catégorie</div>
 					<div class="col-8">{{produit.categorie.nom}}</div>
 				</li>
-				<li class="list-group-item d-flex">
-					<div class="col-4">Taille</div>
-					{% for taille in produit.taille %}
-						{{ taille.size ~ ", " }}
-					{% endfor %}
-				</li>
+					<li class="list-group-item d-flex">
+						<div class="col-4">Taille</div>
+						{% for taille in produit.taille %}
+							{{ taille.size ~ ", " }}
+						{% endfor %}
+					</li>
 				<li class="list-group-item d-flex">
 					<div class="col-4">Prix</div>
 					<div class="col-8">{{produit.prix}}</div>
@@ -49,17 +49,17 @@
 						<div class="col-8">{{produit.reference}}</div>
 					</li>
 					{# <li class="list-group-item d-flex">
-						<div class="col-4">Titre</div>
-						<div class="col-8">{{produit.titre}}</div>
-					</li>
-					<li class="list-group-item d-flex">
-						<div class="col-4">Genre</div>
-						<div class="col-8">{{produit.genre.type}}</div>
-					</li> #}
+											<div class="col-4">Titre</div>
+											<div class="col-8">{{produit.titre}}</div>
+										</li>
+										<li class="list-group-item d-flex">
+											<div class="col-4">Genre</div>
+											<div class="col-8">{{produit.genre.type}}</div>
+										</li> #}
 					{# <li class="list-group-item d-flex">
-						<div class="col-4">Catégorie</div>
-						<div class="col-8">{{produit.categorie.nom}}</div>
-					</li> #}
+											<div class="col-4">Catégorie</div>
+											<div class="col-8">{{produit.categorie.nom}}</div>
+										</li> #}
 					<li class="list-group-item d-flex">
 						<div class="col-4">Marque</div>
 						<div class="col-8">{{produit.marque}}</div>
@@ -70,27 +70,27 @@
 					</li>
 
 					{# <li class="list-group-item d-flex">
-						<div class="col-4">Taille</div>
-						{% for taille in produit.taille %}
-							{{ taille.size ~ ", " }}
-						{% endfor %}
-					</li> #}
+											<div class="col-4">Taille</div>
+											{% for taille in produit.taille %}
+												{{ taille.size ~ ", " }}
+											{% endfor %}
+										</li> #}
 					{# <li class="list-group-item d-flex">
-						<div class="col-4">Prix</div>
-						<div class="col-8">{{produit.prix}}</div>
-					</li> #}
+											<div class="col-4">Prix</div>
+											<div class="col-8">{{produit.prix}}</div>
+										</li> #}
 
 					<li class="list-group-item d-flex">
 						<div class="col-4">Stock</div>
 						<div class="col-8">{{produit.stock}}</div>
 					</li>
 					{# <li class="list-group-item d-flex">
-																																																																																																						<div class="col-4">Photo</div>
-																																																																																																						<div class="col-8">
-																																																																																																						
-																																																																																																		
-																																																																																																						</div>
-																																																																																																					</li> #}
+																																																																																																											<div class="col-4">Photo</div>
+																																																																																																											<div class="col-8">
+																																																																																																											
+																																																																																																							
+																																																																																																											</div>
+																																																																																																										</li> #}
 
 					<li class="list-group-item d-flex">
 						<div class="col-3">Popularité:</div>

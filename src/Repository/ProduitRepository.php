@@ -185,13 +185,21 @@ if (!empty($parent) ) {
 //     ->getResult();
 // }
 
-public function supprimerProduitSiStockNul(int $stock, Produit $produit): void
-{
-    if ($stock <= 0) {
+    public function supprimerProduitSiStockNul(Produit $produit, bool $flush = false,int $stock ): void
+    {
+      // Vérifier si le stock est inférieur ou égal à zéro
+      if ($stock <= 0) {
+        // Récupérer le gestionnaire d'entités
         $entityManager = $this->getEntityManager();
+        
+        // Supprimer le produit de la base de données en utilisant le gestionnaire d'entités
         $entityManager->remove($produit);
-        $entityManager->flush();
-    }
-}
-}
 
+        // Si le paramètre $flush est vrai, sauvegarder les modifications dans la base de données
+        if ($flush) {
+            $entityManager->flush();
+        }
+    }
+
+}
+}
