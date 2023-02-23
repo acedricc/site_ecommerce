@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FiltreController extends AbstractController
 {
+
 //////////////////////////FILTRE POUR TRIER PAR GENRE///////////////////////////////////////////////////////
 /**
 * @Route("/genre/{genre}", name="app_produit_genre")
@@ -20,35 +21,11 @@ class FiltreController extends AbstractController
 public function filterByGenre(ProduitRepository $produitRepository ,$genre): Response
 {
     $listeProduits = $produitRepository->findByMultipleAttributes($genre);
-    
     return $this->render('filtre/index.html.twig', [
         'listeProduits' => $listeProduits, 
     ]);
-
-   
-    
 }
 
-public function supprimerProduit(Produit $produit)
-{
-    $stock = $produit->getStock();
-    $produitRepository = $this->getDoctrine()->getRepository(Produit::class);
-    $produitRepository->supprimerProduitSiStockNul($produit, $stock);
-    
-    return new Response('Produit supprimé avec succès.');
-}
-
-public function show(Produit $produit, ProduitRepository $produitRepository): Response
-{
-    $stock = $produit->getStock();
-    $produitRepository->supprimerProduitSiStockNul($stock, $produit);
-
-    // Le produit sera supprimé si le stock est inférieur ou égal à zéro.
-
-    return $this->render('produit/fiche_produit.html.twig', [
-        'produit' => $produit,
-    ]);
-}
 
 
 //////////////////////////FILTRE POUR TRIER PAR CATEGORIE///////////////////////////////////////////////////////

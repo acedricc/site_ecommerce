@@ -122,6 +122,7 @@ public function valider(Session $session, ProduitRepository $produitRepository, 
     $this->addFlash("danger", "Le panier est vide. Vous ne pouvez pas valider la commande.");
     return $this->redirectToRoute("app_panier");
 }
+
  /**
      * @Route("/ajouter-produit-card-{id}", name="app_panier_ajouter_card", requirements={"id"="\d+"})
      */

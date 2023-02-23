@@ -33,5 +33,4 @@ public function showFiche(Produit $produit): Response
     ]);
 }
 
- 
 }

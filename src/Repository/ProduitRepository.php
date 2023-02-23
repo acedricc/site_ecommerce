@@ -185,21 +185,46 @@ if (!empty($parent) ) {
 //     ->getResult();
 // }
 
-    public function supprimerProduitSiStockNul(Produit $produit, bool $flush = false,int $stock ): void
-    {
-      // Vérifier si le stock est inférieur ou égal à zéro
-      if ($stock <= 0) {
+public function supprimerProduitSiStockNul(int $produitId): void
+{
+    // Récupérer le produit correspondant à l'identifiant passé en paramètre
+    $produit = $this->find($produitId);
+    dd($produit);
+
+    // Vérifier si le produit existe et que son stock est nul ou négatif
+    if ($produit && $produit->getStock() <= 0) {
         // Récupérer le gestionnaire d'entités
         $entityManager = $this->getEntityManager();
-        
-        // Supprimer le produit de la base de données en utilisant le gestionnaire d'entités
+
+        // Supprimer le produit en utilisant le gestionnaire d'entités
         $entityManager->remove($produit);
 
-        // Si le paramètre $flush est vrai, sauvegarder les modifications dans la base de données
-        if ($flush) {
-            $entityManager->flush();
-        }
+        // Sauvegarder les modifications dans la base de données
+        $entityManager->flush();
     }
+}
+// public function supprimerProduitSiStockNul2(int $produitId): void
+// {
+//     // Récupérer le produit correspondant à l'identifiant passé en paramètre
+//     $produit = $this->find($produitId);
 
+//     if (!$produit) {
+//         throw new \InvalidArgumentException(sprintf('Produit avec l\'identifiant %d non trouvé.', $produitId));
+//     }
+
+//     // Vérifier si le stock du produit est nul ou négatif
+//     if ($produit->getStock() <= 0) {
+//         // Récupérer le gestionnaire d'entités
+//         $entityManager = $this->getEntityManager();
+
+//         // Supprimer le produit en utilisant le gestionnaire d'entités
+//         $entityManager->remove($produit);
+
+//         // Sauvegarder les modifications dans la base de données
+//         $entityManager->flush();
+//     } else {
+//         throw new \InvalidArgumentException(sprintf('Le produit avec l\'identifiant %d a un stock positif.', $produitId));
+//     }
+// }
 }
-}
+
