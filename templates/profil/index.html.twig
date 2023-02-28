@@ -1,71 +1,86 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Page Profil Client{% endblock %}
+{% block title %}Page Profil Client
+{% endblock %}
 
-{% block h1 %}Profil client{% endblock %}
+{% block h1 %}Profil client
+{% endblock %}
 
 {% block body %}
-    <ul class="list-group">
-        <li class="list-group-item">
-            <strong>Pseudo : </strong>{{ app.user.pseudo }}
-        </li>
-        <li class="list-group-item">
-            <strong>Identité : </strong>{{ app.user.prenom ~ " " ~ app.user.nom }}
-        </li>
-        <li class="list-group-item">
-            <strong>Adresse : </strong>{{ app.user.adresse ~ " " ~ app.user.codePostal ~ " " ~ app.user.ville }}
-        </li>
+	<div class="container">
+		<div class="infoPerso w-50">
+			<h5 class="text-center">Informations Personnelles</h5>
+			<p class="">Pseudo :
+				{{ app.user.pseudo }}</p>
+			<p class="">Identité :
+				{{ app.user.prenom ~ " " ~ app.user.nom }}</p>
+			<p class="">Adresse :
+				{{ app.user.adresse ~ " " ~ app.user.codePostal ~ " " ~ app.user.ville }}</p>
+			<p class="">E-mail :
+				{{ app.user.email }}</p>
 
-        <li class="list-group-item">
-            <strong>E-mail : </strong>{{ app.user.email }}
-        </li>
+			<p>Type :</p>
+			<ul class="list-unstyled">
+				{% for role in app.user.roles %}
+					<li>
+						{% if role == "ROLE_ADMIN" %}
+							Administrateur
+						{% elseif role == "ROLE_CLIENT" %}
+							Client
+						{% elseif role == "ROLE_MODO" %}
+							Modérateur
+						{% endif %}
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
 
-        <li class="list-group-item">
-            <strong>Type : </strong>
-                {% for role in app.user.roles %}
-                    {% if role == "ROLE_ADMIN" %}
-                        Administrateur
-                    {% elseif role == "ROLE_CLIENT" %}
-                        Client
-                    {% elseif role == "ROLE_MODO" %}
-                        Modérateur
-                    {% endif %}
-                {% endfor %}
+		<div class="infoPerso w-50 text-center">
+			<li class="list-group-item">
+				<strong>Mes commandes :
+				</strong>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Numéro</th>
+							<th>Date</th>
+							<th>Montant</th>
+							<th>État</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for cmd in app.user.commandes|slice(0,5) %}
+							<tr>
+								<td>
+									<a href="{{ path('app_profil_commande', {id: cmd.id}) }}" class="btn btn-primary" title="Voir le détail de la commande">
+										{{ cmd.id }}
+									</a>
+								</td>
+								<td>{{ cmd.dateEnregistrement|date("d/m/y") }}</td>
+								<td>{{ cmd.montant }}
+									€</td>
+								<td>{{ cmd.etat|upper }}</td>
+								<td>
+									<a href="{{ path('app_profil_commande', {id: cmd.id}) }}" class="btn btn-primary" title="Voir le détail de la commande">
+										Voir la commande
+									</a>
+								</td>
+							</tr>
 
-                {# Afficher les rôles de l'utilisateur en remplaçant
-                    ROLE_ADMIN par Administrateur
-                    ROLE_CLIENT par Client
-                    ROLE_MODO par Modérateur
-                #}
-        </li>
+						{% else %}
+							<tr>
+								<td colspan="3">Aucune commande</td>
+							</tr>
+						{% endfor %}
 
-        <li class="list-group-item">
-            <strong>Mes commandes : </strong>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Numéro</th>
-                        <th>Date</th>
-                        <th>Montant</th>
-                        <th>État</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for cmd in app.user.commandes %}
-                        <tr>
-                            <td> <a href="{{ path('app_profil_commande', {id: cmd.id}) }}" class="btn btn-primary" title="Voir le détail de la commande"> {{ cmd.id }} </a></td>
-                            <td>{{ cmd.dateEnregistrement|date("d/m/y") }}</td>
-                            <td>{{ cmd.montant }} €</td>
-                            <td>{{ cmd.etat|upper }}</td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="3">Aucune commande</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </li>
+					</tbody>
+				</table>
 
-    </ul>
+
+			</li>
+			<div class="text-end">
+        <p class="mt-2"><a href="{{ path('app_profil_toute_commande') }}" class="btn btn-primary text-white">Toutes mes commandes </a></p>
+			</div>
+		</div>
+	</div>
 {% endblock %}

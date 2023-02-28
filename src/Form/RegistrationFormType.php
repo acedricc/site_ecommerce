@@ -61,7 +61,6 @@ class RegistrationFormType extends AbstractType
                 "choices" =>[
                     "Mme" => "f",
                     "M." => "h",
-                    "NSP" => "a"
                 ],
                 "expanded" => true
             ])

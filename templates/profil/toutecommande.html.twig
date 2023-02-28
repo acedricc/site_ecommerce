@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil | Détail de la commande
+{% endblock %}
+
+
+{% block body %}
+
+	<div class="infoPerso w-50">
+		<li class="list-group-item">
+			<h5 class="text-center">Toutes mes commandes</h5>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Numéro</th>
+						<th>Date</th>
+						<th>Montant</th>
+						<th>État</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for cmd in app.user.commandes %}
+						<tr>
+							<td>
+								<a href="{{ path('app_profil_commande', {id: cmd.id}) }}" class="btn btn-primary" title="Voir le détail de la commande">
+									{{ cmd.id }}
+								</a>
+							</td>
+							<td>{{ cmd.dateEnregistrement|date("d/m/y") }}</td>
+							<td>{{ cmd.montant }}
+								€</td>
+							<td>{{ cmd.etat|upper }}</td>
+							<td>
+								<a href="{{ path('app_profil_commande', {id: cmd.id}) }}" class="btn btn-primary" title="Voir le détail de la commande">
+									Voir la commande
+								</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="3">Aucune commande</td>
+						</tr>
+					{% endfor %}
+
+				</tbody>
+			</table>
+		</li>
+	</div>
+{% endblock %}

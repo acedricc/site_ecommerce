@@ -38,4 +38,11 @@ class ProfilController extends AbstractController
         }
         throw $this->createAccessDeniedException("Vous n'avez pas accès à cet URL");
     }
+    #[Route('/profil-commande', name: 'app_profil_toute_commande')]
+    public function commande(): Response
+    {
+        return $this->render('profil/toutecommande.html.twig', [
+            'controller_name' => 'ProfilController',
+        ]);
+    }
 }

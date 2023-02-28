@@ -37,8 +37,6 @@ class Produit
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Detail::class)]
     private Collection $details; 
 
-    #[ORM\OneToMany(mappedBy: 'images', targetEntity: Photos::class)]
-    private Collection $photos;
 
     #[ORM\ManyToMany(targetEntity: Taille::class, inversedBy: 'produits', cascade: ['persist'])]
     private Collection $taille;
@@ -58,7 +56,6 @@ class Produit
     public function __construct()
     {
         $this->details = new ArrayCollection();
-        $this->photos = new ArrayCollection();
         $this->taille = new ArrayCollection();
        
     }
@@ -172,35 +169,7 @@ class Produit
 
 
 
-    /**
-     * @return Collection<int, Photos>
-     */
-    public function getPhotos(): Collection
-    {
-        return $this->photos;
-    }
-
-    public function addPhoto(Photos $photo): self
-    {
-        if (!$this->photos->contains($photo)) {
-            $this->photos->add($photo);
-            $photo->setImages($this);
-        }
-
-        return $this;
-    }
-
-    public function removePhoto(Photos $photo): self
-    {
-        if ($this->photos->removeElement($photo)) {
-            // set the owning side to null (unless already changed)
-            if ($photo->getImages() === $this) {
-                $photo->setImages(null);
-            }
-        }
-
-        return $this;
-    }
+   
 
     /**
      * @return Collection<int, Taille>

@@ -8,7 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 
 class CommandeCrudController extends AbstractCrudController
 {
@@ -33,7 +33,7 @@ class CommandeCrudController extends AbstractCrudController
             ->hideOnForm(),
             TextField::new('montant'),
             TextField::new('etat'),
-            // IntegerField::new('details'),
+            // CollectionField::new('details'),
 
 
 

@@ -1,34 +1,60 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Log in!
+	{# Bloc de titre #}
+{% endblock %}
 
 {% block body %}
-<div class="containerform">
-  <form method="post" class="form-signin">
-    {% if error %}
-      <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+	{# Bloc de corps #}
+	<div
+		class="containerform">
+		{# Div du conteneur de formulaire #}
+		<form
+			method="post" class="form-signin">
+			{# Formulaire de connexion avec la méthode POST #}
+			{% if error %}
+				{# Si une erreur est présente #}
+				<div class="alert alert-danger">Votre identifiant ou mot de passe est incorrect. Veuillez réessayer.</div>
+				{# Afficher un message d'erreur #}
+			{% endif %}
 
-    {% if app.user %}
-      <div class="mb-3 text-center">
-        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-      </div>
-    {% endif %}
+			{% if app.user %}
+				{# Si l'utilisateur est connecté #}
+				<div class="mb-3 text-center">
+					Vous êtes connecté en tant que
+					{{ app.user.userIdentifier }},
+					{# Afficher le nom de l'utilisateur connecté #}
+					<a href="{{ path('app_logout') }}">Déconnexion.</a>
+					{# Lien pour se déconnecter #}
+				</div>
+			{% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Veuliez vous connectez</h1>
+			<h1 class="h3 mb-3 font-weight-normal">Veuillez-vous connecter</h1>
+			{# Titre du formulaire #}
 
-    <label for="inputPseudo" class="form-label">Pseudo</label>
-    <input type="text" value="{{ last_username }}" name="pseudo" id="inputPseudo" class="form-control" autocomplete="username" required autofocus>
+			<label for="inputPseudo" class="form-label">Pseudo</label>
+			{# Champ pour le nom d'utilisateur #}
+			<input type="text" value="{{ last_username }}" name="pseudo" id="inputPseudo" class="form-control" autocomplete="username" required autofocus>
 
-    <label for="inputPassword" class="form-label">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+			<label for="inputPassword" class="form-label">Password</label>
+			{# Champ pour le mot de passe #}
+			<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+			<input
+			type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+			{# Jeton CSRF pour protéger le formulaire de la falsification de requêtes intersites (CSRF) #}
+			<div class="d-flex justify-content-between">
+				<button
+					class="btn btn-lg btn-primary" type="submit">
+					{# Bouton de soumission du formulaire #}
+					Connexion
+				</button>
+			</form>
+			{# Fin du formulaire #}
+			<a href="{{ path('app_register') }}">Pas encore inscris</a>
+		</div>
+	</div>
+	{# Fin de la div du conteneur de formulaire #}
 
-    <button class="btn btn-lg btn-primary" type="submit">
-      Se Connectez
-    </button>
-  </form>
-</div>
 
 {% endblock %}
