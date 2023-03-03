@@ -14,6 +14,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 
@@ -43,7 +44,10 @@ class ProduitCrudController extends AbstractCrudController
             TextField::new('titre'),
             TextField::new('reference'),
             TextEditorField::new('description'),
-            // ImageField::new('photo'),
+            ImageField::new('photo')
+           ->setUploadDir('public/images')
+           ->setBasePath('/images')
+           ->setFormType(FileUploadType::class),
             NumberField::new('prix'),
             TextField::new('marque'),
             TextField::new('couleur'),
