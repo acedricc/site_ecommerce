@@ -2,6 +2,7 @@
 namespace App\Controller\Admin;
 use App\Entity\Produit;
 use App\Form\ProduitType;
+use App\Repository\GenreRepository;
 use App\Repository\ProduitRepository;
 use App\Service\GestionImage;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

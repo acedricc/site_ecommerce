@@ -30,11 +30,11 @@
 					<td>{{ produit.id }}</td>
 					<td>{{ produit.reference }}</td>
 					<td>{{ produit.titre }}</td>
-					<td>{{ produit.genre.type }}</td>
+					<td>{{ produit.genre }}</td>
 					<td>{{ produit.description }}</td>
-					<td>{{ produit.categorie.nom }}</td>
+					<td>{{ produit.categorie }}</td>
 					<td>
-                    
+
 						{% for laTaille in produit.taille %}
 							{{ laTaille.size }}
 							<br>

@@ -43,7 +43,7 @@ class ProduitCrudController extends AbstractCrudController
             ->hideOnForm(),
             TextField::new('titre'),
             TextField::new('reference'),
-            TextEditorField::new('description'),
+            TextField::new('description'),
             ImageField::new('photo')
            ->setUploadDir('public/images')
            ->setBasePath('/images')

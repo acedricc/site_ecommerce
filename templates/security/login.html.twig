@@ -28,8 +28,11 @@
 					{# Lien pour se déconnecter #}
 				</div>
 			{% endif %}
+			<div>
+				<h1 class="h3 mb-3 font-weight-normal">Veuillez-vous connecter</h1>
+				<a class="pasincris" href="{{ path('app_register') }}">Pas encore inscris</a>
+			</div>
 
-			<h1 class="h3 mb-3 font-weight-normal">Veuillez-vous connecter</h1>
 			{# Titre du formulaire #}
 
 			<label for="inputPseudo" class="form-label">Pseudo</label>
@@ -40,18 +43,21 @@
 			{# Champ pour le mot de passe #}
 			<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
+
 			<input
 			type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 			{# Jeton CSRF pour protéger le formulaire de la falsification de requêtes intersites (CSRF) #}
-			<div class="d-flex">
+
+			<div class="d-flex justify-content-between">
 				<button
 					class="btn btn-lg btn-primary" type="submit">
 					{# Bouton de soumission du formulaire #}
 					Connexion
 				</button>
 			</form>
+			<a class="mdpoublier" href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
+
 			{# Fin du formulaire #}
-			<a href="">Pas encore inscris</a>
 		</div>
 	</div>
 	{# Fin de la div du conteneur de formulaire #}

@@ -43,6 +43,12 @@ class Genre
         return $this;
     }
 
+    public function  __toString()
+    {
+       
+        return $this->type;
+    }
+
     /**
      * @return Collection<int, Produit>
      */

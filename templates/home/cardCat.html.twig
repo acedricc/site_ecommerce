@@ -1,25 +1,38 @@
 <div class="col-10">
-	<div>
+<div class="d-flex justify-content-center"></div>
+	<div class="card text-bg-dark cardCat">
 		<a class="text-decoration-none" href="{{ path('app_produit_genre', {'genre': 'Homme'}) }}">
-			<p class="titre">Homme</p>
-			<img src="{{ asset('images/homme.png')|imagine_filter('imgAccueil') }}">
+			<img src="{{ asset('images/homme.png')|imagine_filter('imgAccueil') }}" class="card-img">
 		</a>
-		<div style="padding:10px;"></div>
+		<div class="card-img-overlay d-flex align-items-center">
+			<h1 class="card-title titreCard text-center">Hommes</h1>
+			<p class="card-text">
+				<small></small>
+			</p>
+		</div>
 	</div>
 
-	<div>
+	<div class="card text-bg-dark cardCat">
 		<a class="text-decoration-none" href="{{ path('app_produit_genre', {'genre': 'Femme'}) }}">
-			<p class="titre">Femme</p>
-			<img src="{{ asset('images/pexels-inga-seliverstova-3394229.jpg')|imagine_filter('imgAccueil') }}">
+			<img src="{{ asset('images/pexels-inga-seliverstova-3394229.jpg')|imagine_filter('imgAccueil') }}" class="card-img">
 		</a>
-		<div style="padding:10px;"></div>
+		<div class="card-img-overlay d-flex align-items-center">
+			<h1 class="card-title titreCard text-center">Femmes</h1>
+			<p class="card-text">
+				<small></small>
+			</p>
+		</div>
 	</div>
 
-	<div>
+	<div class="card text-bg-dark cardCat">
 		<a class="text-decoration-none" href="{{ path('app_produit_genre', {'genre': 'Enfant'}) }}">
-			<p class="titre">Enfant</p>
-			<img src="{{ asset('images/pexels-marta-wave-6437462 (1).jpg')|imagine_filter('imgAccueil') }}">
+			<img src="{{ asset('images/pexels-marta-wave-6437462 (1).jpg')|imagine_filter('imgAccueil') }}" class="card-img">
 		</a>
-		<div style="padding:10px;"></div>
+		<div class="card-img-overlay d-flex align-items-center">
+			<h1 class="card-title titreCard text-center">Enfant</h1>
+			<p class="card-text">
+				<small></small>
+			</p>
+		</div>
 	</div>
 </div>
