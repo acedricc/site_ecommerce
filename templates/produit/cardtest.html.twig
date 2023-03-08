@@ -1,10 +1,10 @@
 {% block section %}
 
 	<div class="col-4 mb-4">
-		<div class="card" style="style=" margin-right: 0;margin-left: 0;"">
+		<div class="card cardP">
 			<div class="img">
 				<a class="lienone" href="{{ path('app_produit_show', {id: produit.id}) }}" class="btn btn-primary">
-					<img class="card-img-top mx-auto w-100" src="{{ asset(image_path ~ produit.photo )|imagine_filter('article') }}" alt="{{ produit.titre }}">
+					<img class="card-img-top mx-auto w-100 h-100" src="{{ asset(image_path ~ produit.photo ) }}" alt="{{ produit.titre }}">
 				</a>
 
 			</div>

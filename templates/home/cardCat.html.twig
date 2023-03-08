@@ -1,38 +1,39 @@
-<div class="col-10">
-<div class="d-flex justify-content-center"></div>
-	<div class="card text-bg-dark cardCat">
+<div class="d-flex justify-content-center cardCat">
+	<div class="card text-bg-dark ">
 		<a class="text-decoration-none" href="{{ path('app_produit_genre', {'genre': 'Homme'}) }}">
-			<img src="{{ asset('images/homme.png')|imagine_filter('imgAccueil') }}" class="card-img">
+			<div class="card-img-overlay d-flex align-items-center">
+				<h1 class="card-title titreCard text-center">Hommes</h1>
+				<p class="card-text">
+					<small></small>
+				</p>
+			</div>
+			<img src="{{ asset('images/homme2.jpg')|imagine_filter('imgAccueil') }}" class="card-img">
 		</a>
-		<div class="card-img-overlay d-flex align-items-center">
-			<h1 class="card-title titreCard text-center">Hommes</h1>
-			<p class="card-text">
-				<small></small>
-			</p>
-		</div>
 	</div>
 
-	<div class="card text-bg-dark cardCat">
+
+	<div class="card text-bg-dark ">
 		<a class="text-decoration-none" href="{{ path('app_produit_genre', {'genre': 'Femme'}) }}">
-			<img src="{{ asset('images/pexels-inga-seliverstova-3394229.jpg')|imagine_filter('imgAccueil') }}" class="card-img">
+			<div class="card-img-overlay d-flex align-items-center">
+				<h1 class="card-title titreCard text-center">Femmes</h1>
+				<p class="card-text">
+					<small></small>
+				</p>
+			</div>
+			<img src="{{ asset('images/femme2.jpg')|imagine_filter('imgAccueil') }}" class="card-img">
 		</a>
-		<div class="card-img-overlay d-flex align-items-center">
-			<h1 class="card-title titreCard text-center">Femmes</h1>
-			<p class="card-text">
-				<small></small>
-			</p>
-		</div>
 	</div>
 
-	<div class="card text-bg-dark cardCat">
+	<div class="card text-bg-dark ">
 		<a class="text-decoration-none" href="{{ path('app_produit_genre', {'genre': 'Enfant'}) }}">
+			<div class="card-img-overlay d-flex align-items-center">
+				<h1 class="card-title titreCard text-center">Enfant</h1>
+				<p class="card-text">
+					<small></small>
+				</p>
+			</div>
 			<img src="{{ asset('images/pexels-marta-wave-6437462 (1).jpg')|imagine_filter('imgAccueil') }}" class="card-img">
 		</a>
-		<div class="card-img-overlay d-flex align-items-center">
-			<h1 class="card-title titreCard text-center">Enfant</h1>
-			<p class="card-text">
-				<small></small>
-			</p>
-		</div>
 	</div>
+
 </div>

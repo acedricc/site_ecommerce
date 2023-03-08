@@ -4,23 +4,30 @@
 			<a class="navbar-brand" href="{{ path('app_home') }}">CedShop</a>
 		</div>
 		<ul class="liens">
-			<li class="lien lien-deroulant">
+			<li
+				class="lien lien-deroulant">
+				{#  Crée un lien vers la page "app_produit_genre" avec le paramètre "genre" égal à "Homme"  #}
 				<a href="{{ path('app_produit_genre', {'genre': 'Homme'}) }}">Homme</a>
-				<div class="sous-menu">
-					<ul class="liens">
-						<li class="lien">
+				{#  Crée un sous-menu déroulant pour les catégories de produits homme #}
+				<div class="sous-menu ">
+					<ul
+						class="liens ">
+						{#  Crée un lien vers la page "app_produit_genre_categorie" avec les paramètres "genre" égal à "Homme" et "parent" égal à 2 pour la catégorie "Vêtements"  #}
+						<li class="lien ">
 							<a href="{{ path('app_produit_genre_categorie', {'genre': 'Homme', 'parent':2}) }}">Vêtements</a>
 						</li>
-						<li class="lien">
+						{#  Crée un lien vers la page "app_produit_genre_categorie" avec les paramètres "genre" égal à "Homme" et "parent" égal à 7 pour la catégorie "Chaussure" #}
+						<li class="lien ">
 							<a href="{{ path('app_produit_genre_categorie', {'genre': 'Homme', 'parent':7}) }}">Chaussure</a>
 						</li>
-						<li class="lien">
-							<a href="{{ path('app_produit_genre_categorie', {'genre': 'Homme', 'parent':4}) }}">Accesoire</a>
+						{#  Crée un lien vers la page "app_produit_genre_categorie" avec les paramètres "genre" égal à "Homme" et "parent" égal à 4 pour la catégorie "Accessoire"  #}
+						<li class="lien ">
+							<a href="{{ path('app_produit_genre_categorie', {'genre': 'Homme', 'parent':4}) }}">Accessoire</a>
 						</li>
-
 					</ul>
 				</div>
 			</li>
+
 			<li class="lien lien-deroulant">
 				<a href="{{ path('app_produit_genre', {'genre': 'Femme'}) }}">Femme</a>
 				<div class="sous-menu">
@@ -43,7 +50,7 @@
 			<li class="lien lien-deroulant">
 				<a href="{{ path('app_produit_genre', {'genre': 'Enfant'}) }}">Enfant</a>
 				<div class="sous-menu">
-					<ul class="liens">
+					<ul class="liens lienacces">
 						<li class="lien">
 							<a href="{{ path('app_produit_genre_categorie', {'genre': 'Enfant', 'parent':2}) }}">Vêtements</a>
 
@@ -59,51 +66,65 @@
 				</div>
 			</li>
 
-			<li class="lien lien-deroulant">
-				<a href=" {{ path('app_produit_categorie', {'parent':4}) }}">Accesoire</a>
+			<li
+				class="lien lien-deroulant">
+				{#  Crée un lien vers la page "app_produit_categorie" avec le paramètre "parent" égal à 4 pour la catégorie "Accessoire"  #}
+				<a href=" {{ path('app_produit_categorie', {'parent':4}) }}">Accessoire</a>
+				{# Crée un sous-menu déroulant pour les sous-catégories d'accessoires  #}
 				<div class="sous-menu">
-					<ul class="liens">
+					<ul
+						class="liens">
+						{#  Crée un lien vers la page "app_produit_categoriev2" avec le paramètre "cat" égal à "Casquette"  #}
 						<li class="lien">
 							<a href="{{ path('app_produit_categoriev2', {'cat':'Casquette'}) }}">Casquette</a>
 						</li>
+						{# Crée un lien vers la page "app_produit_categoriev2" avec le paramètre "cat" égal à "Bonnet" #}
 						<li class="lien">
 							<a href="{{ path('app_produit_categoriev2', {'cat':'Bonnet'}) }}">Bonnet</a>
 						</li>
+						{#  Crée un lien vers la page "app_produit_categoriev2" avec le paramètre "cat" égal à "Sac à bandoulière"  #}
 						<li class="lien">
 							<a href="{{ path('app_produit_categoriev2', {'cat':'Sac à bandoulière'}) }}">Sac à bandoulière</a>
 						</li>
-
 					</ul>
 				</div>
 			</li>
 
+
 		</ul>
 		{% if not app.user %}
+			{# Si l'utilisateur n'est pas connecté  #}
 			<li class="nav-item">
 				<a class="nav-link active" aria-current="page" href="{{ path('app_login') }}">
 					<i class="fa fa-sign-in-alt"></i>
+					{#  Bouton de connexion avec icône #}
 				</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="{{ path('app_register') }}">
 					<i class="fa fa-user-plus"></i>
+					{# Bouton d'inscription avec icône  #}
 				</a>
 			</li>
 		{% else %}
+			{#  Sinon (si l'utilisateur est connecté)  #}
 			<li class="nav-item">
-				<a class="nav-link" id="linkPseudoUser" href="   {{ is_granted('ROLE_ADMIN') ? path('app_admin_statistique_show')  : path('app_profil') }}">
+				<a class="nav-link" id="linkPseudoUser" href="{{ is_granted('ROLE_ADMIN') ? path('app_admin_statistique_show') : path('app_profil') }}">
 					{{ app.user.pseudo }}
+					{#  Affichage du pseudo de l'utilisateur  #}
 				</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" id="LinkSignOutIcon" href="{{ path('app_logout') }}">
 					<i class="fa fa-sign-out-alt"></i>
+					{#  Bouton de déconnexion avec icône  #}
 				</a>
 			</li>
-
-
 		{% endif %}
+		{#  Fin de la condition  #}
 
+
+		{#  Si l'utilisateur connecté a le rôle "ROLE_ADMIN" #}
 		{% if is_granted("ROLE_ADMIN") %}
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

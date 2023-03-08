@@ -20,12 +20,12 @@
 					<div class="col-4">Catégorie</div>
 					<div class="col-8">{{produit.categorie.nom}}</div>
 				</li>
-					<li class="list-group-item d-flex">
-						<div class="col-4">Taille</div>
-						{% for taille in produit.taille %}
-							{{ taille.size ~ ", " }}
-						{% endfor %}
-					</li>
+				<li class="list-group-item d-flex">
+					<div class="col-4">Taille</div>
+					{% for taille in produit.taille %}
+						{{ taille.size ~ ", " }}
+					{% endfor %}
+				</li>
 				<li class="list-group-item d-flex">
 					<div class="col-4">Prix</div>
 					<div class="col-8">{{produit.prix}}</div>
@@ -48,7 +48,7 @@
 						<div class="col-4">Référence</div>
 						<div class="col-8">{{produit.reference}}</div>
 					</li>
-				
+
 					<li class="list-group-item d-flex">
 						<div class="col-4">Marque</div>
 						<div class="col-8">{{produit.marque}}</div>
@@ -62,24 +62,25 @@
 						<div class="col-4">Stock</div>
 						<div class="col-8">{{produit.stock}}</div>
 					</li>
-																																																																																																					</li> #}
+				</li>
+				
 
-					<li class="list-group-item d-flex">
-						<div class="col-3">Popularité:</div>
-						<div class="col-9 offset-1">Ce produit est apparu dans
-							{{produit.details|length}}
-							commande(s)</div>
-					</li>
-				</ul>
-			</div>
+				<li class="list-group-item d-flex">
+					<div class="col-3">Popularité:</div>
+					<div class="col-9 offset-1">Ce produit est apparu dans
+						{{produit.details|length}}
+						commande(s)</div>
+				</li>
+			</ul>
+
 		</div>
 	</div>
-</div></div><div class="d-flex justify-content-between mt-3">
-<a href="{{ path("app_home") }}" class="btn btn-secondary">
-	<i class="fa fa-home"></i>
-	Retour à l'accueil
-</a>
-<a href="{{ path("app_panier_ajouter", {id: produit.id, qte: 1}) }}" class="btn btn-primary ajax">
-	<i class="fa fa-cart-arrow-down"></i>
-	Ajouter au panier
-</a></div>{% endblock %}
+</div>
+<div class="d-flex justify-content-between mt-3">
+	<a href="{{ path("app_home") }}" class="btn btn-secondary">
+		<i class="fa fa-home"></i>
+		Retour à l'accueil</a>
+	<a href="{{ path("app_panier_ajouter", {id: produit.id, qte: 1}) }}" class="btn btn-primary ajax">
+		<i class="fa fa-cart-arrow-down"></i>
+		Ajouter au panier</a>
+</div>{% endblock %}

@@ -22,6 +22,7 @@ class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+    // Ajoute les champs au formulaire
         $builder
             ->add('pseudo')
             ->add('agreeTerms', CheckboxType::class, [
@@ -90,12 +91,6 @@ class RegistrationFormType extends AbstractType
             ])
         ;
     }
-
-
-        
-    
-    
-    
 
     public function configureOptions(OptionsResolver $resolver): void
     {

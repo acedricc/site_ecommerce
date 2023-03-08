@@ -16,15 +16,23 @@ class FiltreController extends AbstractController
 
 //////////////////////////FILTRE POUR TRIER PAR GENRE///////////////////////////////////////////////////////
 /**
-* @Route("/genre/{genre}", name="app_produit_genre")
-*/
+ * @Route("/genre/{genre}", name="app_produit_genre")
+ */
 public function filterByGenre(ProduitRepository $produitRepository ,$genre): Response
 {
+    // Appelle la méthode "findByMultipleAttributes" du repository de l'entité "Produit"
+    // en lui passant en argument la variable "$genre", qui correspond à la valeur de l'attribut "genre" sélectionné.
+    // Cette méthode permet de trouver tous les produits qui correspondent au genre sélectionné.
     $listeProduits = $produitRepository->findByMultipleAttributes($genre);
+    
+    // Renvoie une vue Twig avec la liste des produits trouvés dans la méthode précédente.
+    // Le fichier Twig utilisé est "filtre/index.html.twig".
+    // La liste des produits est transmise à la vue sous la forme d'une variable "listeProduits".
     return $this->render('filtre/index.html.twig', [
         'listeProduits' => $listeProduits, 
     ]);
 }
+
 
 
 
@@ -96,6 +104,7 @@ public function filterCouleur(ProduitRepository $produitRepository ,$color): Res
     ]);
 }
 
+
 //////////////////////////FILTRE POUR TRIER PAR GENRE & CATEGORIE///////////////////////////////////////////////////////
 /**
 * @Route("/genre/categorie/{genre}/{parent}", name="app_produit_genre_categorie")
@@ -110,35 +119,16 @@ public function filterByGenreAndCat(ProduitRepository $produitRepository,$genre,
     ]);
 }
 
-//////////////////////////FILTRE POUR TRIER PAR GENRE & TAILLE///////////////////////////////////////////////////////
-/**
-* @Route("/genre/taille/{genre}/{size}", name="app_produit_genre_taille")
-*/
-public function findByProductIdAndSize(ProduitRepository $produitRepository,$genre, $size): Response
+public function supprimerSiStockNul(ProduitRepository $produitRepository,int $produitId): Response
 {
-    $catTailles = $produitRepository->findByTailleAndGenre([$genre, $size]);
-    dd( $catTailles);
+    $this->$produitRepository->supprimerProduitSiStockNul($produitId);
     return $this->render('filtre/index.html.twig', [ 
-        'listeProduits' =>  $catTailles,
-    
+       
+        
     ]);
-}
 
-/**
-* @Route("/genre/categorie/{genre}/{mark}/{cat}", name="app_produit_mark_categorie")
-*/
-
-public function filterByMarqueAndCat(ProduitRepository $produitRepository, $genre, $mark, $cat): Response
-{
-    $catMarques = $produitRepository->findByMultipleAttributes($genre, $cat, null, $mark);
-    // dd( $catMarques);
-    return $this->render('filtre/index.html.twig', [ 
-        'listeProduits' =>  $catMarques,
-    
-    ]);
-}
 
 }
-
+}
 
 

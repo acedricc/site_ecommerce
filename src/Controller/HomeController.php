@@ -13,7 +13,7 @@ class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
    
-    public function index(TailleRepository $tailleRepository,ProduitRepository $produitRepository ): Response
+    public function index(TailleRepository $tailleRepository,ProduitRepository $produitRepository): Response
     {
       
         $listeProduits = $produitRepository->findAll();
@@ -25,6 +25,7 @@ class HomeController extends AbstractController
            'tailles' => $tailles,
            'couleurs' => $couleurs,
            'marques' => $marques,
+
           
         
            

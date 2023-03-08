@@ -27,11 +27,11 @@ body {
 .nav-item {
   list-style: none;
 }
-// .list-group-item a:hover {
-//   border: 1px solid black;
-//   border-radius: 3px;
+.list-group-item a:hover {
+  border: 1px solid black;
+  border-radius: 3px;
 
-// }
+}
 
 
 .navbar {
@@ -62,19 +62,22 @@ body {
   border-radius: 1rem;
   transition: all 0.2s ease-in;
 }
+.homme{
+  background: blue;
+}
 .sous-menu .liens {
   position: absolute;
   display: none;
   background: #555;
-  width: 200px;
   margin-left: 5px;
   top: 65px;
   text-align: center;
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
   z-index: 2;
-  margin-left: -52px;
+  margin-left: -63px;
 }
+
 .lien-deroulant:hover .sous-menu .liens {
   display: block;
   top: 55px;
@@ -89,20 +92,32 @@ body {
 .carousel-item {
   height: 755px;
 }
-.carouselTitre {
+.carouselTitre1 {
   font-size: 40px;
   position: relative;
   line-height: 600px;
-  color: #000;
+  color: rgb(234, 208, 189);
+}
+.carouselTitre2 {
+  font-size: 40px;
+  position: relative;
+  line-height: 600px;
+  color: rgb(133, 93, 49);
+}
+.carouselTitre3 {
+  font-size: 40px;
+  position: relative;
+  line-height: 600px;
+  color: rgb(10, 88, 202);
 }
 //Fin Carousell
 
-//li trier par
-.tris {
-  height: 200px;
-  overflow-y: scroll;
+////All filtre
+.allFiltre{
+  margin-top: 30px;
 }
-//Fin li trier par
+///Fin allFiltre
+
 
 // titre H1 (base.html.twig)
 .titre-h1{
@@ -116,7 +131,13 @@ body {
   height: 100%; // définir la hauteur personnalisée
 }
 .cardCat{
-  width: 70%;
+  margin-top: 120px;
+  margin-bottom: 120px;
+}
+.titreCard{
+  margin: auto;
+  opacity: 50%;
+  color: white;
 }
 
 //FIN DE CARD CAT
@@ -230,10 +251,6 @@ margin:1px 5px 13px 1px;
     background-color: #f5f5f5;
 }
 
-.card-title {
-    margin-bottom: 0;
-}
-
 .list-group-item {
     border: none;
 }
@@ -251,6 +268,7 @@ margin:1px 5px 13px 1px;
 ///////////////////////////
 .site-footer {
   background-color:rgb(21, 114, 135);
+  margin-top: 150px;
 
   padding: 3rem 0;
   font-size: 0.875rem;
@@ -308,4 +326,24 @@ margin:1px 5px 13px 1px;
     }
   }
 }
+////////////////////////
+/// 
 
+#category-carousel {
+  .carousel-item {
+    h3 {
+      font-size: 2rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: 50px;
+    }
+  }
+}
+//////////////////////////Card produit 
+.img{
+  height: 530px;
+}
+.cardP{
+  height: 778px;
+}

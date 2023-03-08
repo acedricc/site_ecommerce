@@ -35,7 +35,7 @@ liip_imagine:
 
 
     imgAccueil:
-      quality: 80
+      quality: 1000
       filters:
         upscale:
           min: [1000,600]

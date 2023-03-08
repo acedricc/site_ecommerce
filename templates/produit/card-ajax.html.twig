@@ -1,50 +1,60 @@
 {% block javascripts %}
 
-	<script>
-		// L’événement load qui se déclenche lorsque la requête a bien été effectuée et que le résultat est prêt ;
-window.addEventListener("load", () => { // On selectione l'element #form{{ produit.id }}
-$("#form{{ produit.id }}").on("submit", (evtSubmit) => { // La méthode event.preventDefault() empêche l'action par défaut d'un élément de se produire.
-evtSubmit.preventDefault();
-// On verifie que les elements son bien selectionner
-console.log($("#form{{ produit.id }} [name='qte']").val());
-// on demmare la methode ajax
-$.ajax({
-// représente l’URL de destination de la requête, c’est-à-dire l’URL où on souhaite envoyer notre requête.
-url: "{{ path('app_panier_ajouter', {id: produit.id }) }}",
-// Données à envoyer au serveur
-data: "qte=" + $("#form{{ produit.id }} [name='qte']").val(),
-// demande au serveur de renvoyer sa réponse sous forme JSON.
-dataType: "json",
-// successL'option de rappel est invoquée si la demande aboutit. Il reçoit les données renvoyées, une chaîne contenant le code de réussite et l' jqXHRobjet.
-success: (data) => {
-console.log(data);
-// La méthode  html() est utilisée pour modifier tout le contenu des éléments sélectionnés. Il remplace le contenu de l'élément sélectionné par un nouveau contenu.
-$("#nombre").html(data);
-console.log("nb produits dans le panier = " + data);
-// On verifie que les des donnees sont bien egale au nombre de produits
+<script>
+	// Attend que la page soit chargée
+	window.addEventListener("load", () => {
+		// On sélectionne l'élément formulaire correspondant au produit en cours
+		$("#form{{ produit.id }}").on("submit", (evtSubmit) => {
+			// Empêche l'action par défaut d'un élément de se produire
+			evtSubmit.preventDefault();
+			// On vérifie que les éléments sont bien sélectionnés
+			console.log($("#form{{ produit.id }} [name='qte']").val());
+			// On démarre la méthode ajax
+			$.ajax({
+				// URL de destination de la requête
+				url: "{{ path('app_panier_ajouter', {id: produit.id }) }}",
+				// Données à envoyer au serveur
+				data: "qte=" + $("#form{{ produit.id }} [name='qte']").val(),
+				// Le serveur doit renvoyer sa réponse sous forme JSON
+				dataType: "json",
+				// La fonction à exécuter en cas de succès de la requête
+				success: (data) => {
+					console.log(data);
+					// Modifie tout le contenu des éléments sélectionnés
+					$("#nombre").html(data);
+					console.log("nb produits dans le panier = " + data);
+					// On vérifie que les données sont bien égales au nombre de produits
+				},
+				// La fonction à exécuter en cas d'erreur de la requête
+				error: (jqXHR, status, error) => {
+					console.log("ERREUR AJAX", status, error);
+					// status = retourne le statut code HTTP de la réponse
+				}
+			});
+		});
+	});
+	// Ecoute le formulaire de soumission
+	$("#form{{ produit.id}}").on("submit",(evtSubmit) => {
+		evtSubmit.preventDefault();
+		$.ajax({
+			// URL de destination de la requête
+			url: "{{ path('app_panier_ajouter', {id: produit.id}) }}",
+			// Données à envoyer au serveur
+			data: "qte=" +  $("#form{{ produit.id}} [name='qte']").val(),
+			// Le serveur doit renvoyer sa réponse sous forme JSON
+			dataType: "json",
+			// La fonction à exécuter en cas de succès de la requête
+			success: (data) => {
+				// Modifie tout le contenu des éléments sélectionnés
+				$("#nombre").html(data);
+				console.log("nb produits dans le panier = " + data);
+			},
+			// La fonction à exécuter en cas d'erreur de la requête
+			error: (jqXHR,status, error) => {
+				console.log("ERREUR AJAX" , status,error);
+			}
+		});
+	});
+</script>
 
-},
-error: (jqXHR, status, error) => {
-console.log("ERREUR AJAX", status, error);
-// status = retourne de statut code HTTP de la réponse ;
-}
-});
-});
-});
-$("#form{{ produit.id}}").on("submit",(evtSubmit) => {
-    evtSubmit.preventDefault();
-    $.ajax({
-        url: "{{ path('app_panier_ajouter', {id: produit.id}) }}",
-        data: "qte=" +  $("#form{{ produit.id}} [name='qte']").val(),
-        dataType: "json",
-        success: (data) => {
-            $("#nombre").html(data);
-            console.log("nb produits dans le panier = " + data);
-        },
-        error: (jqXHR,status, error) => {
-            console.log("ERREUR AJAX" , status,error);
-        }
-    });
-});
-	</script>
 {% endblock %}

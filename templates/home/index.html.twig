@@ -12,10 +12,12 @@
 </pre> #}
 {% endblock %}
 {% block body %}
-	<div class="container">
-		<div class="row mb-4">
-			{{ include("filtre/allfiltre.html.twig") }}
-			{{ include("home/cardCat.html.twig") }}
+	<div class="container conthome">
+		<div class="mb-4">
+		{{ include("filtre/allfiltre.html.twig") }}
+		{{ include("home/cardCat.html.twig") }}
+		{{ include("home/carrouselCat.html.twig") }}
+
 		</div>
 	</div>
 {% endblock %}

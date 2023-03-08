@@ -49,16 +49,16 @@
 			{# Jeton CSRF pour protéger le formulaire de la falsification de requêtes intersites (CSRF) #}
 
 			<div class="d-flex justify-content-between">
+				<a class="mdpoublier" href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
 				<button
 					class="btn btn-lg btn-primary" type="submit">
 					{# Bouton de soumission du formulaire #}
 					Connexion
 				</button>
-			</form>
-			<a class="mdpoublier" href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
 
+			</div>
 			{# Fin du formulaire #}
-		</div>
+		</form>
 	</div>
 	{# Fin de la div du conteneur de formulaire #}
 
